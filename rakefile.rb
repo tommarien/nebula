@@ -1,15 +1,34 @@
 require 'rake/clean'
 require 'albacore'
 require 'version_bumper'
+require 'configatron'
 
-@env_sourcepath = File.expand_path('./src')
+#global variables
+@build_folder = File.expand_path("./build");
+@src_folder = File.expand_path("./src");
+
+#require all rb files from build folder
+Dir.glob("#{@build_folder}/*.rb") do |f|
+	require f
+end
+
+#include all generated files in clean
+Dir.glob("**/*.*.atron") do |filename|
+	filename[".atron"] = ""
+	CLEAN.include(filename)
+end
+
+@env_root_path = File.expand_path('.')
+@env_sourcepath = File.join("#{@env_root_path}", "src")
+@env_cfg_path = File.join("#{@env_root_path}", "config", "configatron")
+
+@env_packagespath = File.expand_path('./packages')
+@env_templatespath = File.expand_path('./templates')
 @env_sharedassemblyinfo = File.join("#{@env_sourcepath}", "SharedAssemblyInfo.cs")
 @env_projectname = "Nebula"
 @env_buildconfigname = "Release"
 
-@connectionstring = "Server=.\NOCTO;Integrated Security=true;Initial Catalog=Nebula"
 
-CLEAN.include("#{@env_sharedassemblyinfo}")
 
 def env_buildversion
   bumper_version.to_s
@@ -26,24 +45,63 @@ end
 task :default => "env:setup"
 
 namespace :env do
-	desc "Setup your environment"
-	task :setup, [:name]  => "version:assemblyinfo" do |t, args|
-	
-	end
-end
 
-namespace :version do
-	desc "writes shared assembly info"
-	assemblyinfo :assemblyinfo do |asm|
-	  asm.output_file = "#{@env_sharedassemblyinfo}"
-	  asm.version = env_buildversion
-	  asm.file_version = env_buildversion  
+	def init(env=nil)
+		root = defined?(Rails) ? ::Rails.root : FileUtils.pwd
+        base_dir = File.expand_path(File.join(root, 'config', 'configatron'))
+		if env.nil?
+			env = defined?(Rails) ? ::Rails.env : 'development'
+		end
+		
+		config_files = []
+
+		config_files << File.join(base_dir, 'defaults.rb')
+		config_files << File.join(base_dir, "#{env}.rb")
+
+		env_dir = File.join(base_dir, env)
+		config_files << File.join(env_dir, 'defaults.rb')
+
+		Dir.glob(File.join(env_dir, '*.rb')).sort.each do |f|
+			config_files << f
+		end
+
+		config_files.collect! {|config| File.expand_path(config)}.uniq!
+
+		config_files.each do |config|
+			if File.exists?(config)
+			  # puts "Configuration: #{config}"
+			  require config
+			end
+		end
+	end
+	
+	desc "Setup your environment"
+	task :setup, [:env] do |t, args|
+		init(args.env)
+		
+		Dir.glob("**/*.*.atron") do |filename|
+			str = File.read(filename)
+			str = str.gsub(/#\{(configatron\..*)}/) do |v|
+				c = eval($1)
+				if c.nil?
+					puts "The config parameter #{$1} in #{filename} is missing"
+					puts "Check your configuration files and re-run this task."
+					fail
+				end
+				c
+			end
+			
+			filename[".atron"] = ""
+			File.open(filename, 'w') { |f| f.write(str) }
+		end
+		
+		puts "Configured application for environment"
 	end
 end
 
 namespace :build do
 	desc "build the debug version of the solution"
-	msbuild :debug => "version:assemblyinfo" do |msb|
+	msbuild :debug do |msb|
 		msb.properties = {:configuration => :Debug}
 		msb.targets = [:Clean, :Build]
 		msb.solution = "Nebula.sln"

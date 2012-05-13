@@ -4,6 +4,8 @@ obj
 packages
 *.suo
 SharedAssemblyInfo.cs
+App.config
+development.rb
 
 # mstest test results
 TestResults
