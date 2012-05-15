@@ -13,8 +13,8 @@ Dir.glob("#{@build_folder}/*.rb") do |f|
 end
 
 #include all generated files in clean
-Dir.glob("**/*.*.atron") do |filename|
-	filename[".atron"] = ""
+Dir.glob("**/*.*.template") do |filename|
+	filename[".template"] = ""
 	CLEAN.include(filename)
 end
 
@@ -79,7 +79,7 @@ namespace :env do
 	task :setup, [:env] do |t, args|
 		init(args.env)
 		
-		Dir.glob("**/*.*.atron") do |filename|
+		Dir.glob("**/*.*.template") do |filename|
 			str = File.read(filename)
 			str = str.gsub(/#\{(configatron\..*)}/) do |v|
 				c = eval($1)
@@ -91,7 +91,7 @@ namespace :env do
 				c
 			end
 			
-			filename[".atron"] = ""
+			filename[".template"] = ""
 			File.open(filename, 'w') { |f| f.write(str) }
 		end
 		
