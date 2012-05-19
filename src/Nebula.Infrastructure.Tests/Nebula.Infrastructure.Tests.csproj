@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7E454B0E-BB81-45BC-B2FF-C016147FFC22}</ProjectGuid>
+    <ProjectGuid>{78A9A161-4ACC-472E-BB49-ECEE571B730A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nebula.UnitTests</RootNamespace>
-    <AssemblyName>Nebula.UnitTests</AssemblyName>
+    <RootNamespace>Nebula.Infrastructure.Tests</RootNamespace>
+    <AssemblyName>Nebula.Infrastructure.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -33,8 +33,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\packages\Castle.Core.3.0.0.4001\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\packages\Castle.Windsor.3.0.0.4001\lib\net40\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Rhino.Mocks">
@@ -52,15 +57,18 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Commanding\CommandDispatcherTests.cs" />
+    <Compile Include="Commanding\CommandHandlerFactoryTests.cs" />
+    <Compile Include="Commanding\TestCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nebula.Domain\Nebula.Domain.csproj">
-      <Project>{275E6AE9-F56A-48FB-8963-2E0614C3DE1A}</Project>
-      <Name>Nebula.Domain</Name>
+    <ProjectReference Include="..\Nebula.Infrastructure\Nebula.Infrastructure.csproj">
+      <Project>{4F9AD276-F9A5-4DD7-A970-5BB86149609F}</Project>
+      <Name>Nebula.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
