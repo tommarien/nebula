@@ -4,6 +4,7 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Nebula.Infrastructure.Commanding;
+using Nebula.Infrastructure.Querying;
 
 namespace Nebula.Infrastructure
 {
@@ -19,6 +20,14 @@ namespace Nebula.Infrastructure
         {
             container.Register(AllTypes.FromAssembly(assembly)
                                    .BasedOn(typeof (ICommandHandler<>))
+                                   .WithServiceBase()
+                                   .LifestyleTransient());
+        }
+
+        public static void RegisterQueries(this IWindsorContainer container, Assembly assembly)
+        {
+            container.Register(AllTypes.FromAssembly(assembly)
+                                   .BasedOn(typeof (IQuery<,>))
                                    .WithServiceBase()
                                    .LifestyleTransient());
         }

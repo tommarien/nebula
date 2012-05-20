@@ -57,7 +57,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Commanding\DefaultCommandBusTests.cs" />
+    <Compile Include="Commanding\DefaultCommandDispatcherTests.cs" />
     <Compile Include="Commanding\CommandHandlerFactoryTests.cs" />
     <Compile Include="Commanding\TestCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

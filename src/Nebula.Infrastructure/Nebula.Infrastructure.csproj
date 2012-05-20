@@ -51,14 +51,15 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Commanding\DefaultCommandBus.cs" />
+    <Compile Include="Commanding\DefaultCommandDispatcher.cs" />
     <Compile Include="Commanding\ICommand.cs" />
-    <Compile Include="Commanding\ICommandBus.cs" />
+    <Compile Include="Commanding\ICommandDispatcher.cs" />
     <Compile Include="Commanding\ICommandHandler.cs" />
     <Compile Include="Commanding\ICommandHandlerFactory.cs" />
     <Compile Include="IHandle.cs" />
     <Compile Include="Installers\CommandingInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Querying\IQuery.cs" />
     <Compile Include="WindsorContainerExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

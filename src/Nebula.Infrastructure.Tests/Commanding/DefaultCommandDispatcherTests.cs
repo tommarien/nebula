@@ -6,17 +6,17 @@ using Rhino.Mocks;
 namespace Nebula.Infrastructure.Tests.Commanding
 {
     [TestFixture]
-    public class DefaultCommandBusTests
+    public class DefaultCommandDispatcherTests
     {
         [SetUp]
         public void Setup()
         {
             commandHandlerFactory = MockRepository.GenerateStub<ICommandHandlerFactory>();
-            bus = new DefaultCommandBus(commandHandlerFactory);
+            dispatcher = new DefaultCommandDispatcher(commandHandlerFactory);
         }
 
         private ICommandHandlerFactory commandHandlerFactory;
-        private ICommandBus bus;
+        private ICommandDispatcher dispatcher;
 
         [Test]
         public void Dispatch_Should_call_CreateHandler()
@@ -25,7 +25,7 @@ namespace Nebula.Infrastructure.Tests.Commanding
 
             commandHandlerFactory.Expect(f => f.CreateHandler<TestCommand>()).Return(handlerMock);
 
-            bus.Send(new TestCommand());
+            dispatcher.Dispatch(new TestCommand());
 
             commandHandlerFactory.VerifyAllExpectations();
         }
@@ -40,7 +40,7 @@ namespace Nebula.Infrastructure.Tests.Commanding
 
             handlerMock.Expect(h => h.Handle(command));
 
-            bus.Send(command);
+            dispatcher.Dispatch(command);
 
             handlerMock.VerifyAllExpectations();
         }
@@ -53,7 +53,7 @@ namespace Nebula.Infrastructure.Tests.Commanding
             commandHandlerFactory.Stub(f => f.CreateHandler<TestCommand>()).Return(handlerMock);
             commandHandlerFactory.Expect(f => f.ReleaseHandler(handlerMock));
 
-            bus.Send(new TestCommand());
+            dispatcher.Dispatch(new TestCommand());
 
             commandHandlerFactory.VerifyAllExpectations();
         }
@@ -68,7 +68,7 @@ namespace Nebula.Infrastructure.Tests.Commanding
 
             commandHandlerFactory.Expect(f => f.ReleaseHandler(handlerMock));
 
-            Assert.Throws<ArgumentNullException>(() => bus.Send(new TestCommand()));
+            Assert.Throws<ArgumentNullException>(() => dispatcher.Dispatch(new TestCommand()));
 
             commandHandlerFactory.VerifyAllExpectations();
         }
