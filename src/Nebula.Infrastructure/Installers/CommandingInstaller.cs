@@ -13,7 +13,7 @@ namespace Nebula.Infrastructure.Installers
             container.AddFacilityIfNeeded<TypedFactoryFacility>();
 
             container.Register(Component.For<ICommandHandlerFactory>().AsFactory());
-            container.Register(Component.For<ICommandDispatcher>().ImplementedBy<CommandDispatcher>());
+            container.Register(Component.For<ICommandBus>().ImplementedBy<DefaultCommandBus>());
         }
     }
 }

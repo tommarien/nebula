@@ -1,15 +1,15 @@
-namespace Nebula.Infrastructure.Commanding
+﻿namespace Nebula.Infrastructure.Commanding
 {
-    public class CommandDispatcher : ICommandDispatcher
+    public class DefaultCommandBus : ICommandBus
     {
         private readonly ICommandHandlerFactory commandHandlerFactory;
 
-        public CommandDispatcher(ICommandHandlerFactory commandHandlerFactory)
+        public DefaultCommandBus(ICommandHandlerFactory commandHandlerFactory)
         {
             this.commandHandlerFactory = commandHandlerFactory;
         }
 
-        public virtual void Dispatch<T>(T command) where T : ICommand
+        public void Send<T>(T command) where T : ICommand
         {
             var handler = commandHandlerFactory.CreateHandler<T>();
 

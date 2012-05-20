@@ -6,17 +6,17 @@ using Rhino.Mocks;
 namespace Nebula.Infrastructure.Tests.Commanding
 {
     [TestFixture]
-    public class CommandDispatcherTests
+    public class DefaultCommandBusTests
     {
         [SetUp]
         public void Setup()
         {
             commandHandlerFactory = MockRepository.GenerateStub<ICommandHandlerFactory>();
-            dispatcher = new CommandDispatcher(commandHandlerFactory);
+            bus = new DefaultCommandBus(commandHandlerFactory);
         }
 
         private ICommandHandlerFactory commandHandlerFactory;
-        private CommandDispatcher dispatcher;
+        private ICommandBus bus;
 
         [Test]
         public void Dispatch_Should_call_CreateHandler()
@@ -25,7 +25,7 @@ namespace Nebula.Infrastructure.Tests.Commanding
 
             commandHandlerFactory.Expect(f => f.CreateHandler<TestCommand>()).Return(handlerMock);
 
-            dispatcher.Dispatch(new TestCommand());
+            bus.Send(new TestCommand());
 
             commandHandlerFactory.VerifyAllExpectations();
         }
@@ -40,7 +40,7 @@ namespace Nebula.Infrastructure.Tests.Commanding
 
             handlerMock.Expect(h => h.Handle(command));
 
-            dispatcher.Dispatch(command);
+            bus.Send(command);
 
             handlerMock.VerifyAllExpectations();
         }
@@ -53,7 +53,7 @@ namespace Nebula.Infrastructure.Tests.Commanding
             commandHandlerFactory.Stub(f => f.CreateHandler<TestCommand>()).Return(handlerMock);
             commandHandlerFactory.Expect(f => f.ReleaseHandler(handlerMock));
 
-            dispatcher.Dispatch(new TestCommand());
+            bus.Send(new TestCommand());
 
             commandHandlerFactory.VerifyAllExpectations();
         }
@@ -68,7 +68,7 @@ namespace Nebula.Infrastructure.Tests.Commanding
 
             commandHandlerFactory.Expect(f => f.ReleaseHandler(handlerMock));
 
-            Assert.Throws<ArgumentNullException>(() => dispatcher.Dispatch(new TestCommand()));
+            Assert.Throws<ArgumentNullException>(() => bus.Send(new TestCommand()));
 
             commandHandlerFactory.VerifyAllExpectations();
         }
