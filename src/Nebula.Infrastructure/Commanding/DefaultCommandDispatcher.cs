@@ -9,13 +9,13 @@
             this.commandHandlerFactory = commandHandlerFactory;
         }
 
-        public virtual void Dispatch<T>(T command) where T : ICommand
+        public virtual ICommandResult Dispatch<T>(T command) where T : ICommand
         {
             var handler = commandHandlerFactory.CreateHandler<T>();
 
             try
             {
-                handler.Handle(command);
+                return handler.Handle(command);
             }
             finally
             {

@@ -56,6 +56,7 @@
     <Compile Include="Commanding\ICommandDispatcher.cs" />
     <Compile Include="Commanding\ICommandHandler.cs" />
     <Compile Include="Commanding\ICommandHandlerFactory.cs" />
+    <Compile Include="Commanding\ICommandResult.cs" />
     <Compile Include="IHandle.cs" />
     <Compile Include="Installers\CommandingInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -9,8 +9,9 @@ namespace Nebula.Infrastructure.Tests.Commanding
 
     public class TestCommandHandler : ICommandHandler<TestCommand>, IDisposable
     {
-        public void Handle(TestCommand instance)
+        public ICommandResult Handle(TestCommand instance)
         {
+            return null;
         }
 
         public void Dispose()
