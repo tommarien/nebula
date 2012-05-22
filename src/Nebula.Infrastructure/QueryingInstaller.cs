@@ -2,18 +2,18 @@
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Nebula.Infrastructure.Commanding;
+using Nebula.Infrastructure.Querying;
 
-namespace Nebula.Infrastructure.Installers
+namespace Nebula.Infrastructure
 {
-    public class CommandingInstaller : IWindsorInstaller
+    public class QueryingInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.AddFacilityIfNeeded<TypedFactoryFacility>();
 
-            container.Register(Component.For<ICommandHandlerFactory>().AsFactory());
-            container.Register(Component.For<ICommandDispatcher>().ImplementedBy<DefaultCommandDispatcher>());
+            container.Register(Component.For<IQueryFactory>().ImplementedBy<IQueryFactory>());
+            container.Register(Component.For<IQueryExecutor>().ImplementedBy<QueryExecutor>());
         }
     }
 }

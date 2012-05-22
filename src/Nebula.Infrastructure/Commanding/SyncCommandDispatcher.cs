@@ -1,10 +1,10 @@
 ﻿namespace Nebula.Infrastructure.Commanding
 {
-    public class DefaultCommandDispatcher : ICommandDispatcher
+    public class SyncCommandDispatcher : ICommandDispatcher
     {
         private readonly ICommandHandlerFactory commandHandlerFactory;
 
-        public DefaultCommandDispatcher(ICommandHandlerFactory commandHandlerFactory)
+        public SyncCommandDispatcher(ICommandHandlerFactory commandHandlerFactory)
         {
             this.commandHandlerFactory = commandHandlerFactory;
         }

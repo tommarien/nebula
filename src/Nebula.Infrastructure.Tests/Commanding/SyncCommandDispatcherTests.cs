@@ -6,13 +6,13 @@ using Rhino.Mocks;
 namespace Nebula.Infrastructure.Tests.Commanding
 {
     [TestFixture]
-    public class DefaultCommandDispatcherTests
+    public class SyncCommandDispatcherTests
     {
         [SetUp]
         public void Setup()
         {
             commandHandlerFactory = MockRepository.GenerateStub<ICommandHandlerFactory>();
-            dispatcher = new DefaultCommandDispatcher(commandHandlerFactory);
+            dispatcher = new SyncCommandDispatcher(commandHandlerFactory);
         }
 
         private ICommandHandlerFactory commandHandlerFactory;
