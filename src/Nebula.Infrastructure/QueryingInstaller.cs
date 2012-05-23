@@ -12,7 +12,7 @@ namespace Nebula.Infrastructure
         {
             container.AddFacilityIfNeeded<TypedFactoryFacility>();
 
-            container.Register(Component.For<IQueryFactory>().ImplementedBy<IQueryFactory>());
+            container.Register(Component.For<IQueryFactory>().AsFactory());
             container.Register(Component.For<IQueryExecutor>().ImplementedBy<QueryExecutor>());
         }
     }
