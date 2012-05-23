@@ -51,9 +51,9 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Commanding\SyncCommandDispatcher.cs" />
+    <Compile Include="Commanding\CommandExecutor.cs" />
+    <Compile Include="Commanding\ICommandExecutor.cs" />
     <Compile Include="Commanding\ICommand.cs" />
-    <Compile Include="Commanding\ICommandDispatcher.cs" />
     <Compile Include="Commanding\ICommandHandler.cs" />
     <Compile Include="Commanding\ICommandHandlerFactory.cs" />
     <Compile Include="Commanding\ICommandResult.cs" />
@@ -70,9 +70,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Installers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -57,7 +57,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Commanding\SyncCommandDispatcherTests.cs" />
+    <Compile Include="Commanding\CommandExecutorTests.cs" />
     <Compile Include="Commanding\TestCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Querying\MyPreciousQuery.cs" />
