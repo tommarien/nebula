@@ -1,0 +1,52 @@
+﻿@using Nebula.MvcApplication.Helpers
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>@ViewBag.Title</title>
+        <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    </head>
+
+    <body>
+        <div id="container">
+            <div id="header">
+                <div id="title">
+                    <h1>Nebula</h1>
+                </div>
+                <div id="loginmenucontainer">
+                    @Html.Partial("_LogOnPartial")
+                </div>
+                <div id="menucontainer">
+                    <ul id="menu">
+                        @Html.MenuItem("Home", "Index", "Home")
+                        @Html.MenuItem("About", "About", "Home")
+                    </ul>
+                </div>
+            </div>
+            <div id="content">
+                @RenderBody()
+            </div>
+            <div id="sidebar">
+                <h2>Sidebar</h2>
+                <ul id="sidenav">
+                    <li><a href="#">Navigate to page 1</a></li>
+                    <li><a href="#">Navigate to page 2</a></li>
+                    <li><a href="#">Navigate to page 3</a></li>
+                    <li><a href="#">Navigate to page 4</a></li>
+                    <li><a href="#">Navigate to page 5</a></li>
+                </ul>
+                <h3>Section 1</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean accumsan, ipsum non malesuada sagittis, nibh odio sollicitudin est, eget sagittis turpis lorem ut nulla. 
+                </p>
+                <h3>Section 2</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean accumsan, ipsum non malesuada sagittis, nibh odio sollicitudin est, eget sagittis turpis lorem ut nulla. 
+                </p>
+            </div>
+            <div id="footer">
+                Nebula &copy; Copyright 2012
+            </div>
+        </div>
+    </body>
+</html>
