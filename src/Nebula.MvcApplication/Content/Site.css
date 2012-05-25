@@ -125,7 +125,7 @@ ol ol, ul ul
     margin:0 0 .2em;
 }
 
-a, #ajaxlogin a
+a
 {
     color:#671;
     text-decoration:none;
@@ -139,27 +139,6 @@ a:hover, a:active, a:focus
 a:visited
 {
     color:#563;
-}
-
-a.external
-{
-    background:url(/Content/link_external.png)  0 50% no-repeat;
-    margin-left:5px;
-    padding-left:13px;
-}
-
-a.image
-{
-    background:url(/Content/link_image.png) 0 50% no-repeat;
-    margin-left:5px;
-    padding-left:13px;
-}
-
-a.document
-{
-    background:url(/Content/link_document.png) 0 50% no-repeat;
-    margin-left:5px;
-    padding-left:13px;
 }
 
 /* form elements
@@ -287,14 +266,14 @@ form table label
 }
 
 
-#content, #ajaxlogin, #sidebar
+#content, #sidebar
 {
     color:#555;
     letter-spacing:.03em;
     line-height:130%;
 }
 
-#content, #ajaxlogin
+#content
 {
     padding:1em;
 }
@@ -306,14 +285,6 @@ form table label
     float:left;
     margin-left:1px;
     border-width: 0 1px 1px;
-}
-
-#ajaxlogin
-{
-    display:none;
-    padding-top:1em;
-    background-color:#EEE;
-    border:1px solid #D9D9D9;
 }
 
 #sidebar
@@ -502,54 +473,6 @@ ul#sidenav li.selected a
 
 /* footer
 -----------*/
-
-/* ajax login
----------------*/
-#ajaxlogin p
-{
-    display:block;
-    position:relative;
-    top:0;
-    left:0;
-    width:400px;
-    margin-top:0;
-}
-
-#ajaxlogin form
-{
-    display: block;
-    position:relative;
-    top:-2.5em;
-    left:450px;
-    width:450px;
-    margin-bottom:-2.5em;
-}
-
-#ajaxlogin input[type=checkbox]
-{
-    margin-left:8em;
-}
-
-#ajaxlogin input[type=submit]
-{
-    width:7em;
-    margin: .5em 0 0 7.5em;
-}
-
-#ajaxlogin label
-{
-    width:7em;
-}
-
-#ajaxlogin label[for=rememberMe]
-{
-    width:10em;
-}
-
-#loginlink.ajaxselected
-{
-    background-color:#EEE;
-}
 
 /* messages
 -------------*/
