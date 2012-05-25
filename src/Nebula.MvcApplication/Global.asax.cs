@@ -1,6 +1,11 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Castle.Windsor;
+using Castle.Windsor.Installer;
+using Nebula.Infrastructure;
+using Nebula.MvcApplication.Modules;
+using Nebula.Services.Installers;
 
 namespace Nebula.MvcApplication
 {
@@ -9,17 +14,7 @@ namespace Nebula.MvcApplication
 
     public class MvcApplication : HttpApplication
     {
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-            );
-
-        }
+        private static IWindsorContainer WindsorContainer;
 
         protected void Application_Start()
         {
@@ -27,11 +22,35 @@ namespace Nebula.MvcApplication
 
             RegisterRoutes(RouteTable.Routes);
             RegisterGlobalFilters(GlobalFilters.Filters);
+            RegisterWindsor();
         }
 
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        private static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{*favicon}", new {favicon = @"(.*/)?favicon.ico(/.*)?"});
+
+            routes.MapRoute(
+                "Default", // Route name
+                "{controller}/{action}/{id}", // URL with parameters
+                new {controller = "Home", action = "Index", id = UrlParameter.Optional} // Parameter defaults
+                );
+        }
+
+        private static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+        }
+
+        private static void RegisterWindsor()
+        {
+            WindsorContainer = new WindsorContainer()
+                .Install(new CommandingInstaller())
+                .Install(new QueryingInstaller())
+                .Install(new DomainServicesInstaller())
+                .Install(FromAssembly.This());
+
+            ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(WindsorContainer.Kernel));
         }
     }
 }

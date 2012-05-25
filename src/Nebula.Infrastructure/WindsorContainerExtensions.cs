@@ -18,7 +18,7 @@ namespace Nebula.Infrastructure
 
         public static void RegisterCommandHandlers(this IWindsorContainer container, Assembly assembly)
         {
-            container.Register(AllTypes.FromAssembly(assembly)
+            container.Register(Classes.FromAssembly(assembly)
                                    .BasedOn(typeof (ICommandHandler<>))
                                    .WithServiceBase()
                                    .LifestyleTransient());
@@ -26,7 +26,7 @@ namespace Nebula.Infrastructure
 
         public static void RegisterQueries(this IWindsorContainer container, Assembly assembly)
         {
-            container.Register(AllTypes.FromAssembly(assembly)
+            container.Register(Classes.FromAssembly(assembly)
                                    .BasedOn(typeof (IQuery<,>))
                                    .WithServiceBase()
                                    .LifestyleTransient());
