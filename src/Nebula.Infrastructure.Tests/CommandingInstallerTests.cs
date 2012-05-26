@@ -9,14 +9,11 @@ namespace Nebula.Infrastructure.Tests
     [TestFixture]
     public class CommandingInstallerTests
     {
-        #region Setup/Teardown
-
         [SetUp]
         public void Setup()
         {
             windsorContainer = new WindsorContainer();
             windsorContainer.Install(new CommandingInstaller());
-            windsorContainer.Register(Component.For<ICommandHandler<TestCommand>>().ImplementedBy<TestCommandHandler>().LifestyleTransient());
         }
 
         [TearDown]
@@ -25,16 +22,12 @@ namespace Nebula.Infrastructure.Tests
             windsorContainer.Dispose();
         }
 
-        #endregion
-
         private IWindsorContainer windsorContainer;
 
         [Test]
-        public void Should_be_able_to_createhandler()
+        public void Should_be_able_to_resolve_commandHandlerFactory()
         {
-            var handlerFactory = windsorContainer.Resolve<ICommandHandlerFactory>();
-
-            Assert.IsInstanceOf<TestCommandHandler>(handlerFactory.CreateHandler<TestCommand>());
+            Assert.IsInstanceOf<ICommandHandlerFactory>(windsorContainer.Resolve<ICommandHandlerFactory>());
         }
 
         [Test]

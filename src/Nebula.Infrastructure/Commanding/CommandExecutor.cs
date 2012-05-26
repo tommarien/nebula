@@ -9,9 +9,26 @@ namespace Nebula.Infrastructure.Commanding
             this.commandHandlerFactory = commandHandlerFactory;
         }
 
-        public virtual ICommandResult Execute<T>(T command) where T : ICommand
+        public virtual void Execute<TCommand>(TCommand command)
+            where TCommand : ICommand
         {
-            ICommandHandler<T> handler = commandHandlerFactory.CreateHandler<T>();
+            ICommandHandler<TCommand> handler = commandHandlerFactory.CreateHandler<TCommand>();
+
+            try
+            {
+                handler.Handle(command);
+            }
+            finally
+            {
+                commandHandlerFactory.ReleaseHandler(handler);
+            }
+        }
+
+        public virtual TResult Execute<TCommand, TResult>(TCommand command)
+            where TCommand : ICommand
+            where TResult : ICommandResult
+        {
+            ICommandHandler<TCommand, TResult> handler = commandHandlerFactory.CreateHandler<TCommand, TResult>();
 
             try
             {

@@ -2,7 +2,13 @@
 {
     public interface ICommandHandlerFactory
     {
-        ICommandHandler<TCommand> CreateHandler<TCommand>() where TCommand : ICommand;
-        void ReleaseHandler<TCommand>(ICommandHandler<TCommand> commandHandler) where TCommand : ICommand;
+        ICommandHandler<TCommand> CreateHandler<TCommand>()
+            where TCommand : ICommand;
+
+        ICommandHandler<TCommand, TResult> CreateHandler<TCommand, TResult>()
+            where TCommand : ICommand
+            where TResult : ICommandResult;
+
+        void ReleaseHandler(ICommandHandler commandHandler);
     }
 }

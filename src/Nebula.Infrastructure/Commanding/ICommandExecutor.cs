@@ -2,6 +2,11 @@
 {
     public interface ICommandExecutor
     {
-        ICommandResult Execute<T>(T command) where T : ICommand;
+        void Execute<TCommand>(TCommand command) 
+            where TCommand : ICommand;
+
+        TResult Execute<TCommand, TResult>(TCommand command)
+            where TCommand : ICommand
+            where TResult : ICommandResult;
     }
 }

@@ -3,6 +3,7 @@ using Castle.Facilities.TypedFactory;
 using Castle.Windsor;
 using NUnit.Framework;
 using Nebula.Infrastructure.Commanding;
+using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.Infrastructure.Querying;
 using Nebula.Infrastructure.Tests.Commanding;
 using Nebula.Infrastructure.Tests.Querying;
@@ -39,6 +40,7 @@ namespace Nebula.Infrastructure.Tests
             container.RegisterCommandHandlers(typeof (TestCommand).Assembly);
 
             Assert.IsTrue(container.Kernel.HasComponent(typeof (ICommandHandler<TestCommand>)));
+            Assert.IsTrue(container.Kernel.HasComponent(typeof (ICommandHandler<TestCommandWithResult, OperationResult>)));
         }
 
         [Test]

@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
 using Nebula.Infrastructure.Commanding;
+using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.MvcApplication.Models;
 using Nebula.Shared.Registration;
 
@@ -26,9 +27,9 @@ namespace Nebula.MvcApplication.Controllers
             if (ModelState.IsValid)
             {
                 var command = new ValidateUserCommand {UserName = model.UserName, Password = model.Password};
-                var result = (SimpleCommandResult<bool>) commandExecutor.Execute(command);
+                bool result = commandExecutor.Execute<ValidateUserCommand, OperationResult>(command);
 
-                if (result.Value)
+                if (result)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")

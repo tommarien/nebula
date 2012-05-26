@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using NUnit.Framework;
 using Nebula.Infrastructure.Commanding;
+using Nebula.Infrastructure.Commanding.CommandResults;
 using Rhino.Mocks;
 
 namespace Nebula.Infrastructure.Tests.Commanding
@@ -8,8 +9,6 @@ namespace Nebula.Infrastructure.Tests.Commanding
     [TestFixture]
     public class CommandExecutorTests
     {
-        #region Setup/Teardown
-
         [SetUp]
         public void Setup()
         {
@@ -17,11 +16,62 @@ namespace Nebula.Infrastructure.Tests.Commanding
             commandExecutor = new CommandExecutor(commandHandlerFactory);
         }
 
-        #endregion
-
         private ICommandHandlerFactory commandHandlerFactory;
         private CommandExecutor commandExecutor;
 
+        [Test]
+        public void ExecuteWithResult_Should_get_an_instance_of_the_commandhandler_from_the_factory()
+        {
+            commandHandlerFactory.Expect(f => f.CreateHandler<TestCommandWithResult, OperationResult>()).Return(new TestCommandWithResultHandler())
+                .Message("The commandhandler was not requested from the factory");
+
+            commandExecutor.Execute<TestCommandWithResult, OperationResult>(new TestCommandWithResult());
+
+            commandHandlerFactory.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void ExecuteWithResult_Should_invoke_the_commandhandler_and_return_result()
+        {
+            var commandhandler = MockRepository.GenerateStrictMock<ICommandHandler<TestCommand, OperationResult>>();
+            commandHandlerFactory.Stub(f => f.CreateHandler<TestCommand, OperationResult>()).Return(commandhandler);
+
+            var command = new TestCommand();
+            commandhandler.Expect(h => h.Handle(command)).Return(new OperationResult(true)).Message("The commandhandler was not invoked in the expected way");
+
+            var result = commandExecutor.Execute<TestCommand, OperationResult>(command);
+
+            Assert.IsTrue(result);
+
+            commandhandler.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void ExecuteWithResult_Should_release_the_commandhandler()
+        {
+            var commandhandler = MockRepository.GenerateMock<ICommandHandler<TestCommand, OperationResult>>();
+            commandHandlerFactory.Stub(f => f.CreateHandler<TestCommand, OperationResult>()).Return(commandhandler);
+
+            commandHandlerFactory.Expect(f => f.ReleaseHandler(commandhandler)).Message("The commandhandler was not released");
+
+            commandExecutor.Execute<TestCommand, OperationResult>(new TestCommand());
+
+            commandHandlerFactory.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void ExecuteWithResult_Should_release_the_commandhandler_no_matter_what()
+        {
+            var commandhandler = MockRepository.GenerateMock<ICommandHandler<TestCommand, OperationResult>>();
+            commandhandler.Stub(h => h.Handle(new TestCommand())).IgnoreArguments().Throw(new InvalidExpressionException());
+            commandHandlerFactory.Stub(f => f.CreateHandler<TestCommand, OperationResult>()).Return(commandhandler);
+
+            commandHandlerFactory.Expect(f => f.ReleaseHandler(commandhandler)).Message("The commandhandler was not released when it throws an exception");
+
+            Assert.Catch(() => commandExecutor.Execute<TestCommand, OperationResult>(new TestCommand()));
+
+            commandHandlerFactory.VerifyAllExpectations();
+        }
 
         [Test]
         public void Execute_Should_get_an_instance_of_the_commandhandler_from_the_factory()
@@ -35,16 +85,15 @@ namespace Nebula.Infrastructure.Tests.Commanding
         }
 
         [Test]
-        public void Execute_Should_invoke_the_commandhandler_and_return_its_result()
+        public void Execute_Should_invoke_the_commandhandler()
         {
             var commandhandler = MockRepository.GenerateStrictMock<ICommandHandler<TestCommand>>();
             commandHandlerFactory.Stub(f => f.CreateHandler<TestCommand>()).Return(commandhandler);
 
             var command = new TestCommand();
-            var commandResult = MockRepository.GenerateMock<ICommandResult>();
-            commandhandler.Expect(h => h.Handle(command)).Return(commandResult).Message("The commandhandler was not invoked in the expected way");
+            commandhandler.Expect(h => h.Handle(command)).Message("The commandhandler was not invoked in the expected way");
 
-            Assert.AreEqual(commandResult, commandExecutor.Execute(command));
+            commandExecutor.Execute(command);
 
             commandhandler.VerifyAllExpectations();
         }

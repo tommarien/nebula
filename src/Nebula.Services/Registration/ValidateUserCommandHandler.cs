@@ -1,13 +1,14 @@
 ﻿using Nebula.Infrastructure.Commanding;
+using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.Shared.Registration;
 
 namespace Nebula.Services.Registration
 {
-    public class ValidateUserCommandHandler : ICommandHandler<ValidateUserCommand>
+    public class ValidateUserCommandHandler : ICommandHandler<ValidateUserCommand, OperationResult>
     {
-        public ICommandResult Handle(ValidateUserCommand command)
+        public OperationResult Handle(ValidateUserCommand command)
         {
-            return new SimpleCommandResult<bool>(command.UserName == "admin" && command.Password == "letmein");
+            return command.UserName == "admin" && command.Password == "letmein";
         }
     }
 }

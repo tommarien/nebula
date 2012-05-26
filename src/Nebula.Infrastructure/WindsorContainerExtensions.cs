@@ -19,8 +19,8 @@ namespace Nebula.Infrastructure
         public static void RegisterCommandHandlers(this IWindsorContainer container, Assembly assembly)
         {
             container.Register(Classes.FromAssembly(assembly)
-                                   .BasedOn(typeof (ICommandHandler<>))
-                                   .WithServiceBase()
+                                   .BasedOn<ICommandHandler>()
+                                   .WithServiceFirstInterface()
                                    .LifestyleTransient());
         }
 

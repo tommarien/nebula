@@ -52,12 +52,11 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Commanding\CommandExecutor.cs" />
-    <Compile Include="Commanding\SimpleCommandResult.cs" />
+    <Compile Include="Commanding\CommandResults\OperationResult.cs" />
     <Compile Include="Commanding\ICommandExecutor.cs" />
     <Compile Include="Commanding\ICommand.cs" />
     <Compile Include="Commanding\ICommandHandler.cs" />
     <Compile Include="Commanding\ICommandHandlerFactory.cs" />
-    <Compile Include="Commanding\ICommandResult.cs" />
     <Compile Include="IHandle.cs" />
     <Compile Include="CommandingInstaller.cs" />
     <Compile Include="QueryingInstaller.cs" />
