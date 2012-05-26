@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.3.3.0.4000\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -54,6 +57,7 @@
     <Compile Include="Nebula.Infrastructure\Commanding\CommandExecutorTests.cs" />
     <Compile Include="Nebula.Infrastructure\Commanding\TestCommand.cs" />
     <Compile Include="Nebula.Infrastructure\Domain\ValueObjectTests.cs" />
+    <Compile Include="Nebula.Services\Modules\SessionManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +67,10 @@
     <ProjectReference Include="..\Nebula.Infrastructure\Nebula.Infrastructure.csproj">
       <Project>{4F9AD276-F9A5-4DD7-A970-5BB86149609F}</Project>
       <Name>Nebula.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nebula.Services\Nebula.Services.csproj">
+      <Project>{7571AD6A-0F25-4D78-BDD4-244D36570ECB}</Project>
+      <Name>Nebula.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
