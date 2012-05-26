@@ -2,10 +2,9 @@
 using NUnit.Framework;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
-using Nebula.Infrastructure.Tests.Commanding;
 using Rhino.Mocks;
 
-namespace Nebula.UnitTests.Commanding
+namespace Nebula.UnitTests.Nebula.Infrastructure.Commanding
 {
     [TestFixture]
     public class CommandExecutorTests

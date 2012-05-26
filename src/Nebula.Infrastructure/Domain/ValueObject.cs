@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Nebula.Infrastructure.Domain
 {
-    public abstract class ValueObject<T> : IEquatable<T>
-        where T : ValueObject<T>
+    public abstract class ValueObject
     {
         private const int HashMultiplier = 31;
         protected abstract IEnumerable<object> EquatableValues();
 
-        public bool Equals(T other)
+        public bool Equals(ValueObject other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return EquatableValues().SequenceEqual(other.EquatableValues());
+            if (GetType() != other.GetType()) return false;
+            return EquatableValues()
+                .SequenceEqual(other.EquatableValues());
         }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as T);
+            return Equals(obj as ValueObject);
         }
 
-        public static bool operator ==(ValueObject<T> valueObject1, ValueObject<T> valueObject2)
+        public static bool operator ==(ValueObject valueObject1, ValueObject valueObject2)
         {
             if ((object) valueObject1 == null)
             {
@@ -32,7 +32,7 @@ namespace Nebula.Infrastructure.Domain
             return valueObject1.Equals(valueObject2);
         }
 
-        public static bool operator !=(ValueObject<T> valueObject1, ValueObject<T> valueObject2)
+        public static bool operator !=(ValueObject valueObject1, ValueObject valueObject2)
         {
             return !(valueObject1 == valueObject2);
         }

@@ -1,0 +1,3 @@
+﻿<connectionStrings>
+		<add name="Nebula" connectionString="#{configatron.connectionstrings.nebula}"/>
+</connectionStrings>

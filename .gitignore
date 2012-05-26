@@ -9,3 +9,5 @@ development.rb
 
 # mstest test results
 TestResults
+*.DotSettings.user
+*connectionstrings.config

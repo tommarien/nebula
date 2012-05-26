@@ -1,7 +1,7 @@
 ﻿using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
 
-namespace Nebula.Infrastructure.Tests.Commanding
+namespace Nebula.UnitTests.Nebula.Infrastructure.Commanding
 {
     public class TestCommand : ICommand
     {
