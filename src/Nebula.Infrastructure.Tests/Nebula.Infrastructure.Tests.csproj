@@ -58,13 +58,8 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Commanding\CommandExecutorTests.cs" />
-    <Compile Include="CommandingInstallerTests.cs" />
     <Compile Include="Commanding\TestCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueryingInstallerTests.cs" />
-    <Compile Include="Querying\MyPreciousQuery.cs" />
-    <Compile Include="Querying\QueryExecutorTests.cs" />
-    <Compile Include="WindsorContainerExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

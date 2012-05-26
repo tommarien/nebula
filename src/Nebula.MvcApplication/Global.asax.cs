@@ -3,9 +3,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
-using Nebula.Infrastructure;
+using Nebula.Bootstrapper;
 using Nebula.MvcApplication.Modules;
-using Nebula.Services.Installers;
 
 namespace Nebula.MvcApplication
 {
@@ -44,10 +43,7 @@ namespace Nebula.MvcApplication
 
         private static void RegisterWindsor()
         {
-            WindsorContainer = new WindsorContainer()
-                .Install(new CommandingInstaller())
-                .Install(new QueryingInstaller())
-                .Install(new DomainServicesInstaller())
+            WindsorContainer = Boot.Container()
                 .Install(FromAssembly.This());
 
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(WindsorContainer.Kernel));

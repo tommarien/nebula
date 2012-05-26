@@ -4,8 +4,8 @@
     {
     }
 
-    public interface IQuery<in TSearch, out TResult> : IQuery
+    public interface IQuery<in TParameters, out TResult> : IQuery
     {
-        TResult Execute(TSearch input);
+        TResult Execute(TParameters parameters);
     }
 }

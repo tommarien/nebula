@@ -2,7 +2,7 @@
 {
     public interface IQueryFactory
     {
-        IQuery<TSearch, TResult> CreateQuery<TSearch, TResult>();
+        TQuery CreateQuery<TQuery>() where TQuery : IQuery;
         void Release(IQuery query);
     }
 }

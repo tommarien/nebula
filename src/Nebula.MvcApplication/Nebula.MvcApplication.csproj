@@ -39,7 +39,7 @@
     <Reference Include="Castle.Core">
       <HintPath>..\..\packages\Castle.Core.3.0.0.4001\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Windsor">
+    <Reference Include="Castle.Windsor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Castle.Windsor.3.0.0.4001\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -105,24 +105,24 @@
     <Content Include="Views\Shared\_MainMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Account\LogOn.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Nebula.Bootstrapper\Nebula.Bootstrapper.csproj">
+      <Project>{480EBE65-BD22-45EA-B6CE-DB6EB9DEC545}</Project>
+      <Name>Nebula.Bootstrapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nebula.Infrastructure\Nebula.Infrastructure.csproj">
       <Project>{4F9AD276-F9A5-4DD7-A970-5BB86149609F}</Project>
       <Name>Nebula.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nebula.Services\Nebula.Services.csproj">
-      <Project>{7571AD6A-0F25-4D78-BDD4-244D36570ECB}</Project>
-      <Name>Nebula.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nebula.Shared\Nebula.Shared.csproj">
       <Project>{FE53F824-A138-4585-BFBB-3F03F6A204E2}</Project>
       <Name>Nebula.Shared</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
