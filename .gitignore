@@ -3,11 +3,11 @@ bin
 obj
 packages
 *.suo
+*.user
 SharedAssemblyInfo.cs
 App.config
 development.rb
 
 # mstest test results
 TestResults
-*.DotSettings.user
 *connectionstrings.config
