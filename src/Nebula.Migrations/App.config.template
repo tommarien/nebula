@@ -2,6 +2,5 @@
 <configuration>
 		<connectionStrings>
 				<add name="Nebula" connectionString="#{configatron.connectionstrings.nebula}"/>
-				<add name="Nebula_Test" connectionString="#{configatron.connectionstrings.nebula_test}"/>
 		</connectionStrings>
 </configuration>
