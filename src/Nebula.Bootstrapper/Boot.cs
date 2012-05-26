@@ -13,7 +13,8 @@ namespace Nebula.Bootstrapper
             ExplainFacilitiesToWindsor(container);
 
             container
-                .Install(new CommandQuerySeparationInstaller());
+                .Install(new CommandQuerySeparationInstaller())
+                .Install(new NHibernateInstaller());
 
             return container;
         }

@@ -25,11 +25,15 @@ namespace Nebula.UnitTests.Nebula.Services.Modules
         }
 
         [Test]
-        public void Dispose_Should_dispose_sessionfactory()
+        public void Dispose_Should_dispose_session()
         {
-            sessionFactoryMock.Expect(sf => sf.Dispose());
+            var session = MockRepository.GenerateStub<ISession>();
+            sessionManager.Stub(sm => sm.ActiveSession).Return(session);
+            session.Expect(s => s.Dispose());
 
             sessionManager.Dispose();
+
+            session.VerifyAllExpectations();
         }
 
         [Test]

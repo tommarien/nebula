@@ -53,9 +53,8 @@ namespace Nebula.Services.Modules
 
         public void Dispose()
         {
-            if (SessionFactory == null) return;
-            SessionFactory.Dispose();
-            SessionFactory = null;
+            if (ActiveSession == null) return;
+            ActiveSession.Dispose();
             ActiveSession = null;
         }
     }
