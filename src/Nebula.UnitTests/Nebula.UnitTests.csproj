@@ -44,6 +44,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +60,8 @@
     <Compile Include="Nebula.Infrastructure\Commanding\CommandExecutorTests.cs" />
     <Compile Include="Nebula.Infrastructure\Commanding\TestCommand.cs" />
     <Compile Include="Nebula.Domain\Base\ValueObjectTests.cs" />
+    <Compile Include="Nebula.MvcApplication\HttpContextFixture.cs" />
+    <Compile Include="Nebula.MvcApplication\Controllers\Account\Account_LogOffTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +83,10 @@
     <ProjectReference Include="..\Nebula.Infrastructure\Nebula.Infrastructure.csproj">
       <Project>{4F9AD276-F9A5-4DD7-A970-5BB86149609F}</Project>
       <Name>Nebula.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nebula.MvcApplication\Nebula.MvcApplication.csproj">
+      <Project>{AECF3F58-EAB8-4EE7-95E9-1721A3C7A3F3}</Project>
+      <Name>Nebula.MvcApplication</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

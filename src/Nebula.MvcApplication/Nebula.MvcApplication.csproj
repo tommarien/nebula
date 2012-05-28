@@ -86,8 +86,10 @@
     <Compile Include="Helpers\MenuItemHelper.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Modules\ControllersInstaller.cs" />
+    <Compile Include="Modules\ServicesInstaller.cs" />
     <Compile Include="Modules\WindsorControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IFormsAuthenticationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bg-button.png" />

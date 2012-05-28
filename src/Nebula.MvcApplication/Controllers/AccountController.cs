@@ -1,19 +1,21 @@
 ﻿using System.Web.Mvc;
-using System.Web.Security;
 using Nebula.Contracts.Commands.Registration;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.MvcApplication.Models;
+using Nebula.MvcApplication.Services;
 
 namespace Nebula.MvcApplication.Controllers
 {
     public class AccountController : Controller
     {
         private readonly ICommandExecutor commandExecutor;
+        private readonly IFormsAuthenticationService formsAuthenticationService;
 
-        public AccountController(ICommandExecutor commandExecutor)
+        public AccountController(ICommandExecutor commandExecutor, IFormsAuthenticationService formsAuthenticationService)
         {
             this.commandExecutor = commandExecutor;
+            this.formsAuthenticationService = formsAuthenticationService;
         }
 
         public ActionResult LogOn()
@@ -31,7 +33,7 @@ namespace Nebula.MvcApplication.Controllers
 
                 if (result)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -57,7 +59,7 @@ namespace Nebula.MvcApplication.Controllers
 
         public ActionResult LogOff()
         {
-            FormsAuthentication.SignOut();
+            formsAuthenticationService.SignOut();
 
             return RedirectToAction("Index", "Home");
         }
