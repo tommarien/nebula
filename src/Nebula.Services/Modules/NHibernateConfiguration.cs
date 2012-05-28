@@ -22,15 +22,13 @@ namespace Nebula.Services.Modules
                                                       cfg.ConnectionStringName = "Nebula";
                                                       cfg.Driver<Sql2008ClientDriver>();
                                                       cfg.Dialect<MsSql2008Dialect>();
-#if DEBUG
-                                                      cfg.LogSqlInConsole = true;
-                                                      cfg.LogFormattedSql = true;
-#endif
                                                       cfg.KeywordsAutoImport = Hbm2DDLKeyWords.AutoQuote;
                                                       cfg.SchemaAction = SchemaAutoAction.Create;
                                                   });
+
             configuration.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
             SchemaMetadataUpdater.QuoteTableAndColumns(configuration);
+            
             return configuration;
         }
     }

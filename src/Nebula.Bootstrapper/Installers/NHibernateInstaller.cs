@@ -15,16 +15,16 @@ namespace Nebula.Bootstrapper.Installers
             container.Register(Component.For<ISessionFactory>()
                                    .Instance(sessionfactory));
 
-            container.Register(Component.For<ISessionManager>()
-                                   .ImplementedBy<SessionManager>()
-                                   .LifestylePerWebRequest());
-
             container.Register(Component.For<ISession>()
                                    .UsingFactoryMethod((kernel, context) =>
                                                            {
-                                                               var sessionmanager = kernel.Resolve<ISessionManager>();
-                                                               var session = sessionmanager.GetSession();
-                                                               kernel.ReleaseComponent(sessionmanager);
+                                                               var sessionFactory = kernel.Resolve<ISessionFactory>();
+                                                               var session = sessionFactory.OpenSession();
+                                                               kernel.ReleaseComponent(sessionFactory);
+
+                                                               // Set session properties
+                                                               session.FlushMode = FlushMode.Commit;
+
                                                                return session;
                                                            })
                                    .LifestylePerWebRequest());
