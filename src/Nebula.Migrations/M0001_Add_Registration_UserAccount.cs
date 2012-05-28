@@ -17,7 +17,7 @@ namespace Nebula.Migrations
                 .WithColumn("UserName").AsAnsiString(20).NotNullable().Unique()
                 .WithColumn("Password").AsAnsiString(20).NotNullable();
 
-            Insert.IntoTable(TableName).InSchema(SchemaName).Row(new {UserName = "admin", Password = "letmein"});
+            Insert.IntoTable(TableName).InSchema(SchemaName).Row(new {UserName = "admin", Password = "admin"});
         }
 
         public override void Down()

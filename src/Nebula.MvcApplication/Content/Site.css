@@ -1,15 +1,7 @@
 /* css reset
 --------------*/
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td
 {
 	margin: 0;
 	padding: 0;
@@ -32,17 +24,17 @@ ol, ul
 
 ol
 {
-    list-style-type:decimal;
+	list-style-type: decimal;
 }
 
 li ol
 {
-    list-style-type:lower-latin;
+	list-style-type: lower-latin;
 }
 
 ul
 {
-    list-style-type: square;
+	list-style-type: square;
 }
 
 blockquote, q
@@ -50,8 +42,7 @@ blockquote, q
 	quotes: none;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after
+blockquote:before, blockquote:after, q:before, q:after
 {
 	content: '';
 	content: none;
@@ -68,77 +59,77 @@ table
 
 body
 {
-    background:#FFF 0 0 repeat-x;
-    font-family:Arial,Helvetica,sans-serif
+	background: #FFF 0 0 repeat-x;
+	font-family: Arial,Helvetica,sans-serif;
 }
 
-h1,h2,h3,h4,h5,h6
+h1, h2, h3, h4, h5, h6
 {
-    font-family: Trebuchet MS,Arial,Helvetica,sans-serif;
-    margin: 1em 0 0;
+	font-family: Trebuchet MS,Arial,Helvetica,sans-serif;
+	margin: 1em 0 0;
 }
 
-p,blockquote,pre,q,dl,ol,ul,table
+p, blockquote, pre, q, dl, ol, ul, table
 {
-    margin-top:.5em;
+	margin-top: .5em;
 }
 
-h1,h2,h3,h4,h5,h6
+h1, h2, h3, h4, h5, h6
 {
-    font-weight: lighter;
+	font-weight: lighter;
 }
 
 h1
 {
-    font-size: 2.5em;
-    margin:.5em 0 0;
+	font-size: 2.5em;
+	margin: .5em 0 0;
 }
 
 h2
 {
-    font-size: 1.5em;
+	font-size: 1.5em;
 }
 
 h3
 {
-    font-size:1.3em;
+	font-size: 1.3em;
 }
 
 h4
 {
-    font-size:1.2em;
+	font-size: 1.2em;
 }
 
 h5
 {
-    font-size:1.1em;
+	font-size: 1.1em;
 }
 
 p
 {
-    margin: 1em 0 0;
-    text-align:justify;
+	margin: 1em 0 0;
+	text-align: justify;
 }
 
 ol ol, ul ul
 {
-    margin:0 0 .2em;
+	margin: 0 0 .2em;
 }
 
 a
 {
-    color:#671;
-    text-decoration:none;
+	color: #671;
+	text-decoration: none;
 }
 
 a:hover, a:active, a:focus
 {
-    text-decoration:underline
+	text-decoration: underline;
 }
 
 a:visited
 {
-    color:#563;
+	color: #563;
 }
 
 /* form elements
@@ -146,94 +137,99 @@ a:visited
 
 form fieldset
 {
-    margin:1em 0;
-    padding:1em;
-    border:1px solid #CCC;
-    background-color:#FDFDFD;
+	margin: 1em 0;
+	padding: 1em;
+	border: 1px solid #CCC;
+	background-color: #FDFDFD;
 }
 
 form label
 {
-    display: block;
-    float: left;
-    width: 12em;
-    margin-bottom:.5em;
+	display: block;
+	float: left;
+	width: 12em;
+	margin-bottom: .5em;
 }
 
 form input[type=text], form input[type=password], form textarea
 {
-    display: block;
-    margin: 0 0 .5em;
-    color:#333;
-    background-color:#FFF;
-    border:1px solid #AAA;
-    font-family:Arial,Helvetica,sans-serif;
-    font-size:1em;
+	display: block;
+	margin: 0 0 .5em;
+	color: #333;
+	background-color: #FFF;
+	border: 1px solid #AAA;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 1em;
 }
 
 form textarea
 {
-    width: 40em;
-    height:8.1em;
+	width: 40em;
+	height: 8.1em;
 }
 
 form input[type=text], form input[type=password]
 {
-    width: 15em;
+	width: 15em;
 }
 
 form optgroup
 {
-    color:#333;    
-    background-color:#CD7;
-    font-style:normal;
-    font-size:1.1em;
+	color: #333;
+	background-color: #CD7;
+	font-style: normal;
+	font-size: 1.1em;
 }
 
 form option
 {
-    background-color:#FFF;
-    padding:.1em .3em;
+	background-color: #FFF;
+	padding: .1em .3em;
 }
 
 form input[type=checkbox], form input[type=radio]
 {
-    display:block;
-    clear:both;
-    float:left;
-    margin:.1em .5em 0 0;
-    height:1em;
-    width:1em;
-    color:#333;
+	display: block;
+	clear: both;
+	float: left;
+	margin: .1em .5em 0 0;
+	height: 1em;
+	width: 1em;
+	color: #333;
 }
 
 form input[type=checkbox]
 {
-    background-color:#DDD;
-    border:1px solid #777;
+	background-color: #DDD;
+	border: 1px solid #777;
 }
 
 form input[type=text]:focus, form input[type=password]:focus, form input[type=checkbox]:focus, form input[type=radio]:focus, form textarea:focus
 {
-    background-color:#F8FFD7;
-    border:1px solid #CD7;
+	background-color: #F8FFD7;
+	border: 1px solid #CD7;
 }
 
 form input[type=button], form input[type=submit], input[type=reset], form button
 {
-    padding:.15em;
-    font-size: .9em;
+	color: #FFF;
+	background: #317f0c url(bg-button.png) repeat-x;
+	border: 1px groove #FFF;
+	font-size: .9em;
+	font-weight: bold;
+	cursor: pointer;
+ padding:0 5px 2px 5px;
 }
 
 form table input[type=text], form table input[type=password], form table textarea
 {
-    float:none;
-    margin:0;
+	float: none;
+	margin: 0;
 }
 
 form table label
 {
-    width:auto;
+	width: auto;
 }
 
 
@@ -242,72 +238,72 @@ form table label
 
 #container
 {
-    max-width:980px;
-    height:100%;
-    margin:1em auto;
-    background:#F9F9F9 url(/Content/bg_content.gif) 0 0 repeat-y;
+	max-width: 980px;
+	height: 100%;
+	margin: 1em auto;
+	background: #F9F9F9 url(/Content/bg_content.gif) 0 0 repeat-y;
 }
 
 #header
 {
-    margin:0;
-    padding:0;    
+	margin: 0;
+	padding: 0;
 }
 
 #loginmenucontainer
 {
-    float:right;
-    color:#999;
+	float: right;
+	color: #999;
 }
 
 #menucontainer
 {
-    background-color:#AC2;
+	background-color: #AC2;
 }
 
 
 #content, #sidebar
 {
-    color:#555;
-    letter-spacing:.03em;
-    line-height:130%;
+	color: #555;
+	letter-spacing: .03em;
+	line-height: 130%;
 }
 
 #content
 {
-    padding:1em;
+	padding: 1em;
 }
 
 
 #content
 {
-    width: 679px;
-    float:left;
-    margin-left:1px;
-    border-width: 0 1px 1px;
+	width: 679px;
+	float: left;
+	margin-left: 1px;
+	border-width: 0 1px 1px;
 }
 
 #sidebar
 {
-    margin-right:1px;
-    padding: 1em 10px;
-    width: 247px;   
-    float:right;
-    background-color:#EFF9C5;
-    border-top-width:1px;
+	margin-right: 1px;
+	padding: 1em 10px;
+	width: 247px;
+	float: right;
+	background-color: #EFF9C5;
+	border-top-width: 1px;
 }
 
 #footer
 {
-    clear:both;
-    float:none;
-    margin:0;
-    padding:1em 0 0;
-    background-color:#FFF;
-    color: #999;
-    font-size: .8em;
-    text-align: center;
-    border-top:1px solid #D9D9D9;
+	clear: both;
+	float: none;
+	margin: 0;
+	padding: 1em 0 0;
+	background-color: #FFF;
+	color: #999;
+	font-size: .8em;
+	text-align: center;
+	border-top: 1px solid #D9D9D9;
 }
 
 
@@ -316,11 +312,11 @@ form table label
 
 #header h1
 {
-    margin:0;
-    padding:0.66em .33em .66em;
-    color:#FFF;
-    background:#8B1 url(/Content/bg_header.gif) 0 0 repeat-y;
-    font-weight:bold;
+	margin: 0;
+	padding: 0.66em .33em .66em;
+	color: #FFF;
+	background: #8B1 url(/Content/bg_header.gif) 0 0 repeat-y;
+	font-weight: bold;
 }
 
 /* menu
@@ -328,52 +324,52 @@ form table label
 
 ul#menu
 {
-    margin:0;
-    padding:0 0 0 .5em;
-    list-style:none;
-    display:block;
-    border-top:1px solid #BD5;
+	margin: 0;
+	padding: 0 0 0 .5em;
+	list-style: none;
+	display: block;
+	border-top: 1px solid #BD5;
 }
 
 ul#menu li, #loginlink
 {
-    list-style:none;
-    margin:.5em .5em 0 0;
-    padding:0;
-    display:inline-block;
+	list-style: none;
+	margin: .5em .5em 0 0;
+	padding: 0;
+	display: inline-block;
 }
 
 ul#menu a, #loginlink a
 {
-    display: block;
-    margin:0;
-    padding: .5em 1em;
-    color:#455;
-    font-weight:bold;
-    text-decoration:none;
+	display: block;
+	margin: 0;
+	padding: .5em 1em;
+	color: #455;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 ul#menu a:hover, #loginlink a:hover, ul#menu a:focus, #loginlink a:focus
 {
-    background-color: #BD3;
-    color:#233;
+	background-color: #BD3;
+	color: #233;
 }
 
 ul#menu li.selected a, #loginlink.selected a
 {
-    background-color:#FBFBFB;
-    color:#455;
+	background-color: #FBFBFB;
+	color: #455;
 }
 
 #loginmenucontainer span
 {
-    font-weight: bold;
-    margin-right: 1em;
+	font-weight: bold;
+	margin-right: 1em;
 }
 
 #loginlink
 {
-    border-width: 0 0 0 1px;
+	border-width: 0 0 0 1px;
 }
 
 /* content
@@ -381,57 +377,57 @@ ul#menu li.selected a, #loginlink.selected a
 
 #content h1, #content h2, #content h3, #content h4, #content h5, #content h6
 {
-    color:#671;
+	color: #671;
 }
 
-#content h1,h2,h3,h4
+#content h1, h2, h3, h4
 {
-    margin-bottom:1em;
-    padding-bottom:.5em;
-    border-bottom:1px solid #CD7;
+	margin-bottom: 1em;
+	padding-bottom: .5em;
+	border-bottom: 1px solid #CD7;
 }
 
 #content h3
 {
-    border-style:dotted;
+	border-style: dotted;
 }
 
 #content h4
 {
-    border-color:#DDA;
-    border-style:dotted;
+	border-color: #DDA;
+	border-style: dotted;
 }
 
 #content h5, #content h6
 {
-    margin-bottom:1em;
+	margin-bottom: 1em;
 }
 
 #content ul, #content ol, #sidebar ul, #sidebar ol
 {
-    padding-left: 2em;
+	padding-left: 2em;
 }
 
 #content table
 {
-    border-collapse:collapse;
+	border-collapse: collapse;
 }
 
 #content th
 {
-    background-color:#CD7;
-    border:1px solid #FFF;
-    min-width:3em;
+	background-color: #CD7;
+	border: 1px solid #FFF;
+	min-width: 3em;
 }
 
-#content th,td
+#content th, td
 {
-    padding:.2em .5em;
+	padding: .2em .5em;
 }
 
 #content td
 {
-    border:1px solid #CD7;
+	border: 1px solid #CD7;
 }
 
 /* sidebar 
@@ -439,98 +435,102 @@ ul#menu li.selected a, #loginlink.selected a
 
 ul#sidenav
 {
-    list-style: none;
-    padding:0;
+	list-style: none;
+	padding: 0;
 }
 
 ul#sidenav li
 {
-    list-style:none;
+	list-style: none;
 }
 
 ul#sidenav li a
 {
-    display:block;
-    padding:.2em;
-    border:1px solid #EFF9C5;
-    border-width:1px 0;
-    text-decoration:none;
+	display: block;
+	padding: .2em;
+	border: 1px solid #EFF9C5;
+	border-width: 1px 0;
+	text-decoration: none;
 }
 
 ul#sidenav li a:hover, ul#sidenav li a:focus
 {
-    background-color: #E6F0BD;
-    border:1px solid #CD7;
-    border-width:1px 0;
+	background-color: #E6F0BD;
+	border: 1px solid #CD7;
+	border-width: 1px 0;
 }
 
 ul#sidenav li.selected a
 {
-    background-color:#E3F0AC;
-    border:1px solid #CD7;
-    border-width:1px 0;
+	background-color: #E3F0AC;
+	border: 1px solid #CD7;
+	border-width: 1px 0;
 }
 
-/* footer
------------*/
+/* MISC  
+----------------------------------------------------------*/
+.clear
+{
+	clear: both;
+}
+
+.error
+{
+	color: Red;
+}
 
 /* messages
 -------------*/
-
-div.information, div.error, div.success, ul.validation-summary-errors
+.field-validation-error
 {
-    margin:1em 0;
-    padding:1em;
-    font-weight:bold;
+	color: #ff0000;
 }
 
-div.information
+.field-validation-valid
 {
-    color:#C80;
-    background-color:#FF9;
-    border:1px solid #C80;
-}
-
-div.error, ul.validation-summary-errors
-{
-    color: #C33;
-    background-color:#FBB;
-    border:1px solid #C33;
-}
-
-div.success
-{
-    color: #671;
-    background-color:#CD7;
-    border:1px solid #671;
+	display: none;
 }
 
 .input-validation-error
 {
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
+	border: 1px solid #ff0000;
+	background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+	font-weight: bold;
+	color: #ff0000;
+}
+
+.validation-summary-valid
+{
+	display: none;
 }
 
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
-.display-label, 
-.editor-label {
-    margin: 1em 0 0 0;
+.display-label, .editor-label
+{
+	margin: 1em 0 0 0;
 }
 
-.display-field, 
-.editor-field {
-    margin: 0.5em 0 0 0;
+.display-field, .editor-field
+{
+	margin: 0.5em 0 0 0;
 }
 
-.text-box {
-    width: 30em;
+.text-box
+{
+	width: 30em;
 }
 
-.text-box.multi-line {
-    height: 6.5em;
+.text-box.multi-line
+{
+	height: 6.5em;
 }
 
-.tri-state {
-    width: 6em;
+.tri-state
+{
+	width: 6em;
 }

@@ -81,6 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bg-button.png" />
     <Content Include="Content\bg_content.gif" />
     <Content Include="Content\bg_header.gif" />
     <Content Include="Content\Site.css" />
