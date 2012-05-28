@@ -2,7 +2,7 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using NHibernate;
-using Nebula.Services.Modules;
+using Nebula.Services;
 
 namespace Nebula.Bootstrapper.Installers
 {
@@ -28,6 +28,9 @@ namespace Nebula.Bootstrapper.Installers
                                                                return session;
                                                            })
                                    .LifestylePerWebRequest());
+
+            container.Register(Component.For<AutoTransactionInterceptor>()
+                                   .LifestyleTransient());
         }
     }
 }

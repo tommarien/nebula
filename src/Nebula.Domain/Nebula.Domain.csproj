@@ -46,8 +46,14 @@
     <Compile Include="Base\Entity.cs" />
     <Compile Include="Base\ValueObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registration\Queries\IGetUserAccountByUserNameQuery.cs" />
+    <Compile Include="Registration\UserAccount.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Nebula.Infrastructure\Nebula.Infrastructure.csproj">
+      <Project>{4F9AD276-F9A5-4DD7-A970-5BB86149609F}</Project>
+      <Name>Nebula.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nebula.Shared\Nebula.Shared.csproj">
       <Project>{FE53F824-A138-4585-BFBB-3F03F6A204E2}</Project>
       <Name>Nebula.Shared</Name>

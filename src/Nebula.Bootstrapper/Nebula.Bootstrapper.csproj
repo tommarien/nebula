@@ -57,6 +57,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AutoTransactionInterceptor.cs" />
     <Compile Include="Boot.cs" />
     <Compile Include="Installers\CommandQuerySeparationInstaller.cs" />
     <Compile Include="Installers\NHibernateInstaller.cs" />

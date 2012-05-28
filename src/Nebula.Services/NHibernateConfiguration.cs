@@ -4,7 +4,7 @@ using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
 
-namespace Nebula.Services.Modules
+namespace Nebula.Services
 {
     public static class NHibernateConfiguration
     {
@@ -23,12 +23,11 @@ namespace Nebula.Services.Modules
                                                       cfg.Driver<Sql2008ClientDriver>();
                                                       cfg.Dialect<MsSql2008Dialect>();
                                                       cfg.KeywordsAutoImport = Hbm2DDLKeyWords.AutoQuote;
-                                                      cfg.SchemaAction = SchemaAutoAction.Create;
                                                   });
 
             configuration.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
             SchemaMetadataUpdater.QuoteTableAndColumns(configuration);
-            
+
             return configuration;
         }
     }
