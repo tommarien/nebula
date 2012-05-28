@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using Nebula.Infrastructure.Domain;
+using Nebula.Domain.Base;
 
-namespace Nebula.UnitTests.Nebula.Infrastructure.Domain
+namespace Nebula.UnitTests.Nebula.Domain.Base
 {
     [TestFixture]
     public class ValueObjectTests

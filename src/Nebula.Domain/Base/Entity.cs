@@ -1,4 +1,4 @@
-﻿namespace Nebula.Infrastructure.Domain
+﻿namespace Nebula.Domain.Base
 {
     public interface IEntity
     {
