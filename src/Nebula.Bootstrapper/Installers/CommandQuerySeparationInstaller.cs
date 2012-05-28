@@ -18,7 +18,11 @@ namespace Nebula.Bootstrapper.Installers
 
             container.Register(Classes.FromAssemblyContaining<ValidateUserCommandHandler>()
                                    .BasedOn<ICommandHandler>()
-                                   .Configure(c => c.Interceptors<AutoTransactionInterceptor>())
+                                   .Configure(c =>
+                                                  {
+                                                      c.Interceptors<AutoTransactionInterceptor>();
+                                                      c.Interceptors<TracingInterceptor>();
+                                                  })
                                    .WithServiceFirstInterface().LifestyleTransient());
 
             //Querying
@@ -27,7 +31,11 @@ namespace Nebula.Bootstrapper.Installers
             container.Register(Classes.FromAssemblyContaining<ValidateUserCommandHandler>()
                                    .BasedOn<IQuery>()
                                    .WithServiceFirstInterface()
-                                   .Configure(c => c.Interceptors<AutoTransactionInterceptor>())
+                                   .Configure(c =>
+                                                  {
+                                                      c.Interceptors<AutoTransactionInterceptor>();
+                                                      c.Interceptors<TracingInterceptor>();
+                                                  })
                                    .LifestyleTransient());
         }
     }

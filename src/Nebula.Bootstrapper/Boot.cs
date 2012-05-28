@@ -1,4 +1,5 @@
-﻿using Castle.Facilities.TypedFactory;
+﻿using Castle.Facilities.Logging;
+using Castle.Facilities.TypedFactory;
 using Castle.Windsor;
 using Nebula.Bootstrapper.Installers;
 
@@ -14,7 +15,8 @@ namespace Nebula.Bootstrapper
 
             container
                 .Install(new CommandQuerySeparationInstaller())
-                .Install(new NHibernateInstaller());
+                .Install(new NHibernateInstaller())
+                .Install(new TracingInstaller());
 
             return container;
         }
@@ -22,6 +24,7 @@ namespace Nebula.Bootstrapper
         public static void ExplainFacilitiesToWindsor(IWindsorContainer container)
         {
             container.AddFacility<TypedFactoryFacility>();
+            container.AddFacility<LoggingFacility>(f => f.UseLog4Net().WithAppConfig());
         }
     }
 }
