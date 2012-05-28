@@ -2,7 +2,7 @@
 using Nebula.Domain.Registration;
 using Nebula.Domain.Registration.Queries;
 
-namespace Nebula.Services.Registration
+namespace Nebula.Data.Queries.Registration
 {
     public class GetUserAccountByUserNameQueryHandler : IGetUserAccountByUserNameQuery
     {

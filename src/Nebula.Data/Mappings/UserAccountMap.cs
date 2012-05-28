@@ -3,7 +3,7 @@ using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using Nebula.Domain.Registration;
 
-namespace Nebula.Services.Mappings
+namespace Nebula.Data.Mappings
 {
     public class UserAccountMap : ClassMapping<UserAccount>
     {

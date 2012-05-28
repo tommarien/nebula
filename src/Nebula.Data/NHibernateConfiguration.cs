@@ -4,7 +4,7 @@ using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
 
-namespace Nebula.Services
+namespace Nebula.Data
 {
     public static class NHibernateConfiguration
     {

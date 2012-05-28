@@ -1,6 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Stat;
-using Nebula.Services;
+using Nebula.Data;
 
 namespace Nebula.IntegrationTests
 {

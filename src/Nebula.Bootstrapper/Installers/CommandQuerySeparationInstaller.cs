@@ -2,9 +2,10 @@
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using Nebula.Bootstrapper.Interceptors;
+using Nebula.Data;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Querying;
-using Nebula.Services.Registration;
 
 namespace Nebula.Bootstrapper.Installers
 {
@@ -16,7 +17,7 @@ namespace Nebula.Bootstrapper.Installers
             container.Register(Component.For<ICommandHandlerFactory>().AsFactory());
             container.Register(Component.For<ICommandExecutor>().ImplementedBy<CommandExecutor>());
 
-            container.Register(Classes.FromAssemblyContaining<ValidateUserCommandHandler>()
+            container.Register(Classes.FromAssemblyContaining(typeof (NHibernateConfiguration))
                                    .BasedOn<ICommandHandler>()
                                    .Configure(c =>
                                                   {
@@ -28,7 +29,7 @@ namespace Nebula.Bootstrapper.Installers
             //Querying
             container.Register(Component.For<IQueryFactory>().AsFactory());
 
-            container.Register(Classes.FromAssemblyContaining<ValidateUserCommandHandler>()
+            container.Register(Classes.FromAssemblyContaining(typeof (NHibernateConfiguration))
                                    .BasedOn<IQuery>()
                                    .WithServiceFirstInterface()
                                    .Configure(c =>

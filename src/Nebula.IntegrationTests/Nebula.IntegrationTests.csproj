@@ -61,6 +61,7 @@
     <Compile Include="CrudFixture.cs" />
     <Compile Include="Fixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registration\GetUserAccountByUserNameQueryHandlerTests.cs" />
     <Compile Include="Registration\UserAccountCrud.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,13 +70,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Nebula.Data\Nebula.Data.csproj">
+      <Project>{84C37B7D-A7E7-4F2D-87A7-FE14CD4EC428}</Project>
+      <Name>Nebula.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nebula.Domain\Nebula.Domain.csproj">
       <Project>{B232A1D8-E2A7-41BE-9B64-15841F4B7BB5}</Project>
       <Name>Nebula.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nebula.Services\Nebula.Services.csproj">
-      <Project>{7571AD6A-0F25-4D78-BDD4-244D36570ECB}</Project>
-      <Name>Nebula.Services</Name>
+    <ProjectReference Include="..\Nebula.Infrastructure\Nebula.Infrastructure.csproj">
+      <Project>{4F9AD276-F9A5-4DD7-A970-5BB86149609F}</Project>
+      <Name>Nebula.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

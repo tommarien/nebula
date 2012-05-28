@@ -66,25 +66,25 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AutoTransactionInterceptor.cs" />
+    <Compile Include="Interceptors\AutoTransactionInterceptor.cs" />
     <Compile Include="Boot.cs" />
     <Compile Include="Installers\CommandQuerySeparationInstaller.cs" />
     <Compile Include="Installers\NHibernateInstaller.cs" />
     <Compile Include="Installers\TracingInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TracingInterceptor.cs" />
+    <Compile Include="Interceptors\TracingInterceptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Nebula.Data\Nebula.Data.csproj">
+      <Project>{84C37B7D-A7E7-4F2D-87A7-FE14CD4EC428}</Project>
+      <Name>Nebula.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nebula.Infrastructure\Nebula.Infrastructure.csproj">
       <Project>{4F9AD276-F9A5-4DD7-A970-5BB86149609F}</Project>
       <Name>Nebula.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nebula.Services\Nebula.Services.csproj">
-      <Project>{7571AD6A-0F25-4D78-BDD4-244D36570ECB}</Project>
-      <Name>Nebula.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

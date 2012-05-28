@@ -2,7 +2,8 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using NHibernate;
-using Nebula.Services;
+using Nebula.Bootstrapper.Interceptors;
+using Nebula.Data;
 
 namespace Nebula.Bootstrapper.Installers
 {

@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
+using Nebula.Contracts.Commands.Registration;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.MvcApplication.Models;
-using Nebula.Shared.Registration;
 
 namespace Nebula.MvcApplication.Controllers
 {
@@ -26,8 +26,8 @@ namespace Nebula.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var command = new ValidateUserCommand {UserName = model.UserName, Password = model.Password};
-                bool result = commandExecutor.Execute<ValidateUserCommand, OperationResult>(command);
+                var command = new LogOnUserCommand {UserName = model.UserName, Password = model.Password};
+                bool result = commandExecutor.Execute<LogOnUserCommand, OperationResult>(command);
 
                 if (result)
                 {

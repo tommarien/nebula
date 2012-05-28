@@ -122,13 +122,13 @@
       <Project>{480EBE65-BD22-45EA-B6CE-DB6EB9DEC545}</Project>
       <Name>Nebula.Bootstrapper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Nebula.Contracts\Nebula.Contracts.csproj">
+      <Project>{4342773A-3732-48A8-BFA2-90870F400B6A}</Project>
+      <Name>Nebula.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nebula.Infrastructure\Nebula.Infrastructure.csproj">
       <Project>{4F9AD276-F9A5-4DD7-A970-5BB86149609F}</Project>
       <Name>Nebula.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nebula.Shared\Nebula.Shared.csproj">
-      <Project>{FE53F824-A138-4585-BFBB-3F03F6A204E2}</Project>
-      <Name>Nebula.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

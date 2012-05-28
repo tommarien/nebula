@@ -2,7 +2,7 @@
 using Castle.Core.Logging;
 using Castle.DynamicProxy;
 
-namespace Nebula.Bootstrapper
+namespace Nebula.Bootstrapper.Interceptors
 {
     public class TracingInterceptor : IInterceptor
     {

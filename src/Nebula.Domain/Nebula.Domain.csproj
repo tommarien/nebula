@@ -54,10 +54,6 @@
       <Project>{4F9AD276-F9A5-4DD7-A970-5BB86149609F}</Project>
       <Name>Nebula.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nebula.Shared\Nebula.Shared.csproj">
-      <Project>{FE53F824-A138-4585-BFBB-3F03F6A204E2}</Project>
-      <Name>Nebula.Shared</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
