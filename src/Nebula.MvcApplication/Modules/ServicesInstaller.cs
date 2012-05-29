@@ -1,7 +1,7 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Nebula.Bootstrapper.Interceptors;
+using Nebula.MvcApplication.Services;
 
 namespace Nebula.MvcApplication.Modules
 {
@@ -9,11 +9,8 @@ namespace Nebula.MvcApplication.Modules
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Classes.FromThisAssembly()
-                                   .InNamespace("Nebula.MvcApplication.Services")
-                                   .WithServiceDefaultInterfaces()
-                                   .Configure(c => c.Interceptors<TracingInterceptor>())
-                                   .LifestylePerWebRequest());
+            container.Register(Component.For<IFormsAuthenticationService>()
+                                   .ImplementedBy<FormsAuthenticationService>());
         }
     }
 }
