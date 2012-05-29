@@ -8,7 +8,7 @@ using Rhino.Mocks;
 namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
 {
     [TestFixture]
-    public class Account_LogOffTests : HttpContextFixture
+    public class AccountLogOffTests : HttpContextFixture
     {
         private AccountController controller;
         private ICommandDispatcher commandDispatcher;
