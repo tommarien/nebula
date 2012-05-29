@@ -9,12 +9,12 @@ namespace Nebula.MvcApplication.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ICommandExecutor commandExecutor;
+        private readonly ICommandDispatcher commandDispatcher;
         private readonly IFormsAuthenticationService formsAuthenticationService;
 
-        public AccountController(ICommandExecutor commandExecutor, IFormsAuthenticationService formsAuthenticationService)
+        public AccountController(ICommandDispatcher commandDispatcher, IFormsAuthenticationService formsAuthenticationService)
         {
-            this.commandExecutor = commandExecutor;
+            this.commandDispatcher = commandDispatcher;
             this.formsAuthenticationService = formsAuthenticationService;
         }
 
@@ -29,7 +29,7 @@ namespace Nebula.MvcApplication.Controllers
             if (ModelState.IsValid)
             {
                 var command = new LogOnUserCommand {UserName = model.UserName, Password = model.Password};
-                bool result = commandExecutor.Execute<LogOnUserCommand, OperationResult>(command);
+                bool result = commandDispatcher.Dispatch<LogOnUserCommand, OperationResult>(command);
 
                 if (result)
                 {

@@ -15,7 +15,7 @@ namespace Nebula.Bootstrapper.Installers
         {
             // Commanding
             container.Register(Component.For<ICommandHandlerFactory>().AsFactory());
-            container.Register(Component.For<ICommandExecutor>().ImplementedBy<CommandExecutor>());
+            container.Register(Component.For<ICommandDispatcher>().ImplementedBy<CommandDispatcher>());
 
             container.Register(Classes.FromAssemblyContaining(typeof (NHibernateConfiguration))
                                    .BasedOn<ICommandHandler>()

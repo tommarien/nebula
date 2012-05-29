@@ -11,14 +11,14 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
     public class Account_LogOffTests : HttpContextFixture
     {
         private AccountController controller;
-        private ICommandExecutor commandExecutor;
+        private ICommandDispatcher commandDispatcher;
         private IFormsAuthenticationService formsAuthenticationService;
 
         protected override void AfterSetUp()
         {
-            commandExecutor = MockRepository.GenerateMock<ICommandExecutor>();
+            commandDispatcher = MockRepository.GenerateMock<ICommandDispatcher>();
             formsAuthenticationService = MockRepository.GenerateMock<IFormsAuthenticationService>();
-            controller = new AccountController(commandExecutor, formsAuthenticationService);
+            controller = new AccountController(commandDispatcher, formsAuthenticationService);
             controller.ControllerContext = new ControllerContext(HttpContext, RouteData, controller);
         }
 
