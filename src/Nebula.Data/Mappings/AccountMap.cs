@@ -5,9 +5,9 @@ using Nebula.Domain.Registration;
 
 namespace Nebula.Data.Mappings
 {
-    public class UserAccountMap : ClassMapping<UserAccount>
+    public class AccountMap : ClassMapping<Account>
     {
-        public UserAccountMap()
+        public AccountMap()
         {
             Schema("Registration");
 

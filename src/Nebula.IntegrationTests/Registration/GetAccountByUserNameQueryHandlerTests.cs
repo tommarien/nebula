@@ -5,17 +5,17 @@ using Nebula.Domain.Registration;
 namespace Nebula.IntegrationTests.Registration
 {
     [TestFixture]
-    public class GetUserAccountByUserNameQueryHandlerTests : AutoRollbackFixture
+    public class GetAccountByUserNameQueryHandlerTests : AutoRollbackFixture
     {
-        private GetUserAccountByUserNameQueryHandler handler;
-        private UserAccount user1;
+        private GetAccountByUserNameQueryHandler handler;
+        private Account user1;
 
         protected override void AfterSetUp()
         {
-            handler = new GetUserAccountByUserNameQueryHandler(Session);
+            handler = new GetAccountByUserNameQueryHandler(Session);
 
             // Basic user
-            user1 = new UserAccount
+            user1 = new Account
                         {
                             UserName = "user1",
                             Password = "secret"
@@ -26,7 +26,7 @@ namespace Nebula.IntegrationTests.Registration
         }
 
         [Test]
-        public void Should_return_null_if_the_userAccount_does_not_exist()
+        public void Should_return_null_if_the_account_does_not_exist()
         {
             var verify = handler.Execute("user2");
 
@@ -34,7 +34,7 @@ namespace Nebula.IntegrationTests.Registration
         }
 
         [Test]
-        public void Should_return_the_expected_userAccount_if_exists()
+        public void Should_return_the_expected_account_if_exists()
         {
             var verify = handler.Execute(user1.UserName);
 

@@ -3,10 +3,10 @@
 namespace Nebula.Migrations
 {
     [Migration(1)]
-    public class M0001_Add_Registration_UserAccount : Migration
+    public class M0001_Add_Registration_Account : Migration
     {
         public const string SchemaName = "Registration";
-        public const string TableName = "UserAccount";
+        public const string TableName = "Account";
 
         public override void Up()
         {

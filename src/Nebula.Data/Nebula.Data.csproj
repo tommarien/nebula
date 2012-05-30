@@ -61,10 +61,10 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Commands\Registration\LogOnUserCommandHandler.cs" />
-    <Compile Include="Mappings\UserAccountMap.cs" />
+    <Compile Include="Mappings\AccountMap.cs" />
     <Compile Include="NHibernateConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\Registration\GetUserAccountByUserNameQueryHandler.cs" />
+    <Compile Include="Queries\Registration\GetAccountByUserNameQueryHandler.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

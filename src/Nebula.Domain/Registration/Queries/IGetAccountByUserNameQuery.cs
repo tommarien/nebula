@@ -2,7 +2,7 @@
 
 namespace Nebula.Domain.Registration.Queries
 {
-    public interface IGetUserAccountByUserNameQuery : IQuery<string, UserAccount>
+    public interface IGetAccountByUserNameQuery : IQuery<string, Account>
     {
     }
 }

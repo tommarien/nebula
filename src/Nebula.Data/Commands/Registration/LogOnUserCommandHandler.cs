@@ -7,16 +7,16 @@ namespace Nebula.Data.Commands.Registration
 {
     public class LogOnUserCommandHandler : ICommandHandler<LogOnUserCommand, OperationResult>
     {
-        private readonly IGetUserAccountByUserNameQuery getUserAccountByUserNameQuery;
+        private readonly IGetAccountByUserNameQuery getAccountByUserNameQuery;
 
-        public LogOnUserCommandHandler(IGetUserAccountByUserNameQuery getUserAccountByUserNameQuery)
+        public LogOnUserCommandHandler(IGetAccountByUserNameQuery getAccountByUserNameQuery)
         {
-            this.getUserAccountByUserNameQuery = getUserAccountByUserNameQuery;
+            this.getAccountByUserNameQuery = getAccountByUserNameQuery;
         }
 
         public OperationResult Handle(LogOnUserCommand command)
         {
-            var account = getUserAccountByUserNameQuery.Execute(command.UserName);
+            var account = getAccountByUserNameQuery.Execute(command.UserName);
             return account != null && account.Password == command.Password;
         }
     }

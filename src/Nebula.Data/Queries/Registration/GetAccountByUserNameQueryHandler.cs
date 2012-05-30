@@ -4,18 +4,18 @@ using Nebula.Domain.Registration.Queries;
 
 namespace Nebula.Data.Queries.Registration
 {
-    public class GetUserAccountByUserNameQueryHandler : IGetUserAccountByUserNameQuery
+    public class GetAccountByUserNameQueryHandler : IGetAccountByUserNameQuery
     {
         private readonly ISession session;
 
-        public GetUserAccountByUserNameQueryHandler(ISession session)
+        public GetAccountByUserNameQueryHandler(ISession session)
         {
             this.session = session;
         }
 
-        public UserAccount Execute(string parameters)
+        public Account Execute(string parameters)
         {
-            return session.QueryOver<UserAccount>()
+            return session.QueryOver<Account>()
                 .Where(ua => ua.UserName == parameters)
                 .SingleOrDefault();
         }

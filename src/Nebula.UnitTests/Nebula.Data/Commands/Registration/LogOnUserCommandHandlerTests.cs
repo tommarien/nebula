@@ -13,7 +13,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         [SetUp]
         public void Setup()
         {
-            query = MockRepository.GenerateMock<IGetUserAccountByUserNameQuery>();
+            query = MockRepository.GenerateMock<IGetAccountByUserNameQuery>();
             commandHandler = new LogOnUserCommandHandler(query);
             command = new LogOnUserCommand
                           {
@@ -23,13 +23,13 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         }
 
         private LogOnUserCommandHandler commandHandler;
-        private IGetUserAccountByUserNameQuery query;
+        private IGetAccountByUserNameQuery query;
         private LogOnUserCommand command;
 
         [Test]
         public void Should_invoke_the_query_as_expected()
         {
-            query.Expect(q => q.Execute(command.UserName)).Return(new UserAccount());
+            query.Expect(q => q.Execute(command.UserName)).Return(new Account());
 
             commandHandler.Handle(command);
 
@@ -39,7 +39,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         [Test]
         public void Should_return_false_if_the_password_does_not_match()
         {
-            query.Stub(q => q.Execute(command.UserName)).Return(new UserAccount {Password = "anothersecret"});
+            query.Stub(q => q.Execute(command.UserName)).Return(new Account {Password = "anothersecret"});
 
             bool result = commandHandler.Handle(command);
 
@@ -59,7 +59,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         [Test]
         public void Should_return_true_if_the_password_matches()
         {
-            query.Stub(q => q.Execute(command.UserName)).Return(new UserAccount {Password = command.Password});
+            query.Stub(q => q.Execute(command.UserName)).Return(new Account {Password = command.Password});
 
             bool result = commandHandler.Handle(command);
 
