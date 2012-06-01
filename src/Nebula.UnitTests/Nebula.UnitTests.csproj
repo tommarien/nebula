@@ -61,6 +61,7 @@
     <Compile Include="Nebula.Infrastructure\Commanding\TestCommand.cs" />
     <Compile Include="Nebula.Domain\Base\ValueObjectTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountLogOnGetTests.cs" />
+    <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountLogOnPostTests.cs" />
     <Compile Include="Nebula.MvcApplication\HttpContextFixture.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountLogOffTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
