@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using Nebula.Domain.Registration;
 
 namespace Nebula.IntegrationTests.Registration
@@ -19,12 +20,14 @@ namespace Nebula.IntegrationTests.Registration
         {
             entity.UserName = "test";
             entity.Password = "secret";
+            entity.LastLogOnDate = DateTime.Now.Date;
         }
 
         protected override void AssertAreEqual(Account expectedEntity, Account actualEntity)
         {
             Assert.AreEqual(expectedEntity.UserName, actualEntity.UserName);
             Assert.AreEqual(expectedEntity.Password, actualEntity.Password);
+            Assert.AreEqual(expectedEntity.LastLogOnDate, actualEntity.LastLogOnDate);
         }
 
         protected override void AssertValidId(Account entity)

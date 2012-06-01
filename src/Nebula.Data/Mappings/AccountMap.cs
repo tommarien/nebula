@@ -11,7 +11,9 @@ namespace Nebula.Data.Mappings
         {
             Schema("Registration");
 
-            Id(ua => ua.Id, m => { m.Generator(Generators.Identity); });
+            DynamicUpdate(true);
+
+            Id(ua => ua.Id, m => m.Generator(Generators.Identity));
 
             Property(ua => ua.UserName, m =>
                                             {
@@ -27,6 +29,8 @@ namespace Nebula.Data.Mappings
                                                 m.Length(20);
                                                 m.NotNullable(true);
                                             });
+
+            Property(ua => ua.LastLogOnDate);
         }
     }
 }

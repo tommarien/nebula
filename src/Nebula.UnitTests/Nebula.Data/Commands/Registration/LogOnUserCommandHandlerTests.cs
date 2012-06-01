@@ -1,8 +1,10 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using Nebula.Contracts.Commands.Registration;
 using Nebula.Data.Commands.Registration;
 using Nebula.Domain.Registration;
 using Nebula.Domain.Registration.Queries;
+using Nebula.Infrastructure;
 using Rhino.Mocks;
 
 namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
@@ -64,6 +66,20 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
             bool result = commandHandler.Handle(command);
 
             Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Should_set_LastLogonDate()
+        {
+            var account = new Account {Password = command.Password};
+            query.Stub(q => q.Execute(command.UserName)).Return(account);
+
+            var aDate = new DateTime(2012, 1, 1);
+            SystemClock.Mock(aDate);
+
+            commandHandler.Handle(command);
+
+            Assert.AreEqual(aDate, account.LastLogOnDate);
         }
     }
 }

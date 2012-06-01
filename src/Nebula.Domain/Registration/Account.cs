@@ -1,4 +1,5 @@
-﻿using Nebula.Domain.Base;
+﻿using System;
+using Nebula.Domain.Base;
 
 namespace Nebula.Domain.Registration
 {
@@ -6,5 +7,6 @@ namespace Nebula.Domain.Registration
     {
         public virtual string UserName { get; set; }
         public virtual string Password { get; set; }
+        public virtual DateTime? LastLogOnDate { get; set; }
     }
 }

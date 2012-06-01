@@ -1,5 +1,6 @@
 ﻿using Nebula.Contracts.Commands.Registration;
 using Nebula.Domain.Registration.Queries;
+using Nebula.Infrastructure;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
 
@@ -17,7 +18,11 @@ namespace Nebula.Data.Commands.Registration
         public OperationResult Handle(LogOnUserCommand command)
         {
             var account = getAccountByUserNameQuery.Execute(command.UserName);
-            return account != null && account.Password == command.Password;
+            if (account == null || account.Password != command.Password) return false;
+
+            account.LastLogOnDate = SystemClock.Now;
+
+            return true;
         }
     }
 }
