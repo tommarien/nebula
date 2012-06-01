@@ -124,4 +124,10 @@ namespace :db do
 		migrator.task = "rollback:all"
 		migrator.verbose = true
 	end
+	
+	desc "rollbacks and reruns all migrations"
+	task :reset, [:connection] do |t, args|
+		Rake::Task["db:rollback"].invoke(args.connection)
+		Rake::Task["db:migrate"].invoke(args.connection)
+	end
 end
