@@ -28,7 +28,6 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
             var result = controller.LogOn();
 
             Assert.IsInstanceOf<ViewResult>(result);
-            Assert.AreEqual("", ((ViewResult) result).ViewName);
         }
     }
 }

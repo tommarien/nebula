@@ -34,20 +34,10 @@ namespace Nebula.MvcApplication.Controllers
                 if (result)
                 {
                     formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "The user name or password provided is incorrect.");
-                }
+
+                ModelState.AddModelError(string.Empty, "The user name or password provided is incorrect.");
             }
 
             // If we got this far, something failed, redisplay form
