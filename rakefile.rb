@@ -2,6 +2,7 @@ require 'rake/clean'
 require 'albacore'
 require 'version_bumper'
 require 'configatron'
+require 'erb'
 
 #global variables
 @build_folder = File.expand_path("./build");
@@ -80,19 +81,9 @@ namespace :env do
 		init(args.env)
 		
 		Dir.glob("**/*.*.template") do |filename|
-			str = File.read(filename)
-			str = str.gsub(/#\{(configatron\..*)}/) do |v|
-				c = eval($1)
-				if c.nil?
-					puts "The config parameter #{$1} in #{filename} is missing"
-					puts "Check your configuration files and re-run this task."
-					fail
-				end
-				c
-			end
-			
+			erb = ERB.new(File.read(filename))
 			filename[".template"] = ""
-			File.open(filename, 'w') { |f| f.write(str) }
+			File.open(filename, 'w') { |f| f.write erb.result() }
 		end
 		
 		puts "Configured application for environment"
