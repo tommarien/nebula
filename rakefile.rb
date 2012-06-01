@@ -21,7 +21,7 @@ end
 
 @env_root_path = File.expand_path('.')
 @env_sourcepath = File.join("#{@env_root_path}", "src")
-@env_cfg_path = File.join("#{@env_root_path}", "config", "configatron")
+@env_cfg_path = File.join("#{@env_root_path}", "config")
 
 @env_packagespath = File.expand_path('./packages')
 @env_templatespath = File.expand_path('./templates')
@@ -49,7 +49,7 @@ namespace :env do
 
 	def init(env=nil)
 		root = defined?(Rails) ? ::Rails.root : FileUtils.pwd
-        base_dir = File.expand_path(File.join(root, 'config', 'configatron'))
+        base_dir = File.expand_path(File.join(root, 'config'))
 		if env.nil?
 			env = defined?(Rails) ? ::Rails.env : 'development'
 		end
