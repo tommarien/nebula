@@ -1,6 +1,6 @@
 ﻿using Nebula.Infrastructure.Commanding;
 
-namespace Nebula.Contracts.Commands.Registration
+namespace Nebula.Contracts.Registration
 {
     public class LogOnUserCommand : ICommand
     {

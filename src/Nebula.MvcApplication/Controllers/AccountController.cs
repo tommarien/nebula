@@ -1,5 +1,6 @@
-﻿using System.Web.Mvc;
-using Nebula.Contracts.Commands.Registration;
+﻿using System;
+using System.Web.Mvc;
+using Nebula.Contracts.Registration;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.MvcApplication.Models;
@@ -28,13 +29,20 @@ namespace Nebula.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var command = new LogOnUserCommand {UserName = model.UserName, Password = model.Password};
-                bool result = commandDispatcher.Dispatch<LogOnUserCommand, OperationResult>(command);
-
-                if (result)
+                try
                 {
-                    formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
-                    return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
+                    var command = new LogOnUserCommand {UserName = model.UserName, Password = model.Password};
+                    bool result = commandDispatcher.Dispatch<LogOnUserCommand, OperationResult>(command);
+
+                    if (result)
+                    {
+                        formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
+                        return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
+                    }
+                }
+                catch (UnknownAccountException e)
+                {
+                    // Noop
                 }
 
                 ModelState.AddModelError(string.Empty, "The user name or password provided is incorrect.");

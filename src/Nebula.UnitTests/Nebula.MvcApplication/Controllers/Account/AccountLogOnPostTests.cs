@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using NUnit.Framework;
-using Nebula.Contracts.Commands.Registration;
+using Nebula.Contracts.Registration;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.MvcApplication.Controllers;
@@ -41,6 +41,18 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
             Assert.IsFalse(controller.ModelState.IsValid);
             Assert.IsInstanceOf<ViewResult>(result);
             Assert.AreSame(logOnModel, ((ViewResult) result).Model);
+        }
+
+        [Test]
+        public void Should_add_an_error_if_the_command_throws_unknown_account_exception()
+        {
+            commandDispatcher.Stub(d => d.Dispatch<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Throw(new UnknownAccountException());
+
+            var result = controller.LogOn(logOnModel, "/");
+
+            Assert.IsFalse(controller.ModelState.IsValid);
+            Assert.IsInstanceOf<ViewResult>(result);
+            Assert.AreSame(logOnModel, ((ViewResult)result).Model);
         }
 
         [Test]

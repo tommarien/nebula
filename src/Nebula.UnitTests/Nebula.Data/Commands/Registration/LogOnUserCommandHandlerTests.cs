@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Nebula.Contracts.Commands.Registration;
+using Nebula.Contracts.Registration;
 using Nebula.Data.Commands.Registration;
 using Nebula.Domain.Registration;
 using Nebula.Domain.Registration.Queries;
@@ -49,16 +49,6 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         }
 
         [Test]
-        public void Should_return_false_if_user_does_not_exist()
-        {
-            query.Stub(q => q.Execute(command.UserName)).Return(null);
-
-            bool result = commandHandler.Handle(command);
-
-            Assert.IsFalse(result);
-        }
-
-        [Test]
         public void Should_return_true_if_the_password_matches()
         {
             query.Stub(q => q.Execute(command.UserName)).Return(new Account {Password = command.Password});
@@ -80,6 +70,14 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
             commandHandler.Handle(command);
 
             Assert.AreEqual(aDate, account.LastLogOnDate);
+        }
+
+        [Test]
+        public void Should_throw_unknown_account_exception_if_user_does_not_exist()
+        {
+            query.Stub(q => q.Execute(command.UserName)).Return(null);
+
+            Assert.Throws<UnknownAccountException>(() => commandHandler.Handle(command));
         }
     }
 }
