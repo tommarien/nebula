@@ -15,7 +15,8 @@ namespace Nebula.Migrations
             Create.Table(TableName).InSchema(SchemaName)
                 .WithColumn("Id").AsInt32().Identity().PrimaryKey().NotNullable()
                 .WithColumn("UserName").AsAnsiString(20).NotNullable().Unique()
-                .WithColumn("Password").AsAnsiString(20).NotNullable();
+                .WithColumn("Password").AsAnsiString(20).NotNullable()
+                .WithColumn("LastLogOnDate").AsDateTime().Nullable();
 
             Insert.IntoTable(TableName).InSchema(SchemaName).Row(new {UserName = "admin", Password = "admin"});
         }

@@ -40,9 +40,9 @@ namespace Nebula.MvcApplication.Controllers
                         return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
                     }
                 }
-                catch (UnknownAccountException e)
+                catch (UnknownAccountException)
                 {
-                    // Noop
+                    // Do nothing as we will not give sensitive info back
                 }
 
                 ModelState.AddModelError(string.Empty, "The user name or password provided is incorrect.");
