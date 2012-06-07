@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Nebula.Contracts.Registration;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
@@ -52,14 +51,23 @@ namespace Nebula.MvcApplication.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/LogOff
-
         public ActionResult LogOff()
         {
             formsAuthenticationService.SignOut();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public ActionResult MyProfile()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
         }
 
         ////
@@ -97,15 +105,7 @@ namespace Nebula.MvcApplication.Controllers
         //    return View(model);
         //}
 
-        ////
-        //// GET: /Account/ChangePassword
-
-        //[Authorize]
-        //public ActionResult ChangePassword()
-        //{
-        //    return View();
-        //}
-
+       
         ////
         //// POST: /Account/ChangePassword
 

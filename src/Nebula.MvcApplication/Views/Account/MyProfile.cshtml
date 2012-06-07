@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Your profile";
+}
+
+<h2>Your profile</h2>
+<p>
+    On the right you can find the different actions you could do. 
+</p>
+
+@section sidebar 
+{
+    <h2>Actions</h2>
+    <ul id="sidenav">
+        <li>@Html.ActionLink("Change your password", "ChangePassword", "Account")</li>
+    </ul>
+}

@@ -7,7 +7,7 @@ namespace Nebula.MvcApplication.Helpers
 {
     public static class MenuItemHelper
     {
-        public static MvcHtmlString MenuItem(this HtmlHelper helper, string linkText, string actionName, string controllerName)
+        public static MvcHtmlString SelectedActionLink(this HtmlHelper helper, string linkText, string actionName, string controllerName)
         {
             string currentControllerName = (string) helper.ViewContext.RouteData.Values["controller"];
             string currentActionName = (string) helper.ViewContext.RouteData.Values["action"];
