@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Nebula.Contracts.Registration;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
@@ -105,41 +106,44 @@ namespace Nebula.MvcApplication.Controllers
         //    return View(model);
         //}
 
-        ////
-        //// POST: /Account/ChangePassword
+        [Authorize]
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // ChangePassword will throw an exception rather
+                // than return false in certain failure scenarios.
+                bool changePasswordSucceeded;
+                try
+                {
+                    var command = new ChangePasswordCommand
+                                      {
+                                          UserName = User.Identity.Name,
+                                          OldPassword = model.OldPassword,
+                                          NewPassword = model.NewPassword
+                                      };
 
-        //[Authorize]
-        //[HttpPost]
-        //public ActionResult ChangePassword(ChangePasswordModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        // ChangePassword will throw an exception rather
-        //        // than return false in certain failure scenarios.
-        //        bool changePasswordSucceeded;
-        //        try
-        //        {
-        //            MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-        //            changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
-        //        }
-        //        catch (Exception)
-        //        {
-        //            changePasswordSucceeded = false;
-        //        }
+                    changePasswordSucceeded = commandDispatcher.Dispatch<ChangePasswordCommand, OperationResult>(command);
+                }
+                catch (Exception)
+                {
+                    changePasswordSucceeded = false;
+                }
 
-        //        if (changePasswordSucceeded)
-        //        {
-        //            return RedirectToAction("ChangePasswordSuccess");
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-        //        }
-        //    }
+                if (changePasswordSucceeded)
+                {
+                    return RedirectToAction("ChangePasswordSuccess");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                }
+            }
 
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
 
         public ActionResult ChangePasswordSuccess()
         {
