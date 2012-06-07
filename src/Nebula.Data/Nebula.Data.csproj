@@ -60,6 +60,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Commands\Registration\ChangePasswordCommandHandler.cs" />
     <Compile Include="Commands\Registration\LogOnUserCommandHandler.cs" />
     <Compile Include="Mappings\AccountMap.cs" />
     <Compile Include="NHibernateConfiguration.cs" />

@@ -105,7 +105,6 @@ namespace Nebula.MvcApplication.Controllers
         //    return View(model);
         //}
 
-       
         ////
         //// POST: /Account/ChangePassword
 
@@ -142,12 +141,9 @@ namespace Nebula.MvcApplication.Controllers
         //    return View(model);
         //}
 
-        ////
-        //// GET: /Account/ChangePasswordSuccess
-
-        //public ActionResult ChangePasswordSuccess()
-        //{
-        //    return View();
-        //}
+        public ActionResult ChangePasswordSuccess()
+        {
+            return View();
+        }
     }
 }

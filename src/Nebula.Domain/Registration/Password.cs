@@ -8,11 +8,12 @@ namespace Nebula.Domain.Registration
     {
         private readonly string value;
 
-        protected Password()
+        private Password()
         {
         }
 
         public Password(string value)
+            : this()
         {
             if (!IsValid(value))
                 throw new BusinessException("Password cannot be null or empty.");
