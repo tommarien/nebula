@@ -12,14 +12,14 @@ namespace Nebula.IntegrationTests.Registration
             return new Account
                        {
                            UserName = "jennajameson",
-                           Password = "letmein"
+                           Password = new Password("letmein")
                        };
         }
 
         protected override void ModifyEntity(Account entity)
         {
             entity.UserName = "test";
-            entity.Password = "secret";
+            entity.Password = new Password("secret");
             entity.LastLogOnDate = DateTime.Now.Date;
         }
 

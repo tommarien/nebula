@@ -46,6 +46,7 @@
     <Compile Include="Base\Entity.cs" />
     <Compile Include="Base\ValueObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registration\Password.cs" />
     <Compile Include="Registration\Queries\IGetAccountByUserNameQuery.cs" />
     <Compile Include="Registration\Account.cs" />
   </ItemGroup>

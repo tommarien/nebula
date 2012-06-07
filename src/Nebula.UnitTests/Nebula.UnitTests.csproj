@@ -57,6 +57,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Nebula.Data\Commands\Registration\LogOnUserCommandHandlerTests.cs" />
+    <Compile Include="Nebula.Domain\Registration\PasswordTests.cs" />
     <Compile Include="Nebula.Infrastructure\Commanding\CommandDispatcherTests.cs" />
     <Compile Include="Nebula.Infrastructure\Commanding\TestCommand.cs" />
     <Compile Include="Nebula.Domain\Base\ValueObjectTests.cs" />

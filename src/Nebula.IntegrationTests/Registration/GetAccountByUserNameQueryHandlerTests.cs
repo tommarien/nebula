@@ -18,7 +18,7 @@ namespace Nebula.IntegrationTests.Registration
             user1 = new Account
                         {
                             UserName = "user1",
-                            Password = "secret"
+                            Password = new Password("secret")
                         };
 
             Session.Save(user1);

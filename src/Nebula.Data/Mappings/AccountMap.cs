@@ -13,24 +13,26 @@ namespace Nebula.Data.Mappings
 
             DynamicUpdate(true);
 
-            Id(ua => ua.Id, m => m.Generator(Generators.Identity));
+            Id(account => account.Id, m => m.Generator(Generators.Identity));
 
-            Property(ua => ua.UserName, m =>
-                                            {
-                                                m.Type(NHibernateUtil.AnsiString);
-                                                m.Length(20);
-                                                m.NotNullable(true);
-                                                m.Unique(true);
-                                            });
+            Property(account => account.UserName, m =>
+                                                      {
+                                                          m.Type(NHibernateUtil.AnsiString);
+                                                          m.Length(20);
+                                                          m.NotNullable(true);
+                                                          m.Unique(true);
+                                                      });
 
-            Property(ua => ua.Password, m =>
-                                            {
-                                                m.Type(NHibernateUtil.AnsiString);
-                                                m.Length(20);
-                                                m.NotNullable(true);
-                                            });
+            Component(account => account.Password, m => m.Property(p => p.Value, p =>
+                                                                                     {
+                                                                                         p.Type(NHibernateUtil.AnsiString);
+                                                                                         p.Column("Password");
+                                                                                         p.Access(Accessor.NoSetter);
+                                                                                         p.Length(20);
+                                                                                         p.NotNullable(true);
+                                                                                     }));
 
-            Property(ua => ua.LastLogOnDate);
+            Property(account => account.LastLogOnDate);
         }
     }
 }

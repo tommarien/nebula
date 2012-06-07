@@ -20,7 +20,7 @@ namespace Nebula.Data.Commands.Registration
             var account = getAccountByUserNameQuery.Execute(command.UserName);
             if (account == null) throw new UnknownAccountException(command.UserName);
 
-            if (account.Password != command.Password) return false;
+            if (!account.Password.Verify(command.Password)) return false;
 
             account.LastLogOnDate = SystemClock.Now;
 

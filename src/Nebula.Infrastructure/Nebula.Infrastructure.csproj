@@ -45,6 +45,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BusinessException.cs" />
     <Compile Include="Commanding\CommandDispatcher.cs" />
     <Compile Include="Commanding\CommandResults\OperationResult.cs" />
     <Compile Include="Commanding\ICommandDispatcher.cs" />
