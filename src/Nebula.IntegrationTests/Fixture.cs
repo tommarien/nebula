@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using NHibernate.Cfg;
 using NHibernate.Stat;
 using Nebula.Data;
 
@@ -11,6 +12,8 @@ namespace Nebula.IntegrationTests
             SetSessionFactory();
         }
 
+        protected static Configuration Configuration { get; private set; }
+
         protected static ISessionFactory SessionFactory { get; private set; }
 
         protected IStatistics Statistics
@@ -20,8 +23,8 @@ namespace Nebula.IntegrationTests
 
         private static void SetSessionFactory()
         {
-            var configuration = NHibernateConfiguration.Build();
-            SessionFactory = configuration.BuildSessionFactory();
+            Configuration = NHibernateConfiguration.Build();
+            SessionFactory = Configuration.BuildSessionFactory();
         }
 
         protected ISession CreateSession()
