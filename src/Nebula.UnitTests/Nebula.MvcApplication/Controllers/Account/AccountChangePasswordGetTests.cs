@@ -21,16 +21,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         }
 
         [Test]
-        public void Should_only_be_available_for_authenticated_users()
-        {
-            var attributes = typeof (AccountController).GetMethod("ChangePassword")
-                .GetCustomAttributes(typeof (AuthorizeAttribute), true);
-
-            CollectionAssert.IsNotEmpty(attributes, "The action method should have been decorated with an AuthorizeAttribute");
-        }
-
-        [Test]
-        public void Should_return_MyProfile_View()
+        public void Should_return_viewResult()
         {
             var result = controller.ChangePassword();
 

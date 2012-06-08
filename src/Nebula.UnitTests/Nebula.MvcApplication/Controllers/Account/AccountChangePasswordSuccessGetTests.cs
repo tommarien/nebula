@@ -1,4 +1,4 @@
-﻿using System.Web.Mvc;
+using System.Web.Mvc;
 using NUnit.Framework;
 using Nebula.Infrastructure.Commanding;
 using Nebula.MvcApplication.Controllers;
@@ -8,7 +8,7 @@ using Rhino.Mocks;
 namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
 {
     [TestFixture]
-    public class AccountLogOnGetTests : HttpContextFixture
+    public class AccountChangePasswordSuccessGetTests : HttpContextFixture
     {
         private AccountController controller;
         private ICommandDispatcher commandDispatcher;
@@ -23,9 +23,9 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         }
 
         [Test]
-        public void Should_return_viewResult()
+        public void Should_return_view()
         {
-            var result = controller.LogOn();
+            var result = controller.ChangePasswordSuccess();
 
             Assert.IsInstanceOf<ViewResult>(result);
         }

@@ -63,6 +63,8 @@
     <Compile Include="Nebula.Infrastructure\Commanding\TestCommand.cs" />
     <Compile Include="Nebula.Domain\Base\ValueObjectTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountChangePasswordGetTests.cs" />
+    <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountChangePasswordPostTests.cs" />
+    <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountChangePasswordSuccessGetTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountLogOnGetTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountLogOnPostTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountMyProfileGetTests.cs" />
