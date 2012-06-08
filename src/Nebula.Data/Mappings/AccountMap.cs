@@ -19,18 +19,23 @@ namespace Nebula.Data.Mappings
                                                       {
                                                           m.Type(NHibernateUtil.AnsiString);
                                                           m.Length(20);
-                                                          m.NotNullable(true);
-                                                          m.Unique(true);
                                                       });
 
-            Component(account => account.Password, m => m.Property(p => p.Value, p =>
-                                                                                     {
-                                                                                         p.Type(NHibernateUtil.AnsiString);
-                                                                                         p.Column("Password");
-                                                                                         p.Access(Accessor.NoSetter);
-                                                                                         p.Length(20);
-                                                                                         p.NotNullable(true);
-                                                                                     }));
+            Component(account => account.Password, m =>
+                                                       {
+                                                           m.Property(p => p.Hash, p =>
+                                                                                       {
+                                                                                           p.Type(NHibernateUtil.AnsiString);
+                                                                                           p.Access(Accessor.NoSetter);
+                                                                                           p.Length(44);
+                                                                                       });
+                                                           m.Property(p => p.Salt, p =>
+                                                                                       {
+                                                                                           p.Type(NHibernateUtil.AnsiString);
+                                                                                           p.Access(Accessor.NoSetter);
+                                                                                           p.Length(28);
+                                                                                       });
+                                                       });
 
             Property(account => account.LastLogOnDate);
         }

@@ -8,24 +8,6 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
     public class PasswordTests
     {
         [Test]
-        public void Equality_Should_return_false_if_other_value()
-        {
-            var password1 = new Password("test");
-            var password2 = new Password("tst");
-
-            Assert.AreNotEqual(password1, password2);
-        }
-
-        [Test]
-        public void Equality_Should_return_true_if_same_value()
-        {
-            var password1 = new Password("test");
-            var password2 = new Password("test");
-
-            Assert.AreEqual(password1, password2);
-        }
-
-        [Test]
         [TestCase("")]
         [TestCase(" ")]
         [TestCase(null)]
@@ -50,11 +32,14 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         }
 
         [Test]
-        public void Verify_returns_true_if_passwords_are_equal()
+        [TestCase("admin")]
+        [TestCase("secret")]
+        [TestCase("This is a super pass 45")]
+        public void Verify_returns_true_if_passwords_are_equal(string value)
         {
-            var password = new Password("secret");
+            var password = new Password(value);
 
-            Assert.IsTrue(password.Verify("secret"));
+            Assert.IsTrue(password.Verify(value));
         }
     }
 }

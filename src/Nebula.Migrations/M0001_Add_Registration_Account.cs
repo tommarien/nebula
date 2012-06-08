@@ -15,10 +15,17 @@ namespace Nebula.Migrations
             Create.Table(TableName).InSchema(SchemaName)
                 .WithColumn("Id").AsInt32().Identity().PrimaryKey().NotNullable()
                 .WithColumn("UserName").AsAnsiString(20).NotNullable().Unique()
-                .WithColumn("Password").AsAnsiString(20).NotNullable()
+                .WithColumn("Hash").AsAnsiString(44).NotNullable()
+                .WithColumn("Salt").AsAnsiString(28).NotNullable()
                 .WithColumn("LastLogOnDate").AsDateTime().Nullable();
 
-            Insert.IntoTable(TableName).InSchema(SchemaName).Row(new {UserName = "admin", Password = "admin"});
+            Insert.IntoTable(TableName).InSchema(SchemaName)
+                .Row(new
+                         {
+                             UserName = "admin",
+                             Hash = "sxg8SwG3XptWVtWb7vXURUVVhLmkI5S7t2eusUqSOH0=",
+                             Salt = "ZUzwGoB4PyY5zC0TlDv0VqZIsj0="
+                         });
         }
 
         public override void Down()
