@@ -4,6 +4,7 @@ using System.Web.Routing;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Nebula.Bootstrapper;
+using Nebula.MvcApplication.Helpers;
 using Nebula.MvcApplication.Modules;
 
 namespace Nebula.MvcApplication
@@ -22,6 +23,14 @@ namespace Nebula.MvcApplication
             RegisterRoutes(RouteTable.Routes);
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterWindsor();
+
+            SetupLog4NetProperties();
+        }
+
+        private static void SetupLog4NetProperties()
+        {
+            log4net.GlobalContext.Properties["sessionId"] = new SessionIdProvider();
+            log4net.GlobalContext.Properties["UserName"] = new UserNameProvider();
         }
 
         private static void RegisterRoutes(RouteCollection routes)

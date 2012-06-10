@@ -84,6 +84,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlHelperEx.cs" />
+    <Compile Include="Helpers\SessionIdProvider.cs" />
+    <Compile Include="Helpers\UserNameProvider.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Modules\ControllersInstaller.cs" />
     <Compile Include="Modules\ServicesInstaller.cs" />
