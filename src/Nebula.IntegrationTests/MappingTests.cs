@@ -10,7 +10,7 @@ namespace Nebula.IntegrationTests
         [Category("Smoke")]
         public void Should_be_able_to_query_all_mapped_classes()
         {
-            using (var session = SessionFactory.OpenStatelessSession())
+            using (var session = SessionFactory.OpenSession())
             {
                 foreach (var persistentClass in Configuration.ClassMappings)
                 {
