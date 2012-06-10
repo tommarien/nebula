@@ -5,7 +5,7 @@ using System.Web.Mvc.Html;
 
 namespace Nebula.MvcApplication.Helpers
 {
-    public static class MenuItemHelper
+    public static class HtmlHelperEx
     {
         public static MvcHtmlString SelectedActionLink(this HtmlHelper helper, string linkText, string actionName, string controllerName)
         {

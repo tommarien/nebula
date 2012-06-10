@@ -112,8 +112,6 @@ namespace Nebula.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                // ChangePassword will throw an exception rather
-                // than return false in certain failure scenarios.
                 bool changePasswordSucceeded;
                 try
                 {
@@ -132,13 +130,9 @@ namespace Nebula.MvcApplication.Controllers
                 }
 
                 if (changePasswordSucceeded)
-                {
                     return RedirectToAction("ChangePasswordSuccess");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-                }
+
+                ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
             }
 
             // If we got this far, something failed, redisplay form

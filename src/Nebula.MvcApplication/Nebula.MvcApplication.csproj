@@ -83,7 +83,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\MenuItemHelper.cs" />
+    <Compile Include="Helpers\HtmlHelperEx.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Modules\ControllersInstaller.cs" />
     <Compile Include="Modules\ServicesInstaller.cs" />
