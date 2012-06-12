@@ -1,5 +1,4 @@
 ﻿using System;
-using Nebula.Domain.Base;
 
 namespace Nebula.Domain.Registration
 {

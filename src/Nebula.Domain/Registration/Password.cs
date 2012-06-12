@@ -25,16 +25,6 @@ namespace Nebula.Domain.Registration
             salt = Convert.ToBase64String(bytes.Salt);
         }
 
-        public virtual string Hash
-        {
-            get { return hash; }
-        }
-
-        public virtual string Salt
-        {
-            get { return salt; }
-        }
-
         public virtual bool Verify(string password)
         {
             if (password == null) return false;
