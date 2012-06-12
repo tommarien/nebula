@@ -22,7 +22,7 @@ namespace Nebula.Data.Commands.Registration
 
             if (!account.Password.Equals(command.OldPassword)) return false;
 
-            account.Password = new Password(command.NewPassword);
+            account.ChangePassword(new Password(command.NewPassword));
 
             return true;
         }

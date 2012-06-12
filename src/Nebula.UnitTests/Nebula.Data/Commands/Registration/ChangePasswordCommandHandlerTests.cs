@@ -29,11 +29,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
 
         private Account BuildAccount()
         {
-            return new Account
-                       {
-                           UserName = "userx",
-                           Password = new Password("secret")
-                       };
+            return new Account(new UserName("userx"), new Password("secret"));
         }
 
         [Test]
@@ -60,7 +56,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         public void Should_return_true_if_the_password_matches()
         {
             var account = BuildAccount();
-            account.Password = new Password(command.OldPassword);
+            account.ChangePassword(new Password(command.OldPassword));
 
             query.Stub(q => q.Execute(command.UserName)).Return(account);
 
@@ -81,7 +77,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         public void Should_update_the_password()
         {
             var account = BuildAccount();
-            account.Password = new Password(command.OldPassword);
+            account.ChangePassword(new Password(command.OldPassword));
 
             query.Stub(q => q.Execute(command.UserName)).Return(account);
 

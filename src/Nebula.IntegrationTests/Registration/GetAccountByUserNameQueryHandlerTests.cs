@@ -15,11 +15,7 @@ namespace Nebula.IntegrationTests.Registration
             handler = new GetAccountByUserNameQueryHandler(Session);
 
             // Basic user
-            user1 = new Account
-                        {
-                            UserName = "user1",
-                            Password = new Password("secret")
-                        };
+            user1 = new Account(new UserName("user1"), new Password("secret"));
 
             Session.Save(user1);
             FlushAndClear();

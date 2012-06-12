@@ -16,7 +16,7 @@ namespace Nebula.Data.Queries.Registration
         public Account Execute(string parameters)
         {
             return session.QueryOver<Account>()
-                .Where(ua => ua.UserName == parameters)
+                .Where(ua => ua.UserName.Value == parameters)
                 .SingleOrDefault();
         }
     }
