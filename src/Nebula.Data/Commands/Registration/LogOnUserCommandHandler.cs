@@ -18,7 +18,7 @@ namespace Nebula.Data.Commands.Registration
         public OperationResult Handle(LogOnUserCommand command)
         {
             var account = getAccountByUserNameQuery.Execute(command.UserName);
-            if (account == null) throw new UnknownAccountException(command.UserName);
+            if (account == null) return false;
 
             if (!account.Password.Equals(command.Password)) return false;
 

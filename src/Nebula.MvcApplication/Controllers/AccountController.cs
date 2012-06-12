@@ -29,24 +29,17 @@ namespace Nebula.MvcApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    var command = new LogOnUserCommand {UserName = model.UserName, Password = model.Password};
-                    bool result = commandDispatcher.Dispatch<LogOnUserCommand, OperationResult>(command);
+                var command = new LogOnUserCommand {UserName = model.UserName, Password = model.Password};
+                bool result = commandDispatcher.Dispatch<LogOnUserCommand, OperationResult>(command);
 
-                    if (result)
-                    {
-                        formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
-                        return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
-                    }
-                }
-                catch (UnknownAccountException)
+                if (result)
                 {
-                    // Do nothing as we will not give sensitive info back
+                    formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
+                    return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
                 }
-
-                ModelState.AddModelError(string.Empty, "The user name or password provided is incorrect.");
             }
+
+            ModelState.AddModelError(string.Empty, "The user name or password provided is incorrect.");
 
             // If we got this far, something failed, redisplay form
             return View(model);

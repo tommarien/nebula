@@ -44,18 +44,6 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         }
 
         [Test]
-        public void Should_add_an_error_if_the_command_throws_unknown_account_exception()
-        {
-            commandDispatcher.Stub(d => d.Dispatch<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Throw(new UnknownAccountException());
-
-            var result = controller.LogOn(logOnModel, "/");
-
-            Assert.IsFalse(controller.ModelState.IsValid);
-            Assert.IsInstanceOf<ViewResult>(result);
-            Assert.AreSame(logOnModel, ((ViewResult)result).Model);
-        }
-
-        [Test]
         public void Should_dispatch_the_expected_command()
         {
             commandDispatcher.Expect(
