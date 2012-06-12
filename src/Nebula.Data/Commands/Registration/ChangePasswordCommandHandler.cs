@@ -20,7 +20,7 @@ namespace Nebula.Data.Commands.Registration
             var account = accountByUserNameQuery.Execute(command.UserName);
             if (account == null) throw new UnknownAccountException(command.UserName);
 
-            if (!account.Password.Verify(command.OldPassword)) return false;
+            if (!account.Password.Equals(command.OldPassword)) return false;
 
             account.Password = new Password(command.NewPassword);
 

@@ -4,7 +4,7 @@ using Nebula.Infrastructure;
 
 namespace Nebula.Domain.Registration
 {
-    public class Password
+    public class Password : IEquatable<string>
     {
         private const int HashSize = 32;
         private readonly string hash;
@@ -25,16 +25,16 @@ namespace Nebula.Domain.Registration
             salt = Convert.ToBase64String(bytes.Salt);
         }
 
-        public virtual bool Verify(string password)
-        {
-            if (password == null) return false;
-            var deriveBytes = new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt));
-            return hash.Equals(Convert.ToBase64String(deriveBytes.GetBytes(HashSize)));
-        }
-
         public static bool IsValid(string password)
         {
             return !string.IsNullOrWhiteSpace(password);
+        }
+
+        public bool Equals(string other)
+        {
+            if (other == null) return false;
+            var deriveBytes = new Rfc2898DeriveBytes(other, Convert.FromBase64String(salt));
+            return hash.Equals(Convert.ToBase64String(deriveBytes.GetBytes(HashSize)));
         }
     }
 }

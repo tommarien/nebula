@@ -87,7 +87,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
 
             commandHandler.Handle(command);
 
-            Assert.IsTrue(account.Password.Verify(command.NewPassword));
+            Assert.IsTrue(account.Password.Equals(command.NewPassword));
         }
     }
 }
