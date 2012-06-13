@@ -72,6 +72,7 @@
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountMyProfileGetTests.cs" />
     <Compile Include="Nebula.MvcApplication\HttpContextFixture.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountLogOffTests.cs" />
+    <Compile Include="ObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

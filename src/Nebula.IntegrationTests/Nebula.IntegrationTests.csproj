@@ -82,6 +82,10 @@
       <Project>{4F9AD276-F9A5-4DD7-A970-5BB86149609F}</Project>
       <Name>Nebula.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Nebula.UnitTests\Nebula.UnitTests.csproj">
+      <Project>{DC4EF299-3EBD-4445-9C26-05DA6EEF7BA3}</Project>
+      <Name>Nebula.UnitTests</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

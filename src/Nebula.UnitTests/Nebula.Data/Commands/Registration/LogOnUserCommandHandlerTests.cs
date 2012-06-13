@@ -31,7 +31,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         [Test]
         public void Should_invoke_the_query_as_expected()
         {
-            query.Expect(q => q.Execute(command.UserName)).Return(new Account(new UserName("userx"), new Password("anothersecret")));
+            query.Expect(q => q.Execute(command.UserName)).Return(ObjectMother.CreateAccount("userx", "anothersecret"));
 
             commandHandler.Handle(command);
 
@@ -41,7 +41,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         [Test]
         public void Should_return_false_if_the_password_does_not_match()
         {
-            query.Stub(q => q.Execute(command.UserName)).Return(new Account(new UserName("userx"), new Password("anothersecret")));
+            query.Stub(q => q.Execute(command.UserName)).Return(ObjectMother.CreateAccount("userx", "anothersecret"));
 
             bool result = commandHandler.Handle(command);
 
@@ -61,7 +61,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         [Test]
         public void Should_return_true_if_the_password_matches()
         {
-            query.Stub(q => q.Execute(command.UserName)).Return(new Account(new UserName("userx"), new Password(command.Password)));
+            query.Stub(q => q.Execute(command.UserName)).Return(ObjectMother.CreateAccount("userx", command.Password));
 
             bool result = commandHandler.Handle(command);
 
@@ -71,8 +71,8 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         [Test]
         public void Should_set_LastLogonDate()
         {
-            var account = new Account(new UserName("userx"), new Password(command.Password));
-            ;
+            var account = ObjectMother.CreateAccount("userx", command.Password);
+            
             query.Stub(q => q.Execute(command.UserName)).Return(account);
 
             var aDate = new DateTime(2012, 1, 1);

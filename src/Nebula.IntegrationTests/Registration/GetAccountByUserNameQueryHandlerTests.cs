@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using Nebula.Data.Queries.Registration;
 using Nebula.Domain.Registration;
+using Nebula.UnitTests;
 
 namespace Nebula.IntegrationTests.Registration
 {
@@ -15,7 +16,7 @@ namespace Nebula.IntegrationTests.Registration
             handler = new GetAccountByUserNameQueryHandler(Session);
 
             // Basic user
-            user1 = new Account(new UserName("user1"), new Password("secret"));
+            user1 = ObjectMother.CreateAccount("user1", "secret");
 
             Session.Save(user1);
             FlushAndClear();

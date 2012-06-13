@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using Nebula.Contracts.Registration;
 using Nebula.Data.Commands.Registration;
-using Nebula.Domain.Registration;
 using Nebula.Domain.Registration.Queries;
 using Rhino.Mocks;
 
@@ -27,15 +26,10 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         private IGetAccountByUserNameQuery query;
         private ChangePasswordCommand command;
 
-        private Account BuildAccount()
-        {
-            return new Account(new UserName("userx"), new Password("secret"));
-        }
-
         [Test]
         public void Should_invoke_the_query_as_expected()
         {
-            query.Expect(q => q.Execute(command.UserName)).Return(BuildAccount());
+            query.Expect(q => q.Execute(command.UserName)).Return(ObjectMother.CreateAccount("userx", "secret"));
 
             commandHandler.Handle(command);
 
@@ -45,7 +39,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         [Test]
         public void Should_return_false_if_the_password_does_not_match()
         {
-            query.Stub(q => q.Execute(command.UserName)).Return(BuildAccount());
+            query.Stub(q => q.Execute(command.UserName)).Return(ObjectMother.CreateAccount("userx", "secret"));
 
             var result = commandHandler.Handle(command);
 
@@ -55,8 +49,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         [Test]
         public void Should_return_true_if_the_password_matches()
         {
-            var account = BuildAccount();
-            account.ChangePassword(new Password(command.OldPassword));
+            var account = ObjectMother.CreateAccount("userx", command.OldPassword);
 
             query.Stub(q => q.Execute(command.UserName)).Return(account);
 
@@ -76,8 +69,7 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
         [Test]
         public void Should_update_the_password()
         {
-            var account = BuildAccount();
-            account.ChangePassword(new Password(command.OldPassword));
+            var account = ObjectMother.CreateAccount("userx", command.OldPassword);
 
             query.Stub(q => q.Execute(command.UserName)).Return(account);
 
