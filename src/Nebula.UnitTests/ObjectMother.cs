@@ -6,7 +6,7 @@ namespace Nebula.UnitTests
     {
         public static Account CreateAccount(string userName, string password)
         {
-            return new Account(new UserName(userName), new Password(password));
+            return new Account(userName, new Password(password));
         }
     }
 }

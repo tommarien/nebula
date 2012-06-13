@@ -15,13 +15,12 @@ namespace Nebula.Data.Mappings
 
             Id(account => account.Id, m => m.Generator(Generators.Identity));
 
-            Component(account => account.UserName, m => m.Property(p => p.Value, v =>
-                                                                                     {
-                                                                                         v.Column("UserName");
-                                                                                         v.Type(NHibernateUtil.AnsiString);
-                                                                                         v.Access(Accessor.NoSetter);
-                                                                                         v.Length(20);
-                                                                                     }));
+            Property(account => account.UserName, m =>
+                                                      {
+                                                          m.Update(false);
+                                                          m.Type(NHibernateUtil.AnsiString);
+                                                          m.Length(20);
+                                                      });
 
             Component(account => account.Password, m =>
                                                        {

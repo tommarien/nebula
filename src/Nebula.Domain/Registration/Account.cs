@@ -1,4 +1,5 @@
 ﻿using System;
+using Nebula.Infrastructure;
 
 namespace Nebula.Domain.Registration
 {
@@ -8,17 +9,18 @@ namespace Nebula.Domain.Registration
         {
         }
 
-        public Account(UserName userName, Password password)
+        public Account(string userName, Password password)
             : this()
         {
-            if (userName == null) throw new ArgumentNullException("userName");
+            if (string.IsNullOrWhiteSpace(userName)) throw new InvalidStateException("UserName cannot be null or empty.");
             if (password == null) throw new ArgumentNullException("password");
 
             UserName = userName;
             Password = password;
         }
 
-        public virtual UserName UserName { get; protected set; }
+        public virtual string UserName { get; protected set; }
+
         public virtual Password Password { get; protected set; }
 
         public virtual DateTime? LastLogOnDate { get; set; }

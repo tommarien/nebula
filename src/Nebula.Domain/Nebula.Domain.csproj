@@ -48,7 +48,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration\Queries\IGetAccountByUserNameQuery.cs" />
     <Compile Include="Registration\Account.cs" />
-    <Compile Include="Registration\UserName.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nebula.Contracts\Nebula.Contracts.csproj">
