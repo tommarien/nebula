@@ -53,6 +53,7 @@
     <Compile Include="Commanding\ICommandHandler.cs" />
     <Compile Include="Commanding\ICommandHandlerFactory.cs" />
     <Compile Include="IHandle.cs" />
+    <Compile Include="InvalidStateException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Querying\IQuery.cs" />
     <Compile Include="Querying\IQueryFactory.cs" />

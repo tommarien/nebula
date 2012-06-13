@@ -18,7 +18,7 @@ namespace Nebula.Domain.Registration
             : this()
         {
             if (!IsValid(password))
-                throw new BusinessException("Password cannot be null or empty.");
+                throw new InvalidStateException("Password cannot be null or empty.");
 
             var bytes = new Rfc2898DeriveBytes(password, 20);
             hash = Convert.ToBase64String(bytes.GetBytes(HashSize));

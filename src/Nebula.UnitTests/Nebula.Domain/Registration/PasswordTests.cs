@@ -37,9 +37,9 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         [TestCase("")]
         [TestCase(" ")]
         [TestCase(null)]
-        public void Should_throw_businessException_if_invalid(string password)
+        public void Should_throw_invalidStateException_if_invalid(string password)
         {
-            Assert.Throws<BusinessException>(() => new Password(password));
+            Assert.Throws<InvalidStateException>(() => new Password(password));
         }
     }
 }
