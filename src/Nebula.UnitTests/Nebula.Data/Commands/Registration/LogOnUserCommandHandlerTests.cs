@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using Nebula.Contracts.Registration;
 using Nebula.Data.Commands.Registration;
-using Nebula.Domain.Registration;
 using Nebula.Domain.Registration.Queries;
 using Nebula.Infrastructure;
 using Rhino.Mocks;
@@ -66,6 +65,17 @@ namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
             bool result = commandHandler.Handle(command);
 
             Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Throws_InactiveAccountException_if_the_account_has_been_deactivated()
+        {
+            var account = ObjectMother.CreateAccount("userx", command.Password);
+            account.IsActive = false;
+
+            query.Stub(q => q.Execute(command.UserName)).Return(account);
+
+            Assert.Throws<InactiveAccountException>(() => commandHandler.Handle(command));
         }
 
         [Test]

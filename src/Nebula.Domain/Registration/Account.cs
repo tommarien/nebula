@@ -7,6 +7,7 @@ namespace Nebula.Domain.Registration
     {
         protected Account()
         {
+            IsActive = true;
         }
 
         public Account(string userName, Password password)
@@ -22,6 +23,8 @@ namespace Nebula.Domain.Registration
         public virtual string UserName { get; protected set; }
 
         public virtual Password Password { get; protected set; }
+
+        public virtual bool IsActive { get; set; }
 
         public virtual DateTime? LastLogOnDate { get; set; }
 

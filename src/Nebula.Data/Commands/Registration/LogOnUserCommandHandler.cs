@@ -19,6 +19,7 @@ namespace Nebula.Data.Commands.Registration
         {
             var account = getAccountByUserNameQuery.Execute(command.UserName);
             if (account == null) return false;
+            if (!account.IsActive) throw new InactiveAccountException(command.UserName);
 
             if (!account.Password.Equals(command.Password)) return false;
 

@@ -30,5 +30,12 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         {
             Assert.Throws<ArgumentNullException>(() => new Account("johnDoe", null));
         }
+
+        [Test]
+        public void Ctor_Should_set_IsActive_to_true_by_default()
+        {
+            var account = ObjectMother.CreateAccount("userx", "secret");
+            Assert.IsTrue(account.IsActive);
+        }
     }
 }

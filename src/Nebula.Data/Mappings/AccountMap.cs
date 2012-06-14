@@ -39,7 +39,7 @@ namespace Nebula.Data.Mappings
                                                                                       p.Length(28);
                                                                                   });
                                                        });
-
+            Property(account => account.IsActive);
             Property(account => account.LastLogOnDate);
         }
     }

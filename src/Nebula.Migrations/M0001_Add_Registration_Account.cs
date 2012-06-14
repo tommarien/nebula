@@ -17,6 +17,7 @@ namespace Nebula.Migrations
                 .WithColumn("UserName").AsAnsiString(20).NotNullable().Unique()
                 .WithColumn("Hash").AsAnsiString(44).NotNullable()
                 .WithColumn("Salt").AsAnsiString(28).NotNullable()
+                .WithColumn("IsActive").AsBoolean().NotNullable().WithDefaultValue(true)
                 .WithColumn("LastLogOnDate").AsDateTime().Nullable();
 
             Insert.IntoTable(TableName).InSchema(SchemaName)
