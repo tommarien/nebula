@@ -1,4 +1,5 @@
 ﻿using System;
+using Nebula.Contracts.Registration;
 using Nebula.Infrastructure;
 
 namespace Nebula.Domain.Registration
@@ -26,12 +27,28 @@ namespace Nebula.Domain.Registration
 
         public virtual bool IsActive { get; set; }
 
-        public virtual DateTime? LastLogOnDate { get; set; }
+        public virtual DateTime? LastLogOnDate { get; protected set; }
 
         public virtual void ChangePassword(Password password)
         {
             if (password == null) throw new ArgumentNullException("password");
             Password = password;
+        }
+
+        public virtual bool LogOn(string password)
+        {
+            GuardAgainstInactivity();
+
+            if (!Password.Equals(password)) return false;
+
+            LastLogOnDate = SystemClock.Now;
+
+            return true;
+        }
+
+        private void GuardAgainstInactivity()
+        {
+            if (!IsActive) throw new InactiveAccountException(UserName);
         }
     }
 }

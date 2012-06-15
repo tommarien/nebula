@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Nebula.Contracts.Registration;
 using Nebula.Domain.Registration;
 using Nebula.Infrastructure;
 
@@ -36,6 +37,43 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         {
             var account = ObjectMother.CreateAccount("userx", "secret");
             Assert.IsTrue(account.IsActive);
+        }
+
+        [Test]
+        public void LogOn_Returns_true_if_everything_is_ok()
+        {
+            var account = ObjectMother.CreateAccount("userx", "secret");
+
+            Assert.IsTrue(account.LogOn("secret"));
+        }
+
+        [Test]
+        public void LogOn_Sets_LastLogonDate_if_goes_as_expected()
+        {
+            var account = ObjectMother.CreateAccount("userx", "secret");
+            var januariTheFirst2011 = new DateTime(2011, 1, 1);
+            SystemClock.Mock(januariTheFirst2011);
+
+            account.LogOn("secret");
+
+            Assert.AreEqual(januariTheFirst2011, account.LastLogOnDate);
+        }
+
+        [Test]
+        public void LogOn_Should_return_false_if_password_is_different()
+        {
+            var account = ObjectMother.CreateAccount("userx", "secret");
+
+            Assert.IsFalse(account.LogOn("wrong"));
+        }
+
+        [Test]
+        public void LogOn_Throws_InactiveAccountException_if_account_is_inactive()
+        {
+            var account = ObjectMother.CreateAccount("userx", "secret");
+            account.IsActive = false;
+
+            Assert.Throws<InactiveAccountException>(() => account.LogOn("secret"));
         }
     }
 }
