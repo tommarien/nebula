@@ -24,7 +24,7 @@ namespace Nebula.Bootstrapper
         public static void ExplainFacilitiesToWindsor(IWindsorContainer container)
         {
             container.AddFacility<TypedFactoryFacility>();
-            container.AddFacility<LoggingFacility>(f => f.UseLog4Net().WithAppConfig());
+            container.AddFacility<LoggingFacility>(f => f.UseLog4Net().WithConfig("log4net.config"));
         }
     }
 }

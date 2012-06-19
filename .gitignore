@@ -12,3 +12,4 @@ log.txt
 # mstest test results
 TestResults
 *connectionstrings.config
+src/Nebula.MvcApplication/log4net.config
