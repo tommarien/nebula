@@ -15,6 +15,12 @@
 				<level value="WARN" />
 				<appender-ref ref="LogFileAppender" />
 		</root>
-		<logger name="Nebula"><level value="INFO" /></logger>
-		<logger name="NHibernate.SQL"><level value ="DEBUG" /></logger>
+		<logger name="Nebula">
+			<level value="INFO" />
+		</logger>
+		<% if configatron.logging.showsql %>
+		<logger name="NHibernate.SQL">
+			<level value ="DEBUG" />
+		</logger>
+		<% end %>
 </log4net>
