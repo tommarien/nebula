@@ -86,6 +86,7 @@
     <Compile Include="Helpers\HtmlHelperEx.cs" />
     <Compile Include="Helpers\SessionIdProvider.cs" />
     <Compile Include="Helpers\UserNameProvider.cs" />
+    <Compile Include="HttpModules\AuthenticationModule.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Modules\ControllersInstaller.cs" />
     <Compile Include="Modules\ServicesInstaller.cs" />
@@ -148,6 +149,7 @@
     <Content Include="log4net.config" />
     <None Include="log4net.config.template" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,7 +6,7 @@ using Nebula.Domain.Registration.Queries;
 using Nebula.Infrastructure;
 using Rhino.Mocks;
 
-namespace Nebula.UnitTests.Nebula.Data.Commands.Registration
+namespace Nebula.UnitTests.Nebula.Data.Registration
 {
     [TestFixture]
     public class LogOnUserCommandHandlerTests

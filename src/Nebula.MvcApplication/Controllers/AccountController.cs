@@ -12,11 +12,13 @@ namespace Nebula.MvcApplication.Controllers
     {
         private readonly ICommandDispatcher commandDispatcher;
         private readonly IFormsAuthenticationService formsAuthenticationService;
+        private readonly IGetRolesForUserQuery getRolesForUserQuery;
 
-        public AccountController(ICommandDispatcher commandDispatcher, IFormsAuthenticationService formsAuthenticationService)
+        public AccountController(ICommandDispatcher commandDispatcher, IFormsAuthenticationService formsAuthenticationService, IGetRolesForUserQuery getRolesForUserQuery)
         {
             this.commandDispatcher = commandDispatcher;
             this.formsAuthenticationService = formsAuthenticationService;
+            this.getRolesForUserQuery = getRolesForUserQuery;
         }
 
         public ActionResult LogOn()
@@ -36,7 +38,11 @@ namespace Nebula.MvcApplication.Controllers
 
                     if (result)
                     {
-                        formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
+                        // Get roles of user
+                        var roles = getRolesForUserQuery.Execute(model.UserName);
+
+                        formsAuthenticationService.SignIn(model.UserName, model.RememberMe, roles);
+                        
                         return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
                     }
                 }

@@ -41,6 +41,16 @@ namespace Nebula.Data.Mappings
                                                        });
             Property(account => account.IsActive);
             Property(account => account.LastLogOnDate);
+
+            Set(account => account.Roles, m =>
+                                              {
+                                                  m.Table("AccountRole");
+                                                  m.Schema("Registration");
+                                                  m.Access(Accessor.NoSetter);
+                                                  m.Key(k => k.Column("AccountId"));
+                                                  m.Cascade(Cascade.All);
+                                              },
+                m => m.Element(e => e.Column("RoleId")));
         }
     }
 }

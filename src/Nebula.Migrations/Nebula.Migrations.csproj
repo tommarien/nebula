@@ -49,6 +49,8 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="M0001_Add_Registration_Account.cs" />
+    <Compile Include="M0002_Add_Registration_Role.cs" />
+    <Compile Include="M0003_Add_Registration_AccountRole.cs" />
     <Compile Include="NebulaVersionMetaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -40,6 +40,16 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         }
 
         [Test]
+        public void Grant_Should_add_expected_role()
+        {
+            var account = ObjectMother.CreateAccount("userx", "secret");
+
+            account.Grant(Role.Administrator);
+
+            CollectionAssert.Contains(account.Roles, Role.Administrator);
+        }
+
+        [Test]
         public void LogOn_Returns_true_if_everything_is_ok()
         {
             var account = ObjectMother.CreateAccount("userx", "secret");

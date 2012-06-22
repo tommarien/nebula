@@ -67,6 +67,7 @@
     <Compile Include="NHibernateConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Registration\GetAccountByUserNameQueryHandler.cs" />
+    <Compile Include="Queries\Registration\GetRolesForUserQueryHandler.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using NUnit.Framework;
+using Nebula.Contracts.Registration;
 using Nebula.Infrastructure.Commanding;
 using Nebula.MvcApplication.Controllers;
 using Nebula.MvcApplication.Services;
@@ -18,7 +19,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         {
             commandDispatcher = MockRepository.GenerateStrictMock<ICommandDispatcher>();
             formsAuthenticationService = MockRepository.GenerateStrictMock<IFormsAuthenticationService>();
-            controller = new AccountController(commandDispatcher, formsAuthenticationService);
+            controller = new AccountController(commandDispatcher, formsAuthenticationService, MockRepository.GenerateStrictMock<IGetRolesForUserQuery>());
             controller.ControllerContext = new ControllerContext(HttpContext, RouteData, controller);
         }
 
