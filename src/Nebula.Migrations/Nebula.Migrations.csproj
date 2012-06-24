@@ -51,6 +51,7 @@
     <Compile Include="M0001_Add_Registration_Account.cs" />
     <Compile Include="M0002_Add_Registration_Role.cs" />
     <Compile Include="M0003_Add_Registration_AccountRole.cs" />
+    <Compile Include="M0004_Add_System_Log.cs" />
     <Compile Include="NebulaVersionMetaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

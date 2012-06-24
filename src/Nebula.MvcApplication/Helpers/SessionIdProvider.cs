@@ -6,7 +6,8 @@ namespace Nebula.MvcApplication.Helpers
     {
         public override string ToString()
         {
-            return HttpContext.Current.Session.SessionID;
+            var session = HttpContext.Current.Session;
+            return session == null ? "n/a" : session.SessionID;
         }
     }
 }
