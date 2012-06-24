@@ -22,11 +22,11 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [Test]
         public void Should_invoke_the_underlying_query_as_expected()
         {
-            const string userName = "admin";
+            var account = Accounts.Administrator.Build();
 
-            query.Expect(q => q.Execute(userName)).Return(ObjectMother.CreateAccount(userName, "secret"));
+            query.Expect(q => q.Execute(account.UserName)).Return(account);
 
-            queryHandler.Execute(userName);
+            queryHandler.Execute(account.UserName);
 
             query.VerifyAllExpectations();
         }
@@ -44,8 +44,7 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [Test]
         public void Should_return_expected_roles()
         {
-            var account = ObjectMother.CreateAccount("admin", "secret");
-            account.Grant(Role.Administrator);
+            var account = Accounts.Administrator.Build();
 
             query.Stub(q => q.Execute(Arg<string>.Is.Anything)).Return(account);
 

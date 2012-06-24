@@ -4,6 +4,7 @@ using Nebula.Contracts.Registration;
 using Nebula.Data.Commands.Registration;
 using Nebula.Domain.Registration.Queries;
 using Nebula.Infrastructure;
+using Nebula.UnitTests.Builders;
 using Rhino.Mocks;
 
 namespace Nebula.UnitTests.Nebula.Data.Registration
@@ -18,8 +19,8 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
             commandHandler = new LogOnUserCommandHandler(query);
             command = new LogOnUserCommand
                           {
-                              UserName = "userx",
-                              Password = "secret"
+                              UserName = AccountBuilder.DefaultUserName,
+                              Password = AccountBuilder.DefaultPassword
                           };
         }
 
@@ -30,7 +31,7 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [Test]
         public void Should_invoke_the_query_as_expected()
         {
-            query.Expect(q => q.Execute(command.UserName)).Return(ObjectMother.CreateAccount("userx", "anothersecret"));
+            query.Expect(q => q.Execute(command.UserName)).Return(new AccountBuilder().Build());
 
             commandHandler.Handle(command);
 
@@ -40,7 +41,7 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [Test]
         public void Should_return_false_if_the_password_does_not_match()
         {
-            query.Stub(q => q.Execute(command.UserName)).Return(ObjectMother.CreateAccount("userx", "anothersecret"));
+            query.Stub(q => q.Execute(command.UserName)).Return(new AccountBuilder().WithPassword("somethingelse").Build());
 
             bool result = commandHandler.Handle(command);
 
@@ -60,7 +61,7 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [Test]
         public void Should_return_true_if_the_password_matches()
         {
-            query.Stub(q => q.Execute(command.UserName)).Return(ObjectMother.CreateAccount("userx", command.Password));
+            query.Stub(q => q.Execute(command.UserName)).Return(new AccountBuilder().Build());
 
             bool result = commandHandler.Handle(command);
 
@@ -68,21 +69,10 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         }
 
         [Test]
-        public void Throws_InactiveAccountException_if_the_account_has_been_deactivated()
-        {
-            var account = ObjectMother.CreateAccount("userx", command.Password);
-            account.IsActive = false;
-
-            query.Stub(q => q.Execute(command.UserName)).Return(account);
-
-            Assert.Throws<InactiveAccountException>(() => commandHandler.Handle(command));
-        }
-
-        [Test]
         public void Should_set_LastLogonDate()
         {
-            var account = ObjectMother.CreateAccount("userx", command.Password);
-            
+            var account = new AccountBuilder().Build();
+
             query.Stub(q => q.Execute(command.UserName)).Return(account);
 
             var aDate = new DateTime(2012, 1, 1);
@@ -91,6 +81,18 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
             commandHandler.Handle(command);
 
             Assert.AreEqual(aDate, account.LastLogOnDate);
+        }
+
+        [Test]
+        public void Throws_InactiveAccountException_if_the_account_has_been_deactivated()
+        {
+            var account = new AccountBuilder()
+                .AsInactive()
+                .Build();
+
+            query.Stub(q => q.Execute(command.UserName)).Return(account);
+
+            Assert.Throws<InactiveAccountException>(() => commandHandler.Handle(command));
         }
     }
 }

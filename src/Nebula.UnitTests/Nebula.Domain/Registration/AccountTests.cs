@@ -12,7 +12,7 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         [Test]
         public void ChangePassword_Should_not_allow_null_password()
         {
-            var account = ObjectMother.CreateAccount("userx", "secret");
+            var account = new Account("jdoe", new Password("secret"));
 
             Assert.Throws<ArgumentNullException>(() => account.ChangePassword(null));
         }
@@ -35,14 +35,14 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         [Test]
         public void Ctor_Should_set_IsActive_to_true_by_default()
         {
-            var account = ObjectMother.CreateAccount("userx", "secret");
+            var account = new Account("jdoe", new Password("secret"));
             Assert.IsTrue(account.IsActive);
         }
 
         [Test]
         public void Grant_Should_add_expected_role()
         {
-            var account = ObjectMother.CreateAccount("userx", "secret");
+            var account = new Account("jdoe", new Password("secret"));
 
             account.Grant(Role.Administrator);
 
@@ -52,7 +52,7 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         [Test]
         public void LogOn_Returns_true_if_everything_is_ok()
         {
-            var account = ObjectMother.CreateAccount("userx", "secret");
+            var account = new Account("jdoe", new Password("secret"));
 
             Assert.IsTrue(account.LogOn("secret"));
         }
@@ -60,7 +60,7 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         [Test]
         public void LogOn_Sets_LastLogonDate_if_goes_as_expected()
         {
-            var account = ObjectMother.CreateAccount("userx", "secret");
+            var account = new Account("jdoe", new Password("secret"));
             var januariTheFirst2011 = new DateTime(2011, 1, 1);
             SystemClock.Mock(januariTheFirst2011);
 
@@ -72,7 +72,7 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         [Test]
         public void LogOn_Should_return_false_if_password_is_different()
         {
-            var account = ObjectMother.CreateAccount("userx", "secret");
+            var account = new Account("jdoe", new Password("secret"));
 
             Assert.IsFalse(account.LogOn("wrong"));
         }
@@ -80,8 +80,7 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         [Test]
         public void LogOn_Throws_InactiveAccountException_if_account_is_inactive()
         {
-            var account = ObjectMother.CreateAccount("userx", "secret");
-            account.IsActive = false;
+            var account = new Account("jdoe", new Password("secret")) {IsActive = false};
 
             Assert.Throws<InactiveAccountException>(() => account.LogOn("secret"));
         }
