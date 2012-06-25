@@ -1,6 +1,6 @@
 <log4net>
 		<appender name="AdoNetAppender" type="log4net.Appender.AdoNetAppender">
-				<bufferSize value="1" />
+				<bufferSize value="<%= configatron.logging.db.buffersize %>" />
 				<connectionType value="System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
 				<connectionString value="<%= configatron.connectionstrings.nebula %>" />
 				<commandText value="INSERT INTO [System].[Log] ([Date],[HostName],[Level],[Logger],[Message],[Exception],[SessionId],[UserName]) VALUES (@log_date, @host_name, @log_level, @logger, @message, @exception, @session_id, @username)" />
@@ -63,9 +63,9 @@
 								<conversionPattern value="%property{UserName}" />
 						</layout>
 				</parameter>
-				<threshold value="WARN"/>
+				<threshold value="<%= configatron.logging.db.minimumlevel %>"/>
 		</appender>
-		<appender name="LogFileAppender" type="log4net.Appender.RollingFileAppender" >
+		<appender name="FileAppender" type="log4net.Appender.RollingFileAppender" >
 				<param name="File" value="log.txt" />
 				<param name="AppendToFile" value="true" />
 				<rollingStyle value="Size" />
@@ -74,20 +74,26 @@
 				<staticLogFileName value="true" />
 				<lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
 				<layout type="log4net.Layout.PatternLayout">
-						<param name="ConversionPattern" value="%date %property{sessionId} - %property{UserName} %-5level %logger - %message%newline" />
+						<param name="ConversionPattern" value="%date %property{sessionId} %property{UserName} %-5level %logger - %message%newline" />
 				</layout>
 		</appender>
 		<root>
 				<level value="WARN" />
 				<appender-ref ref="AdoNetAppender" />
-				<appender-ref ref="LogFileAppender" />
+				<% if configatron.logging.file.enabled %>
+				<appender-ref ref="FileAppender" />
+				<% end %>
 		</root>
+		<% if configatron.logging.file.enabled %>
+		<% if configatron.logging.file.trace %>
 		<logger name="Nebula">
 				<level value="INFO" />
 		</logger>
-		<% if configatron.logging.showsql %>
+		<% end %>
+		<% if configatron.logging.file.showsql %>
 		<logger name="NHibernate.SQL">
 				<level value ="DEBUG" />
 		</logger>
+		<% end %>
 		<% end %>
 </log4net>
