@@ -1,11 +1,14 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Castle.Core.Logging;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Nebula.Bootstrapper;
 using Nebula.MvcApplication.Helpers;
 using Nebula.MvcApplication.Modules;
+using log4net;
 
 namespace Nebula.MvcApplication
 {
@@ -15,6 +18,7 @@ namespace Nebula.MvcApplication
     public class MvcApplication : HttpApplication
     {
         private static IWindsorContainer WindsorContainer;
+        private static ILogger Logger;
 
         protected void Application_Start()
         {
@@ -24,13 +28,15 @@ namespace Nebula.MvcApplication
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterWindsor();
 
+            Logger = WindsorContainer.Resolve<ILoggerFactory>().Create("Nebula.Application");
+
             SetupLog4NetProperties();
         }
 
         private static void SetupLog4NetProperties()
         {
-            log4net.GlobalContext.Properties["sessionId"] = new SessionIdProvider();
-            log4net.GlobalContext.Properties["UserName"] = new UserNameProvider();
+            GlobalContext.Properties["sessionId"] = new SessionIdProvider();
+            GlobalContext.Properties["UserName"] = new UserNameProvider();
         }
 
         private static void RegisterRoutes(RouteCollection routes)
@@ -56,6 +62,12 @@ namespace Nebula.MvcApplication
                 .Install(FromAssembly.This());
 
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(WindsorContainer.Kernel));
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var exception = Server.GetLastError().GetBaseException();
+            Logger.Error(exception.Message, exception);
         }
     }
 }

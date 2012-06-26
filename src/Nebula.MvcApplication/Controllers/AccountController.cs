@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
-using Nebula.Contracts.Registration;
+using Nebula.Contracts.Registration.Commands;
+using Nebula.Contracts.Registration.Exceptions;
+using Nebula.Contracts.Registration.Queries;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.MvcApplication.Models;
@@ -12,9 +14,10 @@ namespace Nebula.MvcApplication.Controllers
     {
         private readonly ICommandDispatcher commandDispatcher;
         private readonly IFormsAuthenticationService formsAuthenticationService;
-        private readonly IGetRolesForUserQuery getRolesForUserQuery;
+        private readonly IGetAccountRolesQuery getRolesForUserQuery;
 
-        public AccountController(ICommandDispatcher commandDispatcher, IFormsAuthenticationService formsAuthenticationService, IGetRolesForUserQuery getRolesForUserQuery)
+        public AccountController(ICommandDispatcher commandDispatcher, IFormsAuthenticationService formsAuthenticationService,
+                                 IGetAccountRolesQuery getRolesForUserQuery)
         {
             this.commandDispatcher = commandDispatcher;
             this.formsAuthenticationService = formsAuthenticationService;
@@ -42,7 +45,7 @@ namespace Nebula.MvcApplication.Controllers
                         var roles = getRolesForUserQuery.Execute(model.UserName);
 
                         formsAuthenticationService.SignIn(model.UserName, model.RememberMe, roles);
-                        
+
                         return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
                     }
                 }

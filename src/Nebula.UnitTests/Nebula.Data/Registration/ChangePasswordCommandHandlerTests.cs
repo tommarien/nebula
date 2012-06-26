@@ -1,9 +1,10 @@
 ﻿using NUnit.Framework;
-using Nebula.Contracts.Registration;
-using Nebula.Data.Commands.Registration;
+using Nebula.Contracts.Registration.Commands;
+using Nebula.Contracts.Registration.Exceptions;
+using Nebula.Data.Registration.Commands;
 using Nebula.Domain.Registration;
-using Nebula.Domain.Registration.Queries;
 using Nebula.Infrastructure.Commanding.CommandResults;
+using Nebula.Infrastructure.Querying;
 using Nebula.UnitTests.Builders;
 using Rhino.Mocks;
 
@@ -15,7 +16,7 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [SetUp]
         public void Setup()
         {
-            query = MockRepository.GenerateMock<IGetAccountByUserNameQuery>();
+            query = MockRepository.GenerateMock<IQuery<string, Account>>();
             commandHandler = new ChangePasswordCommandHandler(query);
             command = new ChangePasswordCommand
                           {
@@ -26,7 +27,7 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         }
 
         private ChangePasswordCommandHandler commandHandler;
-        private IGetAccountByUserNameQuery query;
+        private IQuery<string, Account> query;
         private ChangePasswordCommand command;
 
         [Test]

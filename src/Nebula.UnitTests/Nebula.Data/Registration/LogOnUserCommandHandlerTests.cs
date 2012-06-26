@@ -1,9 +1,11 @@
 ﻿using System;
 using NUnit.Framework;
-using Nebula.Contracts.Registration;
+using Nebula.Contracts.Registration.Commands;
+using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Data.Commands.Registration;
-using Nebula.Domain.Registration.Queries;
+using Nebula.Domain.Registration;
 using Nebula.Infrastructure;
+using Nebula.Infrastructure.Querying;
 using Nebula.UnitTests.Builders;
 using Rhino.Mocks;
 
@@ -15,7 +17,7 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [SetUp]
         public void Setup()
         {
-            query = MockRepository.GenerateMock<IGetAccountByUserNameQuery>();
+            query = MockRepository.GenerateMock<IQuery<string, Account>>();
             commandHandler = new LogOnUserCommandHandler(query);
             command = new LogOnUserCommand
                           {
@@ -25,7 +27,7 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         }
 
         private LogOnUserCommandHandler commandHandler;
-        private IGetAccountByUserNameQuery query;
+        private IQuery<string, Account> query;
         private LogOnUserCommand command;
 
         [Test]

@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using Nebula.Contracts.Registration;
+using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Domain.Registration;
 using Nebula.Infrastructure;
 

@@ -1,14 +1,14 @@
 ﻿using NHibernate;
 using Nebula.Domain.Registration;
-using Nebula.Domain.Registration.Queries;
+using Nebula.Infrastructure.Querying;
 
-namespace Nebula.Data.Queries.Registration
+namespace Nebula.Data.Registration.Queries
 {
-    public class GetAccountByUserNameQueryHandler : IGetAccountByUserNameQuery
+    public class GetAccountQueryHandler : IQuery<string, Account>
     {
         private readonly ISession session;
 
-        public GetAccountByUserNameQueryHandler(ISession session)
+        public GetAccountQueryHandler(ISession session)
         {
             this.session = session;
         }

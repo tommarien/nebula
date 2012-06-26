@@ -3,11 +3,11 @@ using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using Nebula.Domain.Registration;
 
-namespace Nebula.Data.Mappings
+namespace Nebula.Data.Registration.Mappings
 {
-    public class AccountMap : ClassMapping<Account>
+    public class AccountMapping : ClassMapping<Account>
     {
-        public AccountMap()
+        public AccountMapping()
         {
             Schema("Registration");
 

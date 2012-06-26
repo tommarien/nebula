@@ -1,6 +1,6 @@
 ﻿using System.Security;
 
-namespace Nebula.Contracts.Registration
+namespace Nebula.Contracts.Registration.Exceptions
 {
     public class UnknownAccountException : SecurityException
     {

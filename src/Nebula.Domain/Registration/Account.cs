@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Iesi.Collections.Generic;
 using Nebula.Contracts.Registration;
+using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Infrastructure;
 
 namespace Nebula.Domain.Registration

@@ -1,19 +1,20 @@
 ﻿using NUnit.Framework;
-using Nebula.Data.Queries.Registration;
+using Nebula.Data.Registration.Queries;
 using Nebula.Domain.Registration;
+using Nebula.Infrastructure.Querying;
 using Nebula.UnitTests.Builders;
 
 namespace Nebula.IntegrationTests.Registration
 {
     [TestFixture]
-    public class GetAccountByUserNameQueryHandlerTests : AutoRollbackFixture
+    public class GetAccountQueryHandlerTests : AutoRollbackFixture
     {
-        private GetAccountByUserNameQueryHandler handler;
+        private IQuery<string, Account> handler;
         private Account user1;
 
         protected override void AfterSetUp()
         {
-            handler = new GetAccountByUserNameQueryHandler(Session);
+            handler = new GetAccountQueryHandler(Session);
 
             // Basic user
             user1 = new AccountBuilder().Build();
