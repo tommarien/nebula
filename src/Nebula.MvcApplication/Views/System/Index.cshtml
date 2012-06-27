@@ -1,0 +1,17 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Your profile";
+}
+
+<h2>Status</h2>
+<p>
+    Here you can monitor health and see versioning info, or do one of the actions on the right. 
+</p>
+
+@Html.Action("Version")
+
+@section sidebar 
+{
+    @Html.Partial("_SideBar")
+}

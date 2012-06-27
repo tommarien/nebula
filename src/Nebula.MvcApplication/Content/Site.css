@@ -135,7 +135,7 @@ a:visited
 /* form elements
 ------------------*/
 
-form fieldset
+form fieldset, fieldset
 {
 	margin: 1em 0;
 	padding: 1em;
@@ -144,6 +144,14 @@ form fieldset
 }
 
 form label
+{
+	display: block;
+	float: left;
+	width: 12em;
+	margin-bottom: .5em;
+}
+
+div.display-label label 
 {
 	display: block;
 	float: left;

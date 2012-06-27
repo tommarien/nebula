@@ -1,4 +1,5 @@
 ﻿using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -32,6 +33,11 @@ namespace Nebula.UnitTests.Nebula.MvcApplication
 
         protected virtual void AfterSetUp()
         {
+        }
+
+        protected void InitContext(ControllerBase controller)
+        {
+            controller.ControllerContext = new ControllerContext(HttpContext, RouteData, controller);
         }
     }
 }

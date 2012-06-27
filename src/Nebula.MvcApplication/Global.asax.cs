@@ -28,13 +28,13 @@ namespace Nebula.MvcApplication
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterWindsor();
 
-            Logger = WindsorContainer.Resolve<ILoggerFactory>().Create("Nebula.Application");
-
-            SetupLog4NetProperties();
+            SetupLog4Net();
         }
 
-        private static void SetupLog4NetProperties()
+        private static void SetupLog4Net()
         {
+            Logger = WindsorContainer.Resolve<ILoggerFactory>().Create("Nebula.Application");
+
             GlobalContext.Properties["sessionId"] = new SessionIdProvider();
             GlobalContext.Properties["UserName"] = new UserNameProvider();
         }
@@ -68,6 +68,14 @@ namespace Nebula.MvcApplication
         {
             var exception = Server.GetLastError().GetBaseException();
             Logger.Error(exception.Message, exception);
+        }
+
+        protected void Session_Start()
+        {
+            // Kick of session state otherwise sometimes error with getting session id
+#pragma warning disable 168
+            var sessionId = Session.SessionID;
+#pragma warning restore 168
         }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="Registration\Password.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration\Account.cs" />
+    <Compile Include="System\SchemaVersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nebula.Contracts\Nebula.Contracts.csproj">

@@ -50,6 +50,7 @@
     <Compile Include="Registration\Queries\IGetAccountRolesQuery.cs" />
     <Compile Include="Registration\Role.cs" />
     <Compile Include="Registration\Exceptions\UnknownAccountException.cs" />
+    <Compile Include="System\Queries\IGetLastRunMigration.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nebula.Infrastructure\Nebula.Infrastructure.csproj">

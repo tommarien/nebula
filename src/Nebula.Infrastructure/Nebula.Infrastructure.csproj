@@ -55,6 +55,7 @@
     <Compile Include="IHandle.cs" />
     <Compile Include="InvalidStateException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Querying\QuerySearch.cs" />
     <Compile Include="Querying\IQuery.cs" />
     <Compile Include="Querying\IQueryFactory.cs" />
     <Compile Include="SystemClock.cs" />

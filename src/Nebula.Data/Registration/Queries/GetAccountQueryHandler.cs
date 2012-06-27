@@ -13,10 +13,10 @@ namespace Nebula.Data.Registration.Queries
             this.session = session;
         }
 
-        public Account Execute(string parameters)
+        public Account Execute(string search)
         {
             return session.QueryOver<Account>()
-                .Where(a => a.UserName == parameters)
+                .Where(a => a.UserName == search)
                 .Fetch(a => a.Roles).Eager
                 .SingleOrDefault();
         }

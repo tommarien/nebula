@@ -15,9 +15,9 @@ namespace Nebula.Data.Registration.Queries
             this.getAccountQueryHandler = getAccountQueryHandler;
         }
 
-        public Role[] Execute(string parameters)
+        public Role[] Execute(string search)
         {
-            var account = getAccountQueryHandler.Execute(parameters);
+            var account = getAccountQueryHandler.Execute(search);
             if (account == null) return new Role[] {};
             return account.Roles.ToArray();
         }

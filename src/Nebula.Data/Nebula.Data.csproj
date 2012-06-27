@@ -68,10 +68,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration\Queries\GetAccountQueryHandler.cs" />
     <Compile Include="Registration\Queries\GetAccountRolesQueryHandler.cs" />
+    <Compile Include="System\Mappings\SchemaVersionInfoMapping.cs" />
+    <Compile Include="System\Queries\GetLastRunMigrationQueryHandler.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Queries\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Nebula.Contracts\Nebula.Contracts.csproj">
       <Project>{4342773A-3732-48A8-BFA2-90870F400B6A}</Project>

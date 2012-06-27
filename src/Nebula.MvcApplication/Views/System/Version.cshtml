@@ -1,0 +1,18 @@
+﻿@model Nebula.MvcApplication.Models.VersionModel
+<div>
+    <fieldset>
+        <legend>Version Information</legend>
+        <div class="display-label">
+            @Html.LabelFor(m => m.Assembly)
+        </div>
+        <div class="display-field">
+            @Model.Assembly
+        </div>
+        <div class="display-label">
+            @Html.LabelFor(m => m.Schema)
+        </div>
+        <div class="display-field">
+            @Model.Schema
+        </div>
+    </fieldset>
+</div>

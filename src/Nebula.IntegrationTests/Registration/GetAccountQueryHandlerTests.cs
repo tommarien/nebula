@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using Nebula.Data.Registration.Queries;
 using Nebula.Domain.Registration;
-using Nebula.Infrastructure.Querying;
 using Nebula.UnitTests.Builders;
 
 namespace Nebula.IntegrationTests.Registration
@@ -9,7 +8,7 @@ namespace Nebula.IntegrationTests.Registration
     [TestFixture]
     public class GetAccountQueryHandlerTests : AutoRollbackFixture
     {
-        private IQuery<string, Account> handler;
+        private GetAccountQueryHandler handler;
         private Account user1;
 
         protected override void AfterSetUp()

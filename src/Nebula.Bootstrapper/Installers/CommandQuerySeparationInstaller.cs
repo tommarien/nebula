@@ -14,8 +14,8 @@ namespace Nebula.Bootstrapper.Installers
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             // Commanding
-            container.Register(Component.For<ICommandHandlerFactory>().AsFactory());
-            container.Register(Component.For<ICommandDispatcher>().ImplementedBy<CommandDispatcher>());
+            container.Register(Component.For<ICommandHandlerFactory>().AsFactory().LifestylePerWebRequest());
+            container.Register(Component.For<ICommandDispatcher>().ImplementedBy<CommandDispatcher>().LifestylePerWebRequest());
 
             container.Register(Classes.FromAssemblyContaining(typeof (NHibernateConfiguration))
                                    .BasedOn<ICommandHandler>()
@@ -27,7 +27,7 @@ namespace Nebula.Bootstrapper.Installers
                                    .WithServiceFirstInterface().LifestyleTransient());
 
             //Querying
-            container.Register(Component.For<IQueryFactory>().AsFactory());
+            container.Register(Component.For<IQueryFactory>().AsFactory().LifestylePerWebRequest());
 
             container.Register(Classes.FromAssemblyContaining(typeof (NHibernateConfiguration))
                                    .BasedOn<IQuery>()
