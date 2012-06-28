@@ -1,6 +1,9 @@
 ﻿@if (Request.IsAuthenticated)
-{<text><strong>@Html.ActionLink(@User.Identity.Name, "MyProfile", "Account")</strong>
-     [@Html.ActionLink("Log Off", "LogOff", "Account")]</text>
+{<text>
+     <strong>@Html.ActionLink(@User.Identity.Name, "MyProfile", "Account")</strong>
+     <strong>@Html.ActionLink("Control Panel", "Index", "System")</strong>
+					[@Html.ActionLink("Log Off", "LogOff", "Account")]
+ </text>
 }
 else
 {

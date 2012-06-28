@@ -3,8 +3,4 @@
 <ul id="menu">
     @Html.SelectedActionLink("Home", "Index", "Home")
     @Html.SelectedActionLink("About", "About", "Home")
-    @if (Request.IsAuthenticated)
-    {
-        @Html.SelectedActionLink("System", "Index", "System")
-    }
 </ul>

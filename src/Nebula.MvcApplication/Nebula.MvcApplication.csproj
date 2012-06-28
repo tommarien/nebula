@@ -97,22 +97,24 @@
     <Compile Include="Services\IFormsAuthenticationService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\960.css" />
     <Content Include="Content\back_disabled.png" />
     <Content Include="Content\back_enabled.png" />
     <Content Include="Content\back_enabled_hover.png" />
     <Content Include="Content\bg-button.png" />
-    <Content Include="Content\bg_content.gif" />
     <Content Include="Content\bg_header.gif" />
     <Content Include="Content\forward_disabled.png" />
     <Content Include="Content\forward_enabled.png" />
     <Content Include="Content\forward_enabled_hover.png" />
     <Content Include="Content\jquery.dataTables.css" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\Nebula.css" />
+    <Content Include="Content\reset.css" />
     <Content Include="Content\sort_asc.png" />
     <Content Include="Content\sort_asc_disabled.png" />
     <Content Include="Content\sort_both.png" />
     <Content Include="Content\sort_desc.png" />
     <Content Include="Content\sort_desc_disabled.png" />
+    <Content Include="Content\text.css" />
     <Content Include="Content\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
