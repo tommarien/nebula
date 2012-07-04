@@ -1,5 +1,10 @@
-﻿@using Nebula.MvcApplication.Helpers
+﻿@using Nebula.Contracts.Registration
+@using Nebula.MvcApplication.Helpers
 <h2>System</h2>
 <ul id="sidenav">
-    <li>@Html.SelectedActionLink("Version", "Index", "System")</li>
+    <li>@Html.SelectedActionLink("About", "About", "System")</li>
+    @if (User.IsInRole(Role.Administrator.ToString()))
+    {
+        <li>@Html.SelectedActionLink("Event Log", "Logging", "System")</li>
+    }
 </ul>

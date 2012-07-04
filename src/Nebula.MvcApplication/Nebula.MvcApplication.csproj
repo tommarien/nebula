@@ -184,9 +184,10 @@
     <Content Include="Views\Account\_SideBar.cshtml" />
     <Content Include="log4net.config" />
     <None Include="log4net.config.template" />
-    <Content Include="Views\System\Index.cshtml" />
+    <Content Include="Views\System\About.cshtml" />
     <Content Include="Views\System\_SideBar.cshtml" />
     <Content Include="Views\System\Version.cshtml" />
+    <Content Include="Views\System\Logging.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

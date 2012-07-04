@@ -17,7 +17,14 @@ namespace Nebula.MvcApplication.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Logging()
         {
             return View();
         }

@@ -7,7 +7,7 @@ using Rhino.Mocks;
 namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
 {
     [TestFixture]
-    public class SystemIndexGetTests : HttpContextFixture
+    public class SystemAboutGetTests : HttpContextFixture
     {
         private SystemController controller;
 
@@ -20,7 +20,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
         [Test]
         public void Should_return_viewResult()
         {
-            var result = controller.Index();
+            var result = controller.About();
 
             Assert.IsInstanceOf<ViewResult>(result);
         }
