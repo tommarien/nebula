@@ -2,7 +2,7 @@
 
 namespace Nebula.Contracts.Registration.Queries
 {
-    public interface IGetAccountRolesQuery : IQuery<string, Role[]>
+    public interface IGetAccountRolesQueryHandler : IQueryHandler<string, Role[]>
     {
     }
 }

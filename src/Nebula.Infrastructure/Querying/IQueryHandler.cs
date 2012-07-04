@@ -1,10 +1,10 @@
 ﻿namespace Nebula.Infrastructure.Querying
 {
-    public interface IQuery
+    public interface IQueryHandler
     {
     }
 
-    public interface IQuery<in TParameters, out TResult> : IQuery
+    public interface IQueryHandler<in TParameters, out TResult> : IQueryHandler
     {
         TResult Execute(TParameters search);
     }

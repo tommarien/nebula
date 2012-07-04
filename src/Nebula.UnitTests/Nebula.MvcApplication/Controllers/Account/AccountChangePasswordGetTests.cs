@@ -17,7 +17,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         {
             controller = new AccountController(MockRepository.GenerateStub<ICommandDispatcher>()
                                                , MockRepository.GenerateStub<IFormsAuthenticationService>(),
-                                               MockRepository.GenerateStub<IGetAccountRolesQuery>());
+                                               MockRepository.GenerateStub<IGetAccountRolesQueryHandler>());
 
             controller.ControllerContext = new ControllerContext(HttpContext, RouteData, controller);
         }

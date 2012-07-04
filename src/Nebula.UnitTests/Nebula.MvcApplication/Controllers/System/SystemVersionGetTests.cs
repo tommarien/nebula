@@ -15,7 +15,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
 
         protected override void AfterSetUp()
         {
-            var queryFactory = MockRepository.GenerateStub<IQueryFactory>();
+            var queryFactory = MockRepository.GenerateStub<IQueryHandlerFactory>();
             query = MockRepository.GenerateMock<IGetLastRunMigration>();
 
             queryFactory.Stub(f => f.CreateQuery<IGetLastRunMigration>()).Return(query);

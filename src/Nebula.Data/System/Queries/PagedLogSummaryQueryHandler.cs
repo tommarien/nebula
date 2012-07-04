@@ -6,7 +6,7 @@ using Nebula.Infrastructure.Querying.QueryResults;
 
 namespace Nebula.Data.System.Queries
 {
-    public class PagedLogSummaryQueryHandler : IPagedLogSummaryQuery
+    public class PagedLogSummaryQueryHandler : IPagedLogSummaryQueryHandler
     {
         private readonly ISession session;
 

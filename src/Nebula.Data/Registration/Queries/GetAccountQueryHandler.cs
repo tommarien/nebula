@@ -4,7 +4,7 @@ using Nebula.Infrastructure.Querying;
 
 namespace Nebula.Data.Registration.Queries
 {
-    public class GetAccountQueryHandler : IQuery<string, Account>
+    public class GetAccountQueryHandler : IQueryHandler<string, Account>
     {
         private readonly ISession session;
 

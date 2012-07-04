@@ -6,11 +6,11 @@ using Nebula.Infrastructure.Querying;
 
 namespace Nebula.Data.Registration.Queries
 {
-    public class GetAccountRolesQueryHandler : IGetAccountRolesQuery
+    public class GetAccountRolesQueryHandler : IGetAccountRolesQueryHandler
     {
-        private readonly IQuery<string, Account> getAccountQueryHandler;
+        private readonly IQueryHandler<string, Account> getAccountQueryHandler;
 
-        public GetAccountRolesQueryHandler(IQuery<string, Account> getAccountQueryHandler)
+        public GetAccountRolesQueryHandler(IQueryHandler<string, Account> getAccountQueryHandler)
         {
             this.getAccountQueryHandler = getAccountQueryHandler;
         }

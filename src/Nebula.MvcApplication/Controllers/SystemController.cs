@@ -9,11 +9,11 @@ namespace Nebula.MvcApplication.Controllers
     [Authorize]
     public class SystemController : Controller
     {
-        private readonly IQueryFactory queryFactory;
+        private readonly IQueryHandlerFactory queryHandlerFactory;
 
-        public SystemController(IQueryFactory queryFactory)
+        public SystemController(IQueryHandlerFactory queryHandlerFactory)
         {
-            this.queryFactory = queryFactory;
+            this.queryHandlerFactory = queryHandlerFactory;
         }
 
         [HttpGet]
@@ -35,7 +35,7 @@ namespace Nebula.MvcApplication.Controllers
         {
             var model = new VersionModel();
 
-            var getLastRunMigration = queryFactory.CreateQuery<IGetLastRunMigration>();
+            var getLastRunMigration = queryHandlerFactory.CreateQuery<IGetLastRunMigration>();
 
             model.Assembly = typeof (Boot).Assembly.GetName().Version.ToString();
             model.Schema = getLastRunMigration.Execute(QuerySearch.Empty).ToString();

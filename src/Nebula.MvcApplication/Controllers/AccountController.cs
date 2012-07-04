@@ -14,10 +14,10 @@ namespace Nebula.MvcApplication.Controllers
     {
         private readonly ICommandDispatcher commandDispatcher;
         private readonly IFormsAuthenticationService formsAuthenticationService;
-        private readonly IGetAccountRolesQuery getRolesForUserQuery;
+        private readonly IGetAccountRolesQueryHandler getRolesForUserQuery;
 
         public AccountController(ICommandDispatcher commandDispatcher, IFormsAuthenticationService formsAuthenticationService,
-                                 IGetAccountRolesQuery getRolesForUserQuery)
+                                 IGetAccountRolesQueryHandler getRolesForUserQuery)
         {
             this.commandDispatcher = commandDispatcher;
             this.formsAuthenticationService = formsAuthenticationService;

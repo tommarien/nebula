@@ -8,9 +8,9 @@ namespace Nebula.Data.Commands.Registration
 {
     public class LogOnUserCommandHandler : ICommandHandler<LogOnUserCommand, OperationResult>
     {
-        private readonly IQuery<string, Account> getAccountQueryHandler;
+        private readonly IQueryHandler<string, Account> getAccountQueryHandler;
 
-        public LogOnUserCommandHandler(IQuery<string, Account> getAccountQueryHandler)
+        public LogOnUserCommandHandler(IQueryHandler<string, Account> getAccountQueryHandler)
         {
             this.getAccountQueryHandler = getAccountQueryHandler;
         }

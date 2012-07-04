@@ -13,11 +13,11 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [SetUp]
         public void Setup()
         {
-            getAccountQueryHandler = MockRepository.GenerateMock<IQuery<string, Account>>();
+            getAccountQueryHandler = MockRepository.GenerateMock<IQueryHandler<string, Account>>();
             getAccountRolesQueryHandler = new GetAccountRolesQueryHandler(getAccountQueryHandler);
         }
 
-        private IQuery<string, Account> getAccountQueryHandler;
+        private IQueryHandler<string, Account> getAccountQueryHandler;
         private GetAccountRolesQueryHandler getAccountRolesQueryHandler;
 
         [Test]

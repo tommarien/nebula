@@ -9,9 +9,9 @@ namespace Nebula.Data.Registration.Commands
 {
     public class ChangePasswordCommandHandler : ICommandHandler<ChangePasswordCommand, OperationResult>
     {
-        private readonly IQuery<string, Account> getAccountQueryHandler;
+        private readonly IQueryHandler<string, Account> getAccountQueryHandler;
 
-        public ChangePasswordCommandHandler(IQuery<string, Account> getAccountQueryHandler)
+        public ChangePasswordCommandHandler(IQueryHandler<string, Account> getAccountQueryHandler)
         {
             this.getAccountQueryHandler = getAccountQueryHandler;
         }

@@ -13,7 +13,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
 
         protected override void AfterSetUp()
         {
-            controller = new SystemController(MockRepository.GenerateStrictMock<IQueryFactory>());
+            controller = new SystemController(MockRepository.GenerateStrictMock<IQueryHandlerFactory>());
             controller.ControllerContext = new ControllerContext(HttpContext, RouteData, controller);
         }
 

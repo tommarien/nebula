@@ -17,7 +17,7 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [SetUp]
         public void Setup()
         {
-            query = MockRepository.GenerateMock<IQuery<string, Account>>();
+            query = MockRepository.GenerateMock<IQueryHandler<string, Account>>();
             commandHandler = new LogOnUserCommandHandler(query);
             command = new LogOnUserCommand
                           {
@@ -27,7 +27,7 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         }
 
         private LogOnUserCommandHandler commandHandler;
-        private IQuery<string, Account> query;
+        private IQueryHandler<string, Account> query;
         private LogOnUserCommand command;
 
         [Test]

@@ -21,14 +21,14 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         private AccountController controller;
         private ICommandDispatcher commandDispatcher;
         private IFormsAuthenticationService formsAuthenticationService;
-        private IGetAccountRolesQuery getRolesForUserQuery;
+        private IGetAccountRolesQueryHandler getRolesForUserQuery;
         private LogOnModel logOnModel;
 
         protected override void AfterSetUp()
         {
             commandDispatcher = MockRepository.GenerateMock<ICommandDispatcher>();
             formsAuthenticationService = MockRepository.GenerateMock<IFormsAuthenticationService>();
-            getRolesForUserQuery = MockRepository.GenerateMock<IGetAccountRolesQuery>();
+            getRolesForUserQuery = MockRepository.GenerateMock<IGetAccountRolesQueryHandler>();
             controller = new AccountController(commandDispatcher, formsAuthenticationService, getRolesForUserQuery);
             controller.ControllerContext = new ControllerContext(HttpContext, RouteData, controller);
             logOnModel = new LogOnModel {UserName = "userX", Password = "secret", RememberMe = true};

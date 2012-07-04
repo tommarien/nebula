@@ -27,10 +27,10 @@ namespace Nebula.Bootstrapper.Installers
                                    .WithServiceFirstInterface().LifestyleTransient());
 
             //Querying
-            container.Register(Component.For<IQueryFactory>().AsFactory().LifestylePerWebRequest());
+            container.Register(Component.For<IQueryHandlerFactory>().AsFactory().LifestylePerWebRequest());
 
             container.Register(Classes.FromAssemblyContaining(typeof (NHibernateConfiguration))
-                                   .BasedOn<IQuery>()
+                                   .BasedOn<IQueryHandler>()
                                    .WithServiceFirstInterface()
                                    .Configure(c =>
                                                   {

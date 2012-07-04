@@ -2,7 +2,7 @@
 
 namespace Nebula.Contracts.System.Queries
 {
-    public interface IGetLastRunMigration : IQuery<QuerySearch, long>
+    public interface IGetLastRunMigration : IQueryHandler<QuerySearch, long>
     {
     }
 }
