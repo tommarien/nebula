@@ -68,8 +68,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration\Queries\GetAccountQueryHandler.cs" />
     <Compile Include="Registration\Queries\GetAccountRolesQueryHandler.cs" />
+    <Compile Include="System\Mappings\LogMapping.cs" />
     <Compile Include="System\Mappings\SchemaVersionInfoMapping.cs" />
     <Compile Include="System\Queries\GetLastRunMigrationQueryHandler.cs" />
+    <Compile Include="System\Queries\PagedLogSummaryQueryHandler.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

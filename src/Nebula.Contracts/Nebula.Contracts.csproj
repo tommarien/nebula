@@ -51,6 +51,9 @@
     <Compile Include="Registration\Role.cs" />
     <Compile Include="Registration\Exceptions\UnknownAccountException.cs" />
     <Compile Include="System\Queries\IGetLastRunMigration.cs" />
+    <Compile Include="System\Queries\IPagedLogSummaryQuery.cs" />
+    <Compile Include="System\Queries\LogSummary.cs" />
+    <Compile Include="System\Queries\LogSummarySearch.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nebula.Infrastructure\Nebula.Infrastructure.csproj">
