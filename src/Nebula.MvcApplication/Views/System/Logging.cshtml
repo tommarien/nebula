@@ -1,9 +1,81 @@
 ﻿@{
     ViewBag.Title = "Event Log";
 }
-
-<h2>Event Log</h2>
-
+<h2>
+    Event Log</h2>
+<p>
+    Here you can see all gathered log entries.
+</p>
+<br />
+<table class="jq_datatable">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Level
+            </th>
+            <th>
+                Logger
+            </th>
+            <th>
+                Message
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script type="text/javascript">
+				$(document).ready(function () {
+								$('table.jq_datatable').dataTable({
+												'bFilter': false,
+												'bLengthChange': false,
+												'iDisplayLength': 5,
+												'bProcessing': true,
+												'bServerSide': true,
+												'sAjaxSource': '@Url.Action("PagedLogSummary")',
+												'aoColumns': [
+				{
+								'mDataProp': 'Id',
+								'bSearchable': false,
+								'bSortable': false,
+								'bVisible': false
+				},
+				{
+								'mDataProp': 'Date',
+								'fnRender': function (o, val) {
+												return parseAndFormatJsonDateTime(val);
+								},
+								'bSearchable': false,
+								"bSortable": false
+				},
+				{
+								'mDataProp': 'Level',
+								'bSearchable': false,
+								'bSortable': false
+				},
+				{
+								'mDataProp': 'Logger',
+								'bSearchable': false,
+								'bSortable': false
+				},
+				{
+								'mDataProp': 'Message',
+								'fnRender': function (o, v) {
+									return replaceLineBreaks(v);
+								},
+								'bSearchable': false,
+								'bSortable': false
+				}
+			]
+								});
+				});
+</script>
 @section sidebar 
 {
     @Html.Partial("_SideBar")

@@ -89,6 +89,7 @@
     <Compile Include="Helpers\UserNameProvider.cs" />
     <Compile Include="HttpModules\AuthenticationModule.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\DataTableModels.cs" />
     <Compile Include="Models\SystemModels.cs" />
     <Compile Include="Modules\ControllersInstaller.cs" />
     <Compile Include="Modules\ServicesInstaller.cs" />
@@ -136,6 +137,8 @@
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\Nebula.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
@@ -149,7 +152,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -42,5 +42,21 @@ namespace Nebula.MvcApplication.Controllers
 
             return PartialView(model);
         }
+
+        [HttpGet]
+        public JsonResult PagedLogSummary(DatatableModel model)
+        {
+            var queryHandler = queryHandlerFactory.CreateQuery<IPagedLogSummaryQueryHandler>();
+
+            var result = queryHandler.Execute(new LogSummarySearch {Skip = model.iDisplayStart, Take = model.iDisplayLength});
+
+            return Json(new
+                            {
+                                sEcho = model.sEcho,
+                                iTotalRecords = result.TotalResults,
+                                iTotalDisplayRecords = result.TotalResults,
+                                aaData = result.Results
+                            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

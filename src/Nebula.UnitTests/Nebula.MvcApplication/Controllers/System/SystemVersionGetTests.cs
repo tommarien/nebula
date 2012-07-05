@@ -21,7 +21,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
             queryFactory.Stub(f => f.CreateQuery<IGetLastRunMigration>()).Return(query);
 
             controller = new SystemController(queryFactory);
-            InitContext(controller);
+            SetupControllerContext(controller);
         }
 
         [Test]

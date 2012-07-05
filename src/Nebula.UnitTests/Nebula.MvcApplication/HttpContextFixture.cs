@@ -35,7 +35,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication
         {
         }
 
-        protected void InitContext(ControllerBase controller)
+        protected void SetupControllerContext(ControllerBase controller)
         {
             controller.ControllerContext = new ControllerContext(HttpContext, RouteData, controller);
         }
