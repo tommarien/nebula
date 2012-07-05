@@ -7,13 +7,13 @@
     Here you can see all gathered log entries.
 </p>
 <br />
-<table class="jq_datatable">
+<table id="logSummaryDataTable">
     <thead>
         <tr>
-            <th>
+            <th class="jq_dt_hidden">
                 Id
             </th>
-            <th>
+            <th class="jq_dt_type_json_datetime">
                 Date
             </th>
             <th>
@@ -22,7 +22,7 @@
             <th>
                 Logger
             </th>
-            <th>
+            <th class="jq_dt_type_pre_text">
                 Message
             </th>
         </tr>
@@ -31,50 +31,31 @@
     </tbody>
 </table>
 <script type="text/javascript">
-				$(document).ready(function () {
-								$('table.jq_datatable').dataTable({
-												'bFilter': false,
-												'bLengthChange': false,
-												'iDisplayLength': 5,
-												'bProcessing': true,
-												'bServerSide': true,
-												'sAjaxSource': '@Url.Action("PagedLogSummary")',
-												'aoColumns': [
-				{
-								'mDataProp': 'Id',
-								'bSearchable': false,
-								'bSortable': false,
-								'bVisible': false
-				},
-				{
-								'mDataProp': 'Date',
-								'fnRender': function (o, val) {
-												return parseAndFormatJsonDateTime(val);
-								},
-								'bSearchable': false,
-								"bSortable": false
-				},
-				{
-								'mDataProp': 'Level',
-								'bSearchable': false,
-								'bSortable': false
-				},
-				{
-								'mDataProp': 'Logger',
-								'bSearchable': false,
-								'bSortable': false
-				},
-				{
-								'mDataProp': 'Message',
-								'fnRender': function (o, v) {
-									return replaceLineBreaks(v);
-								},
-								'bSearchable': false,
-								'bSortable': false
-				}
-			]
-								});
-				});
+    $(document).ready(function () {
+        $('#logSummaryDataTable').dataTable({
+            'iDisplayLength': 5,
+            'bProcessing': true,
+            'bServerSide': true,
+            'sAjaxSource': '@Url.Action("PagedLogSummary")',
+            'aoColumns': [
+                {
+                    'mDataProp': 'Id'
+                },
+                {
+                    'mDataProp': 'Date'
+                },
+                {
+                    'mDataProp': 'Level'
+                },
+                {
+                    'mDataProp': 'Logger'
+                },
+                {
+                    'mDataProp': 'Message'
+                }
+            ]
+        });
+    });
 </script>
 @section sidebar 
 {
