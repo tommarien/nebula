@@ -1,14 +1,10 @@
 ﻿@model dynamic
-
 @{
-    ViewBag.Title = "About";
+	ViewBag.Title = "About";
 }
-
 <h2>About</h2>
-
 @Html.Action("Version")
-
 @section sidebar 
 {
-    @Html.Partial("_SideBar")
+	@Html.Partial("_SideBar")
 }
