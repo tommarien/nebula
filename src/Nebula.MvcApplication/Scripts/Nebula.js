@@ -2,6 +2,7 @@
 	// DataTable conventional setup
 	$.fn.dataTable.defaults.bFilter = false;
 	$.fn.dataTable.defaults.bLengthChange = false;
+	$.fn.dataTable.defaults.bJQueryUI = true;
 	$.fn.dataTable.defaults.iDisplayLength = 10;
 	$.fn.dataTable.defaults.aoColumnDefs = [
 		{
@@ -26,6 +27,11 @@
 			}
 		}
 	];
+
+	$(document).ready(function () {
+		$('input:submit').button();
+	});
+
 })(jQuery);
 
 // Functions

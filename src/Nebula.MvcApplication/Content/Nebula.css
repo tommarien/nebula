@@ -161,13 +161,7 @@ form input[type=text]:focus, form input[type=password]:focus, form input[type=ch
 
 form input[type=button], form input[type=submit], input[type=reset], form button
 {
-	color: #FFF;
-	background: #317f0c url(bg-button.png) repeat-x;
-	border: 1px groove #FFF;
-	font-size: .9em;
-	font-weight: bold;
-	cursor: pointer;
- padding:0 5px 2px 5px;
+	padding:0 5px 2px 5px;
 }
 
 form table input[type=text], form table input[type=password], form table textarea
@@ -430,3 +424,5 @@ ul#sidenav li.selected a
 {
 	width: 6em;
 }
+/* JQuery Ui Overrides */
+.ui-buttonset .ui-button { margin-right: 0 !IMPORTANT; } 
