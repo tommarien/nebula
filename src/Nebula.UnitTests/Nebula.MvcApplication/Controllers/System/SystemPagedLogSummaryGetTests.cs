@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Nebula.Contracts.System.Queries;
+using Nebula.Infrastructure;
 using Nebula.Infrastructure.Querying;
 using Nebula.Infrastructure.Querying.QueryResults;
 using Nebula.MvcApplication.Controllers;
@@ -27,18 +28,6 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
             SetupControllerContext(controller);
         }
 
-        private IDictionary<string, object> ToDictionary(object o)
-        {
-            // TODO : Find a better way, maybe existing way to handle this !
-            var dict = new Dictionary<string, object>();
-            if (o == null) return dict;
-
-            foreach (var propertyInfo in o.GetType().GetProperties())
-                dict.Add(propertyInfo.Name, propertyInfo.GetValue(o, null));
-
-            return dict;
-        }
-
         [Test]
         public void Should_behave_as_expected()
         {
@@ -48,12 +37,13 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
 
             var result = controller.PagedLogSummary(new DatatableModel {sEcho = "20", iDisplayStart = 0, iDisplayLength = 10});
 
-            var data = ToDictionary(result.Data);
+            Assert.IsNotNull(result.Data);
+            IDictionary<string, object> values = result.Data.ToDictionary();
 
-            Assert.AreEqual("20", data["sEcho"]);
-            Assert.AreEqual(10, data["iTotalRecords"]);
-            Assert.AreEqual(10, data["iTotalDisplayRecords"]);
-            Assert.AreEqual(queryResults, data["aaData"]);
+            Assert.AreEqual("20", values["sEcho"]);
+            Assert.AreEqual(10, values["iTotalRecords"]);
+            Assert.AreEqual(10, values["iTotalDisplayRecords"]);
+            Assert.AreEqual(queryResults, values["aaData"]);
         }
     }
 }

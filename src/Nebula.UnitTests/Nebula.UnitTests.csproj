@@ -66,6 +66,7 @@
     <Compile Include="Nebula.Data\Registration\LogOnUserCommandHandlerTests.cs" />
     <Compile Include="Nebula.Domain\Registration\AccountTests.cs" />
     <Compile Include="Nebula.Domain\Registration\PasswordTests.cs" />
+    <Compile Include="Nebula.Infrastructure\AnonymousTypeExtensionsTests.cs" />
     <Compile Include="Nebula.Infrastructure\Commanding\CommandDispatcherTests.cs" />
     <Compile Include="Nebula.Infrastructure\Commanding\TestCommand.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountChangePasswordGetTests.cs" />
