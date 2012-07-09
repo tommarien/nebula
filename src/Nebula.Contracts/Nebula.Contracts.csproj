@@ -51,7 +51,9 @@
     <Compile Include="Registration\Role.cs" />
     <Compile Include="Registration\Exceptions\UnknownAccountException.cs" />
     <Compile Include="System\Queries\IGetLastRunMigration.cs" />
+    <Compile Include="System\Queries\ILogEntryDetailsQueryHandler.cs" />
     <Compile Include="System\Queries\IPagedLogSummaryQueryHandler.cs" />
+    <Compile Include="System\Queries\LogEntry.cs" />
     <Compile Include="System\Queries\LogSummary.cs" />
     <Compile Include="System\Queries\LogSummarySearch.cs" />
   </ItemGroup>

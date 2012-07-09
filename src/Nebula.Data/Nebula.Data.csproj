@@ -71,6 +71,7 @@
     <Compile Include="System\Mappings\LogMapping.cs" />
     <Compile Include="System\Mappings\SchemaVersionInfoMapping.cs" />
     <Compile Include="System\Queries\GetLastRunMigrationQueryHandler.cs" />
+    <Compile Include="System\Queries\LogEntryDetailsQueryHandler.cs" />
     <Compile Include="System\Queries\PagedLogSummaryQueryHandler.cs" />
   </ItemGroup>
   <ItemGroup />
