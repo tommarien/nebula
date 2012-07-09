@@ -159,11 +159,6 @@ form input[type=text]:focus, form input[type=password]:focus, form input[type=ch
 	border: 1px solid #CD7;
 }
 
-form input[type=button], form input[type=submit], input[type=reset], form button
-{
-	padding:0 5px 2px 5px;
-}
-
 form table input[type=text], form table input[type=password], form table textarea
 {
 	float: none;
@@ -426,3 +421,4 @@ ul#sidenav li.selected a
 }
 /* JQuery Ui Overrides */
 .ui-buttonset .ui-button { margin-right: 0 !IMPORTANT; } 
+.ui-widget {font-family: inherit !IMPORTANT; font-size: 0.9em;}

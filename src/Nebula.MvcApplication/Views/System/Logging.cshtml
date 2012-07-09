@@ -9,9 +9,6 @@
 <table id="logSummaryDataTable">
 	<thead>
 		<tr>
-			<th class="jq_dt_hidden">
-				Id
-			</th>
 			<th class="jq_dt_type_json_datetime">
 				Date
 			</th>
@@ -24,6 +21,8 @@
 			<th class="jq_dt_type_pre_text">
 				Message
 			</th>
+			<td>
+			</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -41,12 +40,21 @@
 			'bServerSide': true,
 			'sAjaxSource': '@Url.Action("PagedLogSummary")',
 			'aoColumns': [
-				{ 'mDataProp': 'Id' },
 				{ 'mDataProp': 'Date' },
 				{ 'mDataProp': 'Level' },
 				{ 'mDataProp': 'Logger' },
-				{ 'mDataProp': 'Message' }
-			]
+				{ 'mDataProp': 'Message' },
+				{
+					'mDataProp': 'Id',
+					'fnRender': function (o, val) {
+						return '<button class="jq_zoom" value="' + val + '">Zoom</button>';
+					}
+				}
+			],
+			"fnDrawCallback": function (oSettings) {
+				$('button.jq_zoom').button({ icons: { primary: 'ui-icon-zoomin'} });
+			}
 		});
+		$('#logSummaryDataTable').find('button').button();
 	});
 </script>

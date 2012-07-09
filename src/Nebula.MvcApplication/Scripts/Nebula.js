@@ -29,7 +29,11 @@
 	];
 
 	$(document).ready(function () {
-		$('input:submit').button();
+		//always select first form element
+		$(':input, select, textarea').first().focus();
+
+		// JQuery ui buttons
+		$('input:submit, button').button();
 	});
 
 })(jQuery);
