@@ -28,12 +28,25 @@
 	<tbody>
 	</tbody>
 </table>
+<a class="jq_zoom" href=""></a>
+<div class="jq_dialog">
+</div>
 @section sidebar 
 {
 	@Html.Partial("_SideBar")
 }
 <script type="text/javascript">
 	$(document).ready(function () {
+
+		$('.jq_dialog').dialog({
+			title: 'Details of event',
+			autoOpen: false,
+			resizable: false,
+			width: 'AUTO',
+			heigth: 540,
+			modal: true
+		});
+
 		$('#logSummaryDataTable').dataTable({
 			'iDisplayLength': 5,
 			'bProcessing': true,
@@ -52,9 +65,14 @@
 				}
 			],
 			"fnDrawCallback": function (oSettings) {
-				$('button.jq_zoom').button({ icons: { primary: 'ui-icon-zoomin'} });
+				$('.jq_zoom')
+					.button({ icons: { primary: 'ui-icon-zoomin'} })
+					.click(function () {
+						$('.jq_dialog').load('@Url.Action("LogDetail")' + '/' + $(this).val(), function () {
+							$(this).dialog('open');
+						});
+					});
 			}
 		});
-		$('#logSummaryDataTable').find('button').button();
 	});
 </script>

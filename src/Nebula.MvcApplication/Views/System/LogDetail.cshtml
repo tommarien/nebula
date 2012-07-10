@@ -1,0 +1,55 @@
+﻿@model Nebula.Contracts.System.Queries.LogEntry
+<div class="display-label">
+	@Html.LabelFor(m => m.Id, "Event #")
+</div>
+<div class="display-field">
+	@Model.Id
+</div>
+<div class="display-label">
+	@Html.LabelFor(m => m.Date)
+</div>
+<div class="display-field">
+	@Model.Date.ToString("dd/MM/yyyy HH:mm:ss")
+</div>
+<div class="display-label">
+	@Html.LabelFor(m => m.Level)
+</div>
+<div class="display-field">
+	@Model.Level
+</div>
+<div class="display-label">
+	@Html.LabelFor(m => m.Logger)
+</div>
+<div class="display-field">
+	@Model.Logger
+</div>
+<div class="display-label">
+	@Html.LabelFor(m => m.SessionId)
+</div>
+<div class="display-field">
+	@Model.SessionId
+</div>
+<div class="display-label">
+	@Html.LabelFor(m => m.UserName)
+</div>
+<div class="display-field">
+	@Model.UserName
+</div>
+<div class="display-label">
+	@Html.LabelFor(m => m.HostName)
+</div>
+<div class="display-field">
+	@Model.HostName
+</div>
+<div class="display-label">
+	@Html.LabelFor(m => m.Message)
+</div>
+<div class="display-field">
+	@Html.TextAreaFor(m => m.Message, 5, 80, new { @readonly = "true" })
+</div>
+<div class="display-label">
+	@Html.LabelFor(m => m.Exception)
+</div>
+<div class="display-field">
+	@Html.TextAreaFor(m => m.Exception, 6, 80, new { @readonly = "true" })
+</div>

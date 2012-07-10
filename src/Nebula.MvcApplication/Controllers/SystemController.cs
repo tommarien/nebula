@@ -37,7 +37,7 @@ namespace Nebula.MvcApplication.Controllers
 
             var getLastRunMigration = queryHandlerFactory.CreateQuery<IGetLastRunMigration>();
 
-            model.Assembly = typeof (Boot).Assembly.GetName().Version.ToString();
+            model.Assembly = typeof(Boot).Assembly.GetName().Version.ToString();
             model.Schema = getLastRunMigration.Execute(QuerySearch.Empty).ToString();
 
             return PartialView(model);
@@ -48,15 +48,26 @@ namespace Nebula.MvcApplication.Controllers
         {
             var queryHandler = queryHandlerFactory.CreateQuery<IPagedLogSummaryQueryHandler>();
 
-            var result = queryHandler.Execute(new LogSummarySearch {Skip = model.iDisplayStart, Take = model.iDisplayLength});
+            var result = queryHandler.Execute(new LogSummarySearch { Skip = model.iDisplayStart, Take = model.iDisplayLength });
 
             return Json(new
                             {
-                                sEcho = model.sEcho,
+                                model.sEcho,
                                 iTotalRecords = result.TotalResults,
                                 iTotalDisplayRecords = result.TotalResults,
                                 aaData = result.Results
                             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [OutputCache(Duration = 3600, VaryByParam = "id")]
+        public PartialViewResult LogDetail(int id)
+        {
+            var queryHandler = queryHandlerFactory.CreateQuery<ILogEntryDetailsQueryHandler>();
+
+            var result = queryHandler.Execute(id);
+
+            return PartialView(result);
         }
     }
 }

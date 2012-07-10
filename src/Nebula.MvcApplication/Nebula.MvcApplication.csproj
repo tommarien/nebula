@@ -190,6 +190,7 @@
     <Content Include="Views\System\_SideBar.cshtml" />
     <Content Include="Views\System\Version.cshtml" />
     <Content Include="Views\System\Logging.cshtml" />
+    <Content Include="Views\System\LogDetail.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
