@@ -44,6 +44,7 @@ namespace Nebula.MvcApplication.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public JsonResult PagedLogSummary(DatatableModel model)
         {
             var queryHandler = queryHandlerFactory.CreateQuery<IPagedLogSummaryQueryHandler>();
@@ -61,6 +62,7 @@ namespace Nebula.MvcApplication.Controllers
 
         [HttpGet]
         [OutputCache(Duration = 3600, VaryByParam = "id")]
+        [Authorize(Roles = "Administrator")]
         public PartialViewResult LogDetail(int id)
         {
             var queryHandler = queryHandlerFactory.CreateQuery<ILogEntryDetailsQueryHandler>();
