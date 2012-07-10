@@ -28,8 +28,7 @@
 	<tbody>
 	</tbody>
 </table>
-<a class="jq_zoom" href=""></a>
-<div class="jq_dialog">
+<div id="logentrydetails_dialog">
 </div>
 @section sidebar 
 {
@@ -38,7 +37,7 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 
-		$('.jq_dialog').dialog({
+		$('#logentrydetails_dialog').dialog({
 			title: 'Details of event',
 			autoOpen: false,
 			resizable: false,
@@ -64,11 +63,11 @@
 					}
 				}
 			],
-			"fnDrawCallback": function (oSettings) {
-				$('.jq_zoom')
+			"fnDrawCallback": function () {
+				$('button.jq_zoom')
 					.button({ icons: { primary: 'ui-icon-zoomin'} })
 					.click(function () {
-						$('.jq_dialog').load('@Url.Action("LogDetail")' + '/' + $(this).val(), function () {
+						$('#logentrydetails_dialog').load('@Url.Action("LogDetail")' + '/' + $(this).val(), function () {
 							$(this).dialog('open');
 						});
 					});
