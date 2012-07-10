@@ -14,9 +14,11 @@ After installation you have to install a couple of gems to get started, first op
 
 Under the config directory add development.rb with at least this content
 
+```ruby
 # connectionstrings
 configatron.connectionstrings.nebula = #your connectionstring#
 configatron.connectionstrings.nebula_test = #your connectionstring#
+```
 
 Now from your solution folder, run rake from command prompt, this generates all necessary config files
 
