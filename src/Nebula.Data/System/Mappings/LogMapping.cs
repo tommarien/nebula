@@ -10,6 +10,7 @@ namespace Nebula.Data.System.Mappings
         public LogMapping()
         {
             Schema("System");
+            Mutable(false);
 
             Id(l => l.Id, m => m.Generator(Generators.Identity));
             Property(l => l.Date);
