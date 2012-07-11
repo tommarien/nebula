@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using NUnit.Framework;
-using Nebula.Contracts.Registration.Queries;
 using Nebula.Infrastructure.Commanding;
+using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Controllers;
 using Nebula.MvcApplication.Services;
 using Rhino.Mocks;
@@ -12,15 +12,17 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
     public class AccountLogOffTests : HttpContextFixture
     {
         private AccountController controller;
-        private ICommandDispatcher commandDispatcher;
         private IFormsAuthenticationService formsAuthenticationService;
 
         protected override void AfterSetUp()
         {
-            commandDispatcher = MockRepository.GenerateStub<ICommandDispatcher>();
             formsAuthenticationService = MockRepository.GenerateMock<IFormsAuthenticationService>();
 
-            controller = new AccountController(commandDispatcher, formsAuthenticationService, MockRepository.GenerateStub<IGetAccountRolesQueryHandler>());
+            controller = new AccountController(MockRepository.GenerateStrictMock<ICommandDispatcher>(),
+                                               MockRepository.GenerateStrictMock<IQueryHandlerFactory>(),
+                                               formsAuthenticationService);
+
+            SetupControllerContext(controller);
             controller.ControllerContext = new ControllerContext(HttpContext, RouteData, controller);
         }
 

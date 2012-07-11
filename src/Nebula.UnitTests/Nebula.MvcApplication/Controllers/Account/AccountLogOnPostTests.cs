@@ -8,6 +8,7 @@ using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Contracts.Registration.Queries;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
+using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Controllers;
 using Nebula.MvcApplication.Models;
 using Nebula.MvcApplication.Services;
@@ -20,6 +21,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
     {
         private AccountController controller;
         private ICommandDispatcher commandDispatcher;
+        private IQueryHandlerFactory queryHandlerFactory;
         private IFormsAuthenticationService formsAuthenticationService;
         private IGetAccountRolesQueryHandler getRolesForUserQuery;
         private LogOnModel logOnModel;
@@ -29,8 +31,11 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
             commandDispatcher = MockRepository.GenerateMock<ICommandDispatcher>();
             formsAuthenticationService = MockRepository.GenerateMock<IFormsAuthenticationService>();
             getRolesForUserQuery = MockRepository.GenerateMock<IGetAccountRolesQueryHandler>();
-            controller = new AccountController(commandDispatcher, formsAuthenticationService, getRolesForUserQuery);
-            controller.ControllerContext = new ControllerContext(HttpContext, RouteData, controller);
+            queryHandlerFactory = MockRepository.GenerateStub<IQueryHandlerFactory>();
+            queryHandlerFactory.Stub(f => f.CreateQuery<IGetAccountRolesQueryHandler>()).Return(getRolesForUserQuery);
+
+            controller = new AccountController(commandDispatcher, queryHandlerFactory, formsAuthenticationService);
+            SetupControllerContext(controller);
             logOnModel = new LogOnModel {UserName = "userX", Password = "secret", RememberMe = true};
             controller.Url = new UrlHelper(new RequestContext(HttpContext, RouteData));
             HttpRequest.Stub(r => r.Url).Return(new Uri("http://nebula.be/Account/LogOn"));

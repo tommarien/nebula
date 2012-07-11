@@ -5,6 +5,7 @@ using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Contracts.Registration.Queries;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
+using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Models;
 using Nebula.MvcApplication.Services;
 
@@ -14,14 +15,13 @@ namespace Nebula.MvcApplication.Controllers
     {
         private readonly ICommandDispatcher commandDispatcher;
         private readonly IFormsAuthenticationService formsAuthenticationService;
-        private readonly IGetAccountRolesQueryHandler getRolesForUserQuery;
+        private readonly IQueryHandlerFactory queryHandlerFactory;
 
-        public AccountController(ICommandDispatcher commandDispatcher, IFormsAuthenticationService formsAuthenticationService,
-                                 IGetAccountRolesQueryHandler getRolesForUserQuery)
+        public AccountController(ICommandDispatcher commandDispatcher, IQueryHandlerFactory queryHandlerFactory, IFormsAuthenticationService formsAuthenticationService)
         {
             this.commandDispatcher = commandDispatcher;
             this.formsAuthenticationService = formsAuthenticationService;
-            this.getRolesForUserQuery = getRolesForUserQuery;
+            this.queryHandlerFactory = queryHandlerFactory;
         }
 
         public ActionResult LogOn()
@@ -36,17 +36,18 @@ namespace Nebula.MvcApplication.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var command = new LogOnUserCommand {UserName = model.UserName, Password = model.Password};
+                    var command = new LogOnUserCommand { UserName = model.UserName, Password = model.Password };
                     bool result = commandDispatcher.Dispatch<LogOnUserCommand, OperationResult>(command);
 
                     if (result)
                     {
                         // Get roles of user
-                        var roles = getRolesForUserQuery.Execute(model.UserName);
+                        var query = queryHandlerFactory.CreateQuery<IGetAccountRolesQueryHandler>();
+                        var roles = query.Execute(model.UserName);
 
                         formsAuthenticationService.SignIn(model.UserName, model.RememberMe, roles);
 
-                        return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
+                        return Url.IsLocalUrl(returnUrl) ? (ActionResult)Redirect(returnUrl) : RedirectToAction("Index", "Home");
                     }
                 }
 

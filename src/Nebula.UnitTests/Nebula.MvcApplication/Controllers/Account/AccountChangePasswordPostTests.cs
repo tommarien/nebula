@@ -3,9 +3,9 @@ using System.Security.Principal;
 using System.Web.Mvc;
 using NUnit.Framework;
 using Nebula.Contracts.Registration.Commands;
-using Nebula.Contracts.Registration.Queries;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
+using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Controllers;
 using Nebula.MvcApplication.Models;
 using Nebula.MvcApplication.Services;
@@ -26,8 +26,8 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
             commandDispatcher = MockRepository.GenerateMock<ICommandDispatcher>();
             formsAuthenticationService = MockRepository.GenerateMock<IFormsAuthenticationService>();
 
-            controller = new AccountController(commandDispatcher, formsAuthenticationService, MockRepository.GenerateStrictMock<IGetAccountRolesQueryHandler>());
-            controller.ControllerContext = new ControllerContext(HttpContext, RouteData, controller);
+            controller = new AccountController(commandDispatcher, MockRepository.GenerateStrictMock<IQueryHandlerFactory>(), formsAuthenticationService);
+            SetupControllerContext(controller);
             model = new ChangePasswordModel {OldPassword = "oldsecret", NewPassword = "newsecret", ConfirmPassword = "newsecret"};
             HttpContext.Stub(c => c.User).Return(new GenericPrincipal(new GenericIdentity("userX"), new string[] {}));
         }

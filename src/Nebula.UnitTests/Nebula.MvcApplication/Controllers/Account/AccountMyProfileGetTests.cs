@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using NUnit.Framework;
-using Nebula.Contracts.Registration.Queries;
 using Nebula.Infrastructure.Commanding;
+using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Controllers;
 using Nebula.MvcApplication.Services;
 using Rhino.Mocks;
@@ -15,11 +15,11 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
 
         protected override void AfterSetUp()
         {
-            controller = new AccountController(MockRepository.GenerateStub<ICommandDispatcher>()
-                                               , MockRepository.GenerateStub<IFormsAuthenticationService>()
-                                               , MockRepository.GenerateStub<IGetAccountRolesQueryHandler>());
+            controller = new AccountController(MockRepository.GenerateStrictMock<ICommandDispatcher>(),
+                                               MockRepository.GenerateStrictMock<IQueryHandlerFactory>(),
+                                               MockRepository.GenerateStrictMock<IFormsAuthenticationService>());
 
-            controller.ControllerContext = new ControllerContext(HttpContext, RouteData, controller);
+            SetupControllerContext(controller);
         }
 
         [Test]
