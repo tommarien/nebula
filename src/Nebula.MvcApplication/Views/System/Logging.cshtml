@@ -18,7 +18,7 @@
 			<th>
 				Logger
 			</th>
-			<th class="jq_dt_type_pre_text">
+			<th class="jq_dt_type_text">
 				Message
 			</th>
 			<th>
@@ -59,7 +59,7 @@
 				{
 					'mDataProp': 'Id',
 					'fnRender': function (o, val) {
-						return '<button class="jq_zoom" value="' + val + '">Zoom</button>';
+						return '<button class="jq_zoom" data-id="' + val + '">Zoom</button>';
 					}
 				}
 			],
@@ -67,7 +67,7 @@
 				$('button.jq_zoom')
 					.button({ icons: { primary: 'ui-icon-zoomin'} })
 					.click(function () {
-						$('#logentrydetails_dialog').load('@Url.Action("LogDetail")' + '/' + $(this).val(), function () {
+						$('#logentrydetails_dialog').load('@Url.Action("LogDetail")' + '/' + $(this).data('id'), function () {
 							$(this).dialog('open');
 						});
 					});

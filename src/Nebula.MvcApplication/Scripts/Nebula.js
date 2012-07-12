@@ -21,7 +21,7 @@
 			}
 		},
 		{
-			'aTargets': ['jq_dt_type_pre_text'],
+			'aTargets': ['jq_dt_type_text'],
 			'fnRender': function (o, val) {
 				return replaceLineBreaks(val);
 			}

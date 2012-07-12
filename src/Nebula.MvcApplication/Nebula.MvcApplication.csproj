@@ -106,7 +106,6 @@
     <Content Include="Content\forward_disabled.png" />
     <Content Include="Content\forward_enabled.png" />
     <Content Include="Content\forward_enabled_hover.png" />
-    <Content Include="Content\jquery.dataTables.css" />
     <Content Include="Content\Nebula.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\sort_asc.png" />
