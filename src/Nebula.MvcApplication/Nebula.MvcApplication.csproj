@@ -130,7 +130,6 @@
     <Content Include="Content\south-street\images\ui-icons_eeeeee_256x240.png" />
     <Content Include="Content\south-street\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\south-street\jquery-ui-1.8.21.custom.css" />
-    <Content Include="Content\text.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.21.min.js" />
