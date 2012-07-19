@@ -1,4 +1,7 @@
 ﻿@using Nebula.MvcApplication.Helpers
-<ul id="menu">
-	@Html.SelectedActionLink("Home", "Index", "Home")
+<ul class="nav">
+	@if (User.Identity.IsAuthenticated)
+	{
+		@Html.TrackingListItem("System", "About", "System")
+	}
 </ul>

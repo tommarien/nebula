@@ -1,9 +1,11 @@
 ﻿(function ($) {
+
 	// DataTable conventional setup
 	$.fn.dataTable.defaults.bFilter = false;
 	$.fn.dataTable.defaults.bLengthChange = false;
-	$.fn.dataTable.defaults.bJQueryUI = true;
 	$.fn.dataTable.defaults.iDisplayLength = 10;
+	$.fn.dataTable.defaults.sDom = "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>";
+	$.fn.dataTable.defaults.sPaginationType = 'bootstrap';
 	$.fn.dataTable.defaults.aoColumnDefs = [
 		{
 			'aTargets': ['_all'],
@@ -28,12 +30,21 @@
 		}
 	];
 
+	// Bootstrap validation setup
+	$.validator.setDefaults({
+		highlight: function (element) {
+			$(element).closest(".control-group").addClass("error");
+		},
+		unhighlight: function (element) {
+			$(element).closest(".control-group").removeClass("error");
+		}
+	});
+
 	$(document).ready(function () {
+		$('form .input-validation-error').closest(".control-group").addClass("error");
+
 		//always select first form element
 		$(':input, select, textarea').first().focus();
-
-		// JQuery ui buttons
-		$('input:submit, button').button();
 	});
 
 })(jQuery);

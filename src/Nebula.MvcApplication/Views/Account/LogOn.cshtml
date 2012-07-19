@@ -1,45 +1,32 @@
-﻿@model Nebula.MvcApplication.Models.LogOnModel
-
+﻿@using Nebula.MvcApplication.Helpers
+@model Nebula.MvcApplication.Models.LogOnModel
 @{
-    ViewBag.Title = "Log On";
+	ViewBag.Title = "Sign in";
 }
-
-<h2>Log On</h2>
+<h2>Sign in to Nebula</h2>
 <p>
-    Please enter your user name and password. @Html.ActionLink("Register", "Register") if you don't have an account.
+	Please enter your user name and password. @Html.ActionLink("Register", "Register")
+	if you don't have an account.
 </p>
-
-@Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
-
-@using (Html.BeginForm()) {
-    <div>
-        <fieldset>
-            <legend>Account Information</legend>
-
-            <div class="editor-label">
-                @Html.LabelFor(m => m.UserName)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(m => m.Password)
-            </div>
-            <div class="editor-field">
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </div>
-
-            <div class="editor-label">
-                @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe)
-            </div>
-            <div class="clear"></div>
-            <p>
-                <input type="submit" value="Log On" />
-            </p>
-        </fieldset>
-    </div>
+@Html.BootstrapValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
+@using (Html.BeginForm())
+{
+	<div class="control-group">
+		@Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(m => m.UserName)
+			@Html.ValidationMessageFor(m => m.UserName, null, new { @class = "help-block" })
+		</div>
+	</div>
+	<div class="control-group">
+		@Html.LabelFor(m => m.Password, new { @class = "control-label" })
+		<div class="controls">
+			@Html.PasswordFor(m => m.Password)
+			@Html.ValidationMessageFor(m => m.Password, null, new { @class = "help-block" })
+		</div>
+	</div>
+	<div class="form-inline">
+		<input type="submit" class="btn btn-primary" value="Sign in" />
+		@Html.BootstrapCheckboxFor(m => m.RememberMe, new { style = "margin-left:20px" })
+	</div>
 }

@@ -61,7 +61,7 @@ namespace Nebula.MvcApplication.Controllers
         }
 
         [HttpGet]
-        [OutputCache(Duration = 3600, VaryByParam = "id")]
+        [OutputCache(Duration = 3600, VaryByParam = "*")]
         [Authorize(Roles = "Administrator")]
         public PartialViewResult LogDetail(int id)
         {

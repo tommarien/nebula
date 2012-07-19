@@ -1,55 +1,56 @@
 ﻿@model Nebula.Contracts.System.Queries.LogEntry
-<div class="display-label">
-	@Html.LabelFor(m => m.Id, "Event #")
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal">
+		<span class="icon-remove"></span>
+	</button>
+	<h3>Details of event #@Model.Id</h3>
 </div>
-<div class="display-field">
-	@Model.Id
+<div class="modal-body">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span6">
+				<h6>@Html.LabelFor(m => m.Date)</h6>
+				<p>@Model.Date.ToString("dd/MM/yyyy HH:mm:ss")</p>
+			</div>
+			<div class="span6">
+				<h6>@Html.LabelFor(m => m.Level)</h6>
+				<p>@Model.Level</p>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<h6>@Html.LabelFor(m => m.SessionId)</h6>
+				<p>@Model.SessionId</p>
+			</div>
+			<div class="span6">
+				<h6>@Html.LabelFor(m => m.UserName)</h6>
+				<p>@Model.UserName</p>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<h6>@Html.LabelFor(m => m.Logger)</h6>
+				<p>@Model.Logger</p>
+			</div>
+			<div class="span6">
+				<h6>@Html.LabelFor(m => m.HostName)</h6>
+				<p>@Model.HostName</p>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<h6>@Html.LabelFor(m => m.Message)</h6>
+				<pre>@Model.Message</pre>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<h6>@Html.LabelFor(m => m.Exception)</h6>
+				<pre>@Model.Exception</pre>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="display-label">
-	@Html.LabelFor(m => m.Date)
-</div>
-<div class="display-field">
-	@Model.Date.ToString("dd/MM/yyyy HH:mm:ss")
-</div>
-<div class="display-label">
-	@Html.LabelFor(m => m.Level)
-</div>
-<div class="display-field">
-	@Model.Level
-</div>
-<div class="display-label">
-	@Html.LabelFor(m => m.Logger)
-</div>
-<div class="display-field">
-	@Model.Logger
-</div>
-<div class="display-label">
-	@Html.LabelFor(m => m.SessionId)
-</div>
-<div class="display-field">
-	@Model.SessionId
-</div>
-<div class="display-label">
-	@Html.LabelFor(m => m.UserName)
-</div>
-<div class="display-field">
-	@Model.UserName
-</div>
-<div class="display-label">
-	@Html.LabelFor(m => m.HostName)
-</div>
-<div class="display-field">
-	@Model.HostName
-</div>
-<div class="display-label">
-	@Html.LabelFor(m => m.Message)
-</div>
-<div class="display-field">
-	@Html.TextAreaFor(m => m.Message, 5, 80, new { @readonly = "true" })
-</div>
-<div class="display-label">
-	@Html.LabelFor(m => m.Exception)
-</div>
-<div class="display-field">
-	@Html.TextAreaFor(m => m.Exception, 6, 80, new { @readonly = "true" })
+<div class="modal-footer">
+	<a href="#" class="btn" data-dismiss="modal">Close</a>
 </div>

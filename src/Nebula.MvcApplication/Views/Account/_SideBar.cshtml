@@ -1,5 +1,5 @@
 ﻿@using Nebula.MvcApplication.Helpers
-<h2>Account</h2>
-<ul id="sidenav">
-	<li>@Html.SelectedActionLink("Change your password", "ChangePassword", "Account")</li>
+<ul class="nav nav-tabs nav-stacked">
+	@Html.TrackingListItem("Settings", "MyProfile", "Account", linkItemClass: "icon-chevron-right pull-right")
+	@Html.TrackingListItem("Change your password", "ChangePassword", "Account", linkItemClass: "icon-chevron-right pull-right")
 </ul>

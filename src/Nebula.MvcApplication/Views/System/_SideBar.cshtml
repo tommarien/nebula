@@ -1,10 +1,9 @@
 ﻿@using Nebula.Contracts.Registration
 @using Nebula.MvcApplication.Helpers
-<h2>System</h2>
-<ul id="sidenav">
-	<li>@Html.SelectedActionLink("About", "About", "System")</li>
+<ul class="nav nav-tabs nav-stacked">
+	@Html.TrackingListItem("About", "About", "System", linkItemClass: "icon-chevron-right pull-right")
 	@if (User.IsInRole(Role.Administrator.ToString()))
 	{
-		<li>@Html.SelectedActionLink("Event Log", "Logging", "System")</li>
+		@Html.TrackingListItem("Event Log", "Logging", "System", linkItemClass: "icon-chevron-right pull-right")
 	}
 </ul>

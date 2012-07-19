@@ -5,8 +5,7 @@
 <p>
 	Here you can see all gathered log entries.
 </p>
-<br />
-<table id="logSummaryDataTable">
+<table id="logSummaryDataTable" class="table table-striped table-bordered">
 	<thead>
 		<tr>
 			<th class="jq_dt_type_json_datetime">
@@ -28,7 +27,7 @@
 	<tbody>
 	</tbody>
 </table>
-<div id="logentrydetails_dialog">
+<div id="logentrydetails_dialog" class="modal hide">
 </div>
 @section sidebar 
 {
@@ -36,16 +35,6 @@
 }
 <script type="text/javascript">
 	$(document).ready(function () {
-
-		$('#logentrydetails_dialog').dialog({
-			title: 'Details of event',
-			autoOpen: false,
-			resizable: false,
-			width: 'AUTO',
-			heigth: 540,
-			modal: true
-		});
-
 		$('#logSummaryDataTable').dataTable({
 			'iDisplayLength': 5,
 			'bProcessing': true,
@@ -59,16 +48,15 @@
 				{
 					'mDataProp': 'Id',
 					'fnRender': function (o, val) {
-						return '<button class="jq_zoom" data-id="' + val + '">Zoom</button>';
+						return '<button class="btn btn-info btn-small jq_zoom" title="Zoom" data-id="' + val + '"><span class="icon-zoom-in icon-white"></span></button>';
 					}
 				}
 			],
 			"fnDrawCallback": function () {
 				$('button.jq_zoom')
-					.button({ icons: { primary: 'ui-icon-zoomin'} })
 					.click(function () {
 						$('#logentrydetails_dialog').load('@Url.Action("LogDetail")' + '/' + $(this).data('id'), function () {
-							$(this).dialog('open');
+							$(this).modal();
 						});
 					});
 			}
