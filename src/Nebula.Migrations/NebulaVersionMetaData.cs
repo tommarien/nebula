@@ -19,5 +19,10 @@ namespace Nebula.Migrations
         {
             get { return "Version"; }
         }
+
+        public string UniqueIndexName
+        {
+            get { return "UC_Version"; }
+        }
     }
 }

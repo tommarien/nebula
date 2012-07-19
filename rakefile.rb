@@ -109,7 +109,7 @@ end
 namespace :db do
 	desc "runs all necessary migrations"
 	fluentmigrator :migrate, :connection do |migrator, args|
-		migrator.command = 'packages/FluentMigrator.Tools.1.0.2.0/tools/AnyCPU/40/Migrate.exe'
+		migrator.command = 'packages/FluentMigrator.Tools.1.0.3.0/tools/AnyCPU/40/Migrate.exe'
 		migrator.provider = 'SqlServer2008'
 		migrator.target = './src/Nebula.Migrations/bin/Debug/Nebula.Migrations.dll'
 		migrator.connection = args[:connection]
@@ -117,7 +117,7 @@ namespace :db do
 	end
 	desc "rollbacks all migrations"
 	fluentmigrator :rollback, :connection do |migrator, args|
-		migrator.command = 'packages/FluentMigrator.Tools.1.0.2.0/tools/AnyCPU/40/Migrate.exe'
+		migrator.command = 'packages/FluentMigrator.Tools.1.0.3.0/tools/AnyCPU/40/Migrate.exe'
 		migrator.provider = 'SqlServer2008'
 		migrator.target = './src/Nebula.Migrations/bin/Debug/Nebula.Migrations.dll'
 		migrator.connection = args[:connection]
