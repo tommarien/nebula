@@ -91,41 +91,67 @@ namespace :env do
 end
 
 namespace :build do
-	desc "build the debug version of the solution"
+	desc "build Nebula in Debug configuration"
 	msbuild :debug do |msb|
 		msb.properties = {:configuration => :Debug}
 		msb.targets = [:Clean, :Build]
-		msb.solution = "Nebula.sln"
+		msb.solution = configatron.product.solution
 	end
   
-	desc "build the release version of the solution"
+	desc "build Nebula in Release configuration"
 	msbuild :release => "version:assemblyinfo" do |msb|
 		msb.properties = {:configuration => :Release}
 		msb.targets = [:Clean, :Build]
-		msb.solution = "Nebula.sln"
+		msb.solution = configatron.product.solution
 	end
 end
 
 namespace :db do
+
+	# figure out the location of fluentmigrator console
+	def fluentmigrator_command
+			fluentdirectory = Dir.glob('packages/FluentMigrator.Tools.*/tools/AnyCPU/40')
+			
+			if fluentdirectory.empty? then
+				raise "FluentMigrator.Tools package is missing, build your solution first !"
+			else 
+				"#{fluentdirectory.last}/Migrate.exe"
+			end
+	end
+	
+	fluentmigrator_provider = 'SqlServer2008'
+	
+	# Todo: Take into account that we could have build in release/debug mode
+	def fluentmigrator_target
+		target = './src/Nebula.Migrations/bin/Debug/Nebula.Migrations.dll'
+		if File.exists?(target)
+			target
+		else
+			raise "Migration assembly is missing, looked in #{target}"
+		end
+	end
+	
+
 	desc "runs all necessary migrations"
 	fluentmigrator :migrate, :connection do |migrator, args|
-		migrator.command = 'packages/FluentMigrator.Tools.1.0.3.0/tools/AnyCPU/40/Migrate.exe'
-		migrator.provider = 'SqlServer2008'
-		migrator.target = './src/Nebula.Migrations/bin/Debug/Nebula.Migrations.dll'
+		migrator.command = fluentmigrator_command
+		migrator.provider = fluentmigrator_provider
+		migrator.target = fluentmigrator_target
 		migrator.connection = args[:connection]
 		migrator.verbose = true
 	end
+	
 	desc "rollbacks all migrations"
 	fluentmigrator :rollback, :connection do |migrator, args|
-		migrator.command = 'packages/FluentMigrator.Tools.1.0.3.0/tools/AnyCPU/40/Migrate.exe'
-		migrator.provider = 'SqlServer2008'
-		migrator.target = './src/Nebula.Migrations/bin/Debug/Nebula.Migrations.dll'
+		migrator.command = fluentmigrator_command
+		migrator.provider = fluentmigrator_provider
+		migrator.target = fluentmigrator_target
 		migrator.connection = args[:connection]
 		migrator.task = "rollback:all"
 		migrator.verbose = true
 	end
 	
-	desc "rollbacks and reruns all migrations"
+	desc "WARN: rollbacks and reruns all migrations"
 	task :reset, [:connection] do |t, args|
 		Rake::Task["db:rollback"].invoke(args.connection)
 		Rake::Task["db:migrate"].invoke(args.connection)

@@ -1,5 +1,3 @@
-require 'version_bumper'
-
 configatron.product.name = 'Nebula'
 configatron.product.solution = configatron.product.name + '.sln'
 configatron.product.version = Configatron::Dynamic.new {bumper_version.to_s}
