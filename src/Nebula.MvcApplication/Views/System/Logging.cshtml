@@ -27,20 +27,19 @@
 	<tbody>
 	</tbody>
 </table>
-<div id="logentrydetails_dialog" class="modal hide">
+<div id="logentrydetails_dialog" class="modal hide" style="display: none">
 </div>
 @section sidebar 
 {
 	@Html.Partial("_SideBar")
 }
 <script type="text/javascript">
-	$(document).ready(function () {
-		$('#logSummaryDataTable').dataTable({
-			'iDisplayLength': 5,
-			'bProcessing': true,
-			'bServerSide': true,
-			'sAjaxSource': '@Url.Action("PagedLogSummary")',
-			'aoColumns': [
+	$('#logSummaryDataTable').dataTable({
+		'iDisplayLength': 5,
+		'bProcessing': true,
+		'bServerSide': true,
+		'sAjaxSource': '@Url.Action("PagedLogSummary")',
+		'aoColumns': [
 				{ 'mDataProp': 'Date' },
 				{ 'mDataProp': 'Level' },
 				{ 'mDataProp': 'Logger' },
@@ -52,14 +51,14 @@
 					}
 				}
 			],
-			"fnDrawCallback": function () {
-				$('button.jq_zoom')
+		"fnDrawCallback": function () {
+			$('button.jq_zoom')
 					.click(function () {
-						$('#logentrydetails_dialog').load('@Url.Action("LogDetail")' + '/' + $(this).data('id'), function () {
-							$(this).modal();
-						});
+						$('#logentrydetails_dialog')
+							.load('@Url.Action("LogDetail")' + '/' + $(this).data('id'), function () {
+								$(this).modal();
+							});
 					});
-			}
-		});
+		}
 	});
 </script>
