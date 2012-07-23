@@ -1,7 +1,9 @@
 ﻿@if (Request.IsAuthenticated)
 {
 	<div class="btn-group pull-right">
-		<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="icon-user icon-white"></span> @User.Identity.Name
+		<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+			<span class="icon-user icon-white"></span>
+			@User.Identity.Name
 			<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
@@ -16,6 +18,12 @@
 else
 {
 	<div class="btn-group pull-right">
-		<a class="btn btn-primary" href='@Url.Action("LogOn", "Account")'>Sign in</a>
+		<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">Sign in
+			<span class="caret icon-white"></span>
+		</a>
+		<div class="dropdown-menu">
+			@Html.Partial("MiniLogon")
+			<!-- dropdown menu links -->
+		</div>
 	</div>
 }

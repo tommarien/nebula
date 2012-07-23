@@ -72,4 +72,9 @@ table.dataTable th:active {
 	font-size: 14px;
 	background-color: white;
 }
-
+/* MiniLogon */
+form.minilogon
+{
+	padding: 20px;
+	margin: 0;
+}
