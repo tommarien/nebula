@@ -1,7 +1,39 @@
-﻿@using Nebula.MvcApplication.Helpers
+﻿@using Nebula.Contracts.Registration
+@using Nebula.MvcApplication.Helpers
 <ul class="nav">
 	@if (User.Identity.IsAuthenticated)
-	{
-		@Html.TrackingListItem("System", "About", "System")
-	}
+ {
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li>
+					<a href="#">Action</a></li>
+				<li>
+					<a href="#">Another action</a></li>
+				<li>
+					<a href="#">Something else here</a></li>
+				<li class="divider"></li>
+				<li class="nav-header">Nav header</li>
+				<li>
+					<a href="#">Separated link</a></li>
+				<li>
+					<a href="#">One more separated link</a></li>
+			</ul>
+		</li>
+	 if (User.IsInRole(Role.Administrator.ToString()))
+	 {
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">System
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li>
+					<a href="@Url.Action("Logging","System")">Event Log</a></li>
+				<li>
+			</ul>
+		</li>
+	 }
+ }
 </ul>
