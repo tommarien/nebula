@@ -10,7 +10,7 @@
 	</div>
 }
 <script type="text/javascript">
-	$("form.minilogon :input, :checkbox, label").not('input[type:button]').click(function (e) {
+	$("form.minilogon input:text, input:password, :checkbox, label").click(function (e) {
 		e.stopPropagation();
 	});
 </script>
