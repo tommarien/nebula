@@ -75,10 +75,10 @@
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountLogOnGetTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountLogOnPostTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountMyProfileGetTests.cs" />
+    <Compile Include="Nebula.MvcApplication\Controllers\Log\LogIndexGetTests.cs" />
+    <Compile Include="Nebula.MvcApplication\Controllers\Log\LogDataGetTests.cs" />
+    <Compile Include="Nebula.MvcApplication\Controllers\Log\LogDetailsGetTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\System\SystemAboutGetTests.cs" />
-    <Compile Include="Nebula.MvcApplication\Controllers\System\SystemLogDetailGetTests.cs" />
-    <Compile Include="Nebula.MvcApplication\Controllers\System\SystemLoggingGetTests.cs" />
-    <Compile Include="Nebula.MvcApplication\Controllers\System\SystemPagedLogSummaryGetTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\System\SystemVersionGetTests.cs" />
     <Compile Include="Nebula.MvcApplication\HttpContextFixture.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountLogOffTests.cs" />

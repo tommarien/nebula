@@ -31,14 +31,15 @@
 </div>
 @section sidebar 
 {
-	@Html.Partial("_SideBar")
+	@*	@Html.Partial("_SideBar")
+*@
 }
 <script type="text/javascript">
 	$('#logSummaryDataTable').dataTable({
 		'iDisplayLength': 5,
 		'bProcessing': true,
 		'bServerSide': true,
-		'sAjaxSource': '@Url.Action("PagedLogSummary")',
+		'sAjaxSource': '@Url.Action("Data")',
 		'aoColumns': [
 				{ 'mDataProp': 'Date' },
 				{ 'mDataProp': 'Level' },
@@ -55,7 +56,7 @@
 			$('button.jq_zoom')
 					.click(function () {
 						$('#logentrydetails_dialog')
-							.load('@Url.Action("LogDetail")' + '/' + $(this).data('id'), function () {
+							.load('@Url.Action("Details")' + '/' + $(this).data('id'), function () {
 								$(this).modal();
 							});
 					});

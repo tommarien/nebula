@@ -4,12 +4,12 @@ using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Controllers;
 using Rhino.Mocks;
 
-namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
+namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Log
 {
     [TestFixture]
-    public class SystemLogDetailGetTests : HttpContextFixture
+    public class LogDetailsGetTests : HttpContextFixture
     {
-        private SystemController controller;
+        private LogController controller;
         private IQueryHandlerFactory queryHandlerFactory;
         private ILogEntryDetailsQueryHandler logEntryDetailsQueryHandler;
 
@@ -20,7 +20,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
 
             queryHandlerFactory.Stub(hf => hf.CreateQuery<ILogEntryDetailsQueryHandler>()).Return(logEntryDetailsQueryHandler);
 
-            controller = new SystemController(queryHandlerFactory);
+            controller = new LogController(queryHandlerFactory);
             SetupControllerContext(controller);
         }
 
@@ -31,7 +31,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
 
             logEntryDetailsQueryHandler.Expect(q => q.Execute(5)).Return(logentry);
 
-            var result = controller.LogDetail(5);
+            var result = controller.Details(5);
 
             Assert.AreSame(logentry, result.Model);
             logEntryDetailsQueryHandler.VerifyAllExpectations();

@@ -8,20 +8,20 @@ using Nebula.MvcApplication.Controllers;
 using Nebula.MvcApplication.Models;
 using Rhino.Mocks;
 
-namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
+namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Log
 {
     [TestFixture]
-    public class SystemPagedLogSummaryGetTests : HttpContextFixture
+    public class LogDataGetTests : HttpContextFixture
     {
         private IQueryHandlerFactory queryHandlerFactory;
-        private SystemController controller;
+        private LogController controller;
         private IPagedLogSummaryQueryHandler queryHandler;
 
         protected override void AfterSetUp()
         {
             queryHandlerFactory = MockRepository.GenerateStub<IQueryHandlerFactory>();
             queryHandler = MockRepository.GenerateStub<IPagedLogSummaryQueryHandler>();
-            controller = new SystemController(queryHandlerFactory);
+            controller = new LogController(queryHandlerFactory);
 
             queryHandlerFactory.Stub(f => f.CreateQuery<IPagedLogSummaryQueryHandler>()).Return(queryHandler);
 
@@ -35,7 +35,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
             queryHandler.Stub(qh => qh.Execute(Arg<LogSummarySearch>.Matches(ls => ls.Skip == 0 && ls.Take == 10))).Return(
                 new PagedResult<LogSummary>(queryResults, 10));
 
-            var result = controller.PagedLogSummary(new DatatableModel {sEcho = "20", iDisplayStart = 0, iDisplayLength = 10});
+            var result = controller.Data(new DatatableModel {sEcho = "20", iDisplayStart = 0, iDisplayLength = 10});
 
             Assert.IsNotNull(result.Data);
             IDictionary<string, object> values = result.Data.ToDictionary();
