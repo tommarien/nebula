@@ -189,8 +189,6 @@
     <Content Include="Views\System\About.cshtml" />
     <Content Include="Views\System\_SideBar.cshtml" />
     <Content Include="Views\System\Version.cshtml" />
-    <Content Include="Views\System\Logging.cshtml" />
-    <Content Include="Views\System\LogDetail.cshtml" />
     <Content Include="Views\Shared\MiniLogon.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />
     <Content Include="Views\Log\Details.cshtml" />
