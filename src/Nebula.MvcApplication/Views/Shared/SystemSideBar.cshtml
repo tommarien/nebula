@@ -4,6 +4,6 @@
 	@Html.TrackingListItem("About", "About", "System", linkItemClass: "icon-chevron-right pull-right")
 	@if (User.IsInRole(Role.Administrator.ToString()))
 	{
-		@Html.TrackingListItem("Event Log", "Logging", "System", linkItemClass: "icon-chevron-right pull-right")
+		@Html.TrackingListItem("Event Log", "Index", "Log", linkItemClass: "icon-chevron-right pull-right")
 	}
 </ul>

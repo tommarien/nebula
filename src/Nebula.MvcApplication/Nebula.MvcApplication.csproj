@@ -187,7 +187,7 @@
     <Content Include="log4net.config" />
     <None Include="log4net.config.template" />
     <Content Include="Views\System\About.cshtml" />
-    <Content Include="Views\System\_SideBar.cshtml" />
+    <Content Include="Views\Shared\SystemSideBar.cshtml" />
     <Content Include="Views\System\Version.cshtml" />
     <Content Include="Views\Shared\MiniLogon.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />

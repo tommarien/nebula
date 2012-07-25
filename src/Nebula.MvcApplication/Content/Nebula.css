@@ -78,3 +78,6 @@ form.minilogon
 	padding: 20px;
 	margin: 0;
 }
+form.minilogon label {
+	color: black;
+}

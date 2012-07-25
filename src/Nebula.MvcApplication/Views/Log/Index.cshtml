@@ -1,7 +1,7 @@
 ﻿@{
 	ViewBag.Title = "Event Log";
 }
-<h2>Event Log</h2>
+<h1>Event Log</h1>
 <p>
 	Here you can see all gathered log entries.
 </p>
@@ -31,8 +31,7 @@
 </div>
 @section sidebar 
 {
-	@*	@Html.Partial("_SideBar")
-*@
+	@Html.Partial("SystemSideBar")
 }
 <script type="text/javascript">
 	$('#logSummaryDataTable').dataTable({
