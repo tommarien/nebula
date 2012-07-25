@@ -4,43 +4,21 @@ require 'version_bumper'
 require 'configatron'
 require 'erb'
 
-#global variables
-@build_folder = File.expand_path("./build");
-@src_folder = File.expand_path("./src");
+#basic setup
+configatron.build.buildpath = "./build"
+configatron.build.srcpath = "./src"
+configatron.build.configpath = "./config"
+configatron.build.packagespath = "./packages"
 
 #require all rb files from build folder
-Dir.glob("#{@build_folder}/*.rb") do |f|
-	require f
+Dir.glob("#{configatron.build.buildpath}/*.rb") do |rubyfile|
+	require rubyfile
 end
 
 #include all generated files in clean
-Dir.glob("**/*.*.template") do |filename|
-	filename[".template"] = ""
-	CLEAN.include(filename)
-end
-
-@env_root_path = File.expand_path('.')
-@env_sourcepath = File.join("#{@env_root_path}", "src")
-@env_cfg_path = File.join("#{@env_root_path}", "config")
-
-@env_packagespath = File.expand_path('./packages')
-@env_templatespath = File.expand_path('./templates')
-@env_sharedassemblyinfo = File.join("#{@env_sourcepath}", "SharedAssemblyInfo.cs")
-@env_projectname = "Nebula"
-@env_buildconfigname = "Release"
-
-
-
-def env_buildversion
-  bumper_version.to_s
-end
-
-def env_projectfullname
-  "#{@env_projectname}-v#{env_buildversion}-#{@env_buildconfigname}"
-end
-
-def env_buildfolderpath
-  "Builds/#{env_projectfullname}/"
+Dir.glob("**/*.*.template") do |template|
+	template[".template"] = ""
+	CLEAN.include(template)
 end
 
 task :default => "env:setup"
@@ -49,12 +27,16 @@ namespace :env do
 
 	def init(env=nil)
 		root = defined?(Rails) ? ::Rails.root : FileUtils.pwd
-        base_dir = File.expand_path(File.join(root, 'config'))
+        base_dir = File.expand_path(configatron.build.configpath)
 		if env.nil?
 			env = defined?(Rails) ? ::Rails.env : 'development'
 		end
 		
 		config_files = []
+
+		if (!File.exists?(File.join(base_dir, "#{env}.rb")))
+			raise "Can not locate environment config file #{env}.rb"
+		end
 
 		config_files << File.join(base_dir, 'defaults.rb')
 		config_files << File.join(base_dir, "#{env}.rb")
@@ -86,7 +68,7 @@ namespace :env do
 			File.open(filename, 'w') { |f| f.write erb.result() }
 		end
 		
-		puts "Configured application for environment"
+		puts "Configured application for environment #{defined?(env) ? env : 'development'}"
 	end
 end
 
