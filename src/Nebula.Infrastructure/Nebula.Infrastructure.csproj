@@ -53,14 +53,16 @@
     <Compile Include="Commanding\ICommand.cs" />
     <Compile Include="Commanding\ICommandHandler.cs" />
     <Compile Include="Commanding\ICommandHandlerFactory.cs" />
+    <Compile Include="SystemContext.cs" />
     <Compile Include="IHandle.cs" />
     <Compile Include="InvalidStateException.cs" />
+    <Compile Include="ISystemClock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Querying\QueryResults\PagedResult.cs" />
     <Compile Include="Querying\QuerySearch.cs" />
     <Compile Include="Querying\IQueryHandler.cs" />
     <Compile Include="Querying\IQueryHandlerFactory.cs" />
-    <Compile Include="SystemClock.cs" />
+    <Compile Include="RealTimeSystemClock.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

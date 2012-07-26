@@ -74,12 +74,14 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         public void Should_set_LastLogonDate()
         {
             var account = new AccountBuilder().Build();
+            var clock = MockRepository.GenerateStub<ISystemClock>();
+            SystemContext.Clock = clock;
 
             query.Stub(q => q.Execute(command.UserName)).Return(account);
 
             var aDate = new DateTime(2012, 1, 1);
-            SystemClock.Mock(aDate);
-
+            clock.Stub(c => c.Now()).Return(aDate);
+            
             commandHandler.Handle(command);
 
             Assert.AreEqual(aDate, account.LastLogOnDate);

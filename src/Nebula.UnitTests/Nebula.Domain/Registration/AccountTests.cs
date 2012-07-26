@@ -4,6 +4,7 @@ using Nebula.Contracts.Registration;
 using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Domain.Registration;
 using Nebula.Infrastructure;
+using Rhino.Mocks;
 
 namespace Nebula.UnitTests.Nebula.Domain.Registration
 {
@@ -62,8 +63,11 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         public void LogOn_Sets_LastLogonDate_if_goes_as_expected()
         {
             var account = new Account("jdoe", new Password("secret"));
+            var clock = MockRepository.GenerateStub<ISystemClock>();
+            SystemContext.Clock = clock;
+
             var januariTheFirst2011 = new DateTime(2011, 1, 1);
-            SystemClock.Mock(januariTheFirst2011);
+            clock.Stub(c => c.Now()).Return(januariTheFirst2011);
 
             account.LogOn("secret");
 

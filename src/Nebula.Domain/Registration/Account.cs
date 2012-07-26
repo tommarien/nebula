@@ -52,7 +52,7 @@ namespace Nebula.Domain.Registration
 
             if (!Password.Equals(password)) return false;
 
-            LastLogOnDate = SystemClock.Now;
+            LastLogOnDate = SystemContext.Clock.Now();
 
             return true;
         }
