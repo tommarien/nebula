@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Nebula.Contracts.System.Queries;
+using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Controllers;
 using Rhino.Mocks;
@@ -20,7 +21,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Log
 
             queryHandlerFactory.Stub(hf => hf.CreateQuery<ILogEntryDetailsQueryHandler>()).Return(logEntryDetailsQueryHandler);
 
-            controller = new LogController(queryHandlerFactory);
+            controller = new LogController(queryHandlerFactory, MockRepository.GenerateStrictMock<ICommandDispatcher>());
             SetupControllerContext(controller);
         }
 

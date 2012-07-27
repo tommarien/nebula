@@ -4,6 +4,7 @@ using Nebula.Infrastructure.Querying;
 
 namespace Nebula.IntegrationTests.System
 {
+    [TestFixture]
     public class GetLastRunMigrationQueryHandlerTests : AutoRollbackFixture
     {
         private GetLastRunMigrationQueryHandler handler;

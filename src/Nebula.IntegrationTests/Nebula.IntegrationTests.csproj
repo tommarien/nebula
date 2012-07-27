@@ -66,6 +66,7 @@
     <Compile Include="System\GetLastRunMigrationQueryHandlerTests.cs" />
     <Compile Include="System\LogEntryDetailsQueryHandlerTests.cs" />
     <Compile Include="System\PagedLogSummaryQueryHandlerTests.cs" />
+    <Compile Include="System\PurgeEventLogOlderThan1WeekCommandHandlerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -78,6 +78,7 @@
     <Compile Include="Nebula.MvcApplication\Controllers\Log\LogIndexGetTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Log\LogDataGetTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Log\LogDetailsGetTests.cs" />
+    <Compile Include="Nebula.MvcApplication\Controllers\Log\LogPurgeGetTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\System\SystemAboutGetTests.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\System\SystemVersionGetTests.cs" />
     <Compile Include="Nebula.MvcApplication\HttpContextFixture.cs" />

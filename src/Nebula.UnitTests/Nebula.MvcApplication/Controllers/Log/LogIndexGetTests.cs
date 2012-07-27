@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using NUnit.Framework;
+using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Controllers;
 using Rhino.Mocks;
@@ -13,7 +14,8 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Log
 
         protected override void AfterSetUp()
         {
-            controller = new LogController(MockRepository.GenerateStrictMock<IQueryHandlerFactory>());
+            controller = new LogController(MockRepository.GenerateStrictMock<IQueryHandlerFactory>(),
+                                           MockRepository.GenerateStrictMock<ICommandDispatcher>());
             SetupControllerContext(controller);
         }
 

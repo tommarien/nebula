@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Nebula.Contracts.System.Queries;
 using Nebula.Infrastructure;
+using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Querying;
 using Nebula.Infrastructure.Querying.QueryResults;
 using Nebula.MvcApplication.Controllers;
@@ -21,7 +22,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Log
         {
             queryHandlerFactory = MockRepository.GenerateStub<IQueryHandlerFactory>();
             queryHandler = MockRepository.GenerateStub<IPagedLogSummaryQueryHandler>();
-            controller = new LogController(queryHandlerFactory);
+            controller = new LogController(queryHandlerFactory, MockRepository.GenerateStrictMock<ICommandDispatcher>());
 
             queryHandlerFactory.Stub(f => f.CreateQuery<IPagedLogSummaryQueryHandler>()).Return(queryHandler);
 
