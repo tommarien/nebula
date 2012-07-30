@@ -11,17 +11,15 @@ using Nebula.MvcApplication.Services;
 
 namespace Nebula.MvcApplication.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : CQSController
     {
-        private readonly ICommandDispatcher commandDispatcher;
         private readonly IFormsAuthenticationService formsAuthenticationService;
-        private readonly IQueryHandlerFactory queryHandlerFactory;
 
-        public AccountController(ICommandDispatcher commandDispatcher, IQueryHandlerFactory queryHandlerFactory, IFormsAuthenticationService formsAuthenticationService)
+        public AccountController(ICommandDispatcher commandDispatcher, IQueryHandlerFactory queryHandlerFactory,
+                                 IFormsAuthenticationService formsAuthenticationService)
+            : base(commandDispatcher, queryHandlerFactory)
         {
-            this.commandDispatcher = commandDispatcher;
             this.formsAuthenticationService = formsAuthenticationService;
-            this.queryHandlerFactory = queryHandlerFactory;
         }
 
         public ActionResult LogOn()
@@ -36,18 +34,18 @@ namespace Nebula.MvcApplication.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var command = new LogOnUserCommand { UserName = model.UserName, Password = model.Password };
-                    bool result = commandDispatcher.Dispatch<LogOnUserCommand, OperationResult>(command);
+                    var command = new LogOnUserCommand {UserName = model.UserName, Password = model.Password};
+                    bool result = DispatchAndReturn<LogOnUserCommand, OperationResult>(command);
 
                     if (result)
                     {
                         // Get roles of user
-                        var query = queryHandlerFactory.CreateQuery<IGetAccountRolesQueryHandler>();
+                        var query = QueryHandlerFactory.CreateQuery<IGetAccountRolesQueryHandler>();
                         var roles = query.Execute(model.UserName);
 
                         formsAuthenticationService.SignIn(model.UserName, model.RememberMe, roles);
 
-                        return Url.IsLocalUrl(returnUrl) ? (ActionResult)Redirect(returnUrl) : RedirectToAction("Index", "Home");
+                        return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
                     }
                 }
 
@@ -126,13 +124,13 @@ namespace Nebula.MvcApplication.Controllers
                 try
                 {
                     var command = new ChangePasswordCommand
-                                      {
-                                          UserName = User.Identity.Name,
-                                          OldPassword = model.OldPassword,
-                                          NewPassword = model.NewPassword
-                                      };
+                        {
+                            UserName = User.Identity.Name,
+                            OldPassword = model.OldPassword,
+                            NewPassword = model.NewPassword
+                        };
 
-                    changePasswordSucceeded = commandDispatcher.Dispatch<ChangePasswordCommand, OperationResult>(command);
+                    changePasswordSucceeded = DispatchAndReturn<ChangePasswordCommand, OperationResult>(command);
                 }
                 catch (Exception)
                 {

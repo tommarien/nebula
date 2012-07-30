@@ -17,7 +17,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Log
         protected override void AfterSetUp()
         {
             dispatcher = MockRepository.GenerateStrictMock<ICommandDispatcher>();
-            controller = new LogController(MockRepository.GenerateStrictMock<IQueryHandlerFactory>(), dispatcher);
+            controller = new LogController(dispatcher, MockRepository.GenerateStrictMock<IQueryHandlerFactory>());
         }
 
         [Test]

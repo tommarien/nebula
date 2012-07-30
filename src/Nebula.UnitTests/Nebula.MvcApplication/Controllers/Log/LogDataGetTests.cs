@@ -22,7 +22,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Log
         {
             queryHandlerFactory = MockRepository.GenerateStub<IQueryHandlerFactory>();
             queryHandler = MockRepository.GenerateStub<IPagedLogSummaryQueryHandler>();
-            controller = new LogController(queryHandlerFactory, MockRepository.GenerateStrictMock<ICommandDispatcher>());
+            controller = new LogController(MockRepository.GenerateStrictMock<ICommandDispatcher>(), queryHandlerFactory);
 
             queryHandlerFactory.Stub(f => f.CreateQuery<IPagedLogSummaryQueryHandler>()).Return(queryHandler);
 
