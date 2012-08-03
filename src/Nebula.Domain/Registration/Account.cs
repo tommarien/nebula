@@ -31,7 +31,7 @@ namespace Nebula.Domain.Registration
 
         public virtual Password Password { get; protected set; }
 
-        public virtual bool IsActive { get; set; }
+        public virtual bool IsActive { get; protected set; }
 
         public virtual DateTime? LastLogOnDate { get; protected set; }
 
@@ -60,6 +60,11 @@ namespace Nebula.Domain.Registration
         public virtual void Grant(Role role)
         {
             roles.Add(role);
+        }
+
+        public virtual void Deactivate()
+        {
+            IsActive = false;
         }
 
         private void GuardAgainstInactivity()

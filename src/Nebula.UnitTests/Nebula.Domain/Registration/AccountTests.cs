@@ -85,7 +85,8 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         [Test]
         public void LogOn_Throws_InactiveAccountException_if_account_is_inactive()
         {
-            var account = new Account("jdoe", new Password("secret")) {IsActive = false};
+            var account = new Account("jdoe", new Password("secret"));
+            account.Deactivate();
 
             Assert.Throws<InactiveAccountException>(() => account.LogOn("secret"));
         }

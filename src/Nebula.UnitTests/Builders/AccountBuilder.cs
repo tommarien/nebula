@@ -47,7 +47,7 @@ namespace Nebula.UnitTests.Builders
                 account.Grant(role);
             }
 
-            account.IsActive = active;
+            if (!active) account.Deactivate();
             return account;
         }
     }
