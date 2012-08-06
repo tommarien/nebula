@@ -3,7 +3,7 @@
 namespace Nebula.Migrations
 {
     [Migration(5)]
-    public class M0005_Alter_System_Log_Add_Index_Date : ForwardOnlyMigration
+    public class M0005_Alter_System_Log_Add_Index_Date : AutoReversingMigration
     {
         public override void Up()
         {
