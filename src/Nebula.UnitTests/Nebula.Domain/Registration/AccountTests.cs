@@ -4,6 +4,7 @@ using Nebula.Contracts.Registration;
 using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Domain.Registration;
 using Nebula.Infrastructure;
+using Nebula.UnitTests.Builders;
 using Rhino.Mocks;
 
 namespace Nebula.UnitTests.Nebula.Domain.Registration
@@ -39,6 +40,24 @@ namespace Nebula.UnitTests.Nebula.Domain.Registration
         {
             var account = new Account("jdoe", new Password("secret"));
             Assert.IsTrue(account.IsActive);
+        }
+
+        [Test]
+        public void Deactivate_deactivates_account()
+        {
+            var account = new AccountBuilder().Build();
+
+            account.Deactivate();
+
+            Assert.IsFalse(account.IsActive);
+        }
+
+        [Test]
+        public void Deactivate_throws_businessexception_if_account_is_admin()
+        {
+            var account = new AccountBuilder().Named("admin").Build();
+
+            Assert.Throws<BusinessException>(account.Deactivate);
         }
 
         [Test]

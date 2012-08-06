@@ -33,6 +33,11 @@ namespace Nebula.Domain.Registration
 
         public virtual bool IsActive { get; protected set; }
 
+        public virtual bool IsSuperAdmin
+        {
+            get { return "admin" == UserName; }
+        }
+
         public virtual DateTime? LastLogOnDate { get; protected set; }
 
         public virtual IEnumerable<Role> Roles
@@ -64,12 +69,19 @@ namespace Nebula.Domain.Registration
 
         public virtual void Deactivate()
         {
+            GuardAgainstSuperAdmin();
+
             IsActive = false;
         }
 
         private void GuardAgainstInactivity()
         {
             if (!IsActive) throw new InactiveAccountException(UserName);
+        }
+
+        private void GuardAgainstSuperAdmin()
+        {
+            if (IsSuperAdmin) throw new BusinessException("Invalid operation on Super Admin account!");
         }
     }
 }
