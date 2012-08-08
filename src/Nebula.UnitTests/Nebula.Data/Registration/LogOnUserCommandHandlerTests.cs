@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
-using Nebula.Data.Commands.Registration;
+using Nebula.Data.Registration.Commands;
 using Nebula.Domain.Registration;
 using Nebula.Infrastructure;
 using Nebula.Infrastructure.Querying;

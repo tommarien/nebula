@@ -12,14 +12,14 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Log
     {
         private LogController controller;
         private IQueryHandlerFactory queryHandlerFactory;
-        private ILogEntryDetailsQueryHandler logEntryDetailsQueryHandler;
+        private IQueryHandler<int, LogEntry> logEntryDetailsQueryHandler;
 
         protected override void AfterSetUp()
         {
             queryHandlerFactory = MockRepository.GenerateStub<IQueryHandlerFactory>();
-            logEntryDetailsQueryHandler = MockRepository.GenerateMock<ILogEntryDetailsQueryHandler>();
+            logEntryDetailsQueryHandler = MockRepository.GenerateMock<IQueryHandler<int, LogEntry>>();
 
-            queryHandlerFactory.Stub(hf => hf.CreateQuery<ILogEntryDetailsQueryHandler>()).Return(logEntryDetailsQueryHandler);
+            queryHandlerFactory.Stub(hf => hf.CreateHandler<int, LogEntry>()).Return(logEntryDetailsQueryHandler);
 
             controller = new LogController(MockRepository.GenerateStrictMock<ICommandDispatcher>(), queryHandlerFactory);
             SetupControllerContext(controller);

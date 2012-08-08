@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Web.Mvc;
 using Nebula.Bootstrapper;
-using Nebula.Contracts.System.Queries;
 using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Models;
 
@@ -29,10 +28,10 @@ namespace Nebula.MvcApplication.Controllers
         {
             var model = new VersionModel();
 
-            var getLastRunMigration = queryHandlerFactory.CreateQuery<IGetLastRunMigration>();
+            var getLastRunMigration = queryHandlerFactory.CreateHandler<Query, long>();
 
             model.Assembly = typeof (Boot).Assembly.GetName().Version.ToString();
-            model.Schema = getLastRunMigration.Execute(QuerySearch.Empty).ToString(CultureInfo.InvariantCulture);
+            model.Schema = getLastRunMigration.Execute(Query.Empty).ToString(CultureInfo.InvariantCulture);
 
             return PartialView(model);
         }

@@ -17,7 +17,7 @@ namespace Nebula.IntegrationTests.System
         [Test]
         public void Should_always_return_a_number()
         {
-            var version = handler.Execute(QuerySearch.Empty);
+            var version = handler.Execute(Query.Empty);
 
             Assert.Greater(version, 0);
         }

@@ -47,13 +47,9 @@
     <Compile Include="Registration\Exceptions\InactiveAccountException.cs" />
     <Compile Include="Registration\Commands\LogOnUserCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registration\Queries\IGetAccountRolesQueryHandler.cs" />
     <Compile Include="Registration\Role.cs" />
     <Compile Include="Registration\Exceptions\UnknownAccountException.cs" />
     <Compile Include="System\Commands\PurgeEventLogOlderThan1WeekCommand.cs" />
-    <Compile Include="System\Queries\IGetLastRunMigration.cs" />
-    <Compile Include="System\Queries\ILogEntryDetailsQueryHandler.cs" />
-    <Compile Include="System\Queries\IPagedLogSummaryQueryHandler.cs" />
     <Compile Include="System\Queries\LogEntry.cs" />
     <Compile Include="System\Queries\LogSummary.cs" />
     <Compile Include="System\Queries\LogSummarySearch.cs" />

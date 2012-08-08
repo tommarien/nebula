@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 using Nebula.Contracts.Registration;
-using Nebula.Contracts.Registration.Queries;
 using Nebula.Domain.Registration;
 using Nebula.Infrastructure.Querying;
 
 namespace Nebula.Data.Registration.Queries
 {
-    public class GetAccountRolesQueryHandler : IGetAccountRolesQueryHandler
+    public class GetAccountRolesQueryHandler : IQueryHandler<string, Role[]>
     {
         private readonly IQueryHandler<string, Account> getAccountQueryHandler;
 

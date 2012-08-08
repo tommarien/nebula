@@ -1,10 +1,11 @@
 ﻿using NHibernate;
 using Nebula.Contracts.System.Queries;
 using Nebula.Domain.System;
+using Nebula.Infrastructure.Querying;
 
 namespace Nebula.Data.System.Queries
 {
-    public class LogEntryDetailsQueryHandler : ILogEntryDetailsQueryHandler
+    public class LogEntryDetailsQueryHandler : IQueryHandler<int, LogEntry>
     {
         private readonly ISession session;
 
@@ -19,17 +20,17 @@ namespace Nebula.Data.System.Queries
             return log == null
                        ? null
                        : new LogEntry
-                             {
-                                 Id = log.Id,
-                                 Date = log.Date,
-                                 Level = log.Level,
-                                 Logger = log.Logger,
-                                 Exception = log.Exception,
-                                 HostName = log.HostName,
-                                 Message = log.Message,
-                                 SessionId = log.SessionId,
-                                 UserName = log.UserName
-                             };
+                           {
+                               Id = log.Id,
+                               Date = log.Date,
+                               Level = log.Level,
+                               Logger = log.Logger,
+                               Exception = log.Exception,
+                               HostName = log.HostName,
+                               Message = log.Message,
+                               SessionId = log.SessionId,
+                               UserName = log.UserName
+                           };
         }
     }
 }

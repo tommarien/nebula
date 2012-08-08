@@ -3,6 +3,7 @@ using Nebula.Contracts.System.Commands;
 using Nebula.Contracts.System.Queries;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Querying;
+using Nebula.Infrastructure.Querying.QueryResults;
 using Nebula.MvcApplication.Models;
 
 namespace Nebula.MvcApplication.Controllers
@@ -23,7 +24,7 @@ namespace Nebula.MvcApplication.Controllers
         [HttpGet]
         public JsonResult Data(DatatableModel model)
         {
-            var queryHandler = QueryHandlerFactory.CreateQuery<IPagedLogSummaryQueryHandler>();
+            var queryHandler = QueryHandlerFactory.CreateHandler<LogSummarySearch, PagedResult<LogSummary>>();
 
             var result = queryHandler.Execute(new LogSummarySearch {Skip = model.iDisplayStart, Take = model.iDisplayLength});
 
@@ -40,7 +41,7 @@ namespace Nebula.MvcApplication.Controllers
         [OutputCache(Duration = 3600, VaryByParam = "*")]
         public PartialViewResult Details(int id)
         {
-            var queryHandler = QueryHandlerFactory.CreateQuery<ILogEntryDetailsQueryHandler>();
+            var queryHandler = QueryHandlerFactory.CreateHandler<int, LogEntry>();
 
             var result = queryHandler.Execute(id);
 

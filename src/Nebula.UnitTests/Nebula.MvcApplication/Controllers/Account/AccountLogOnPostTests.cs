@@ -5,7 +5,6 @@ using NUnit.Framework;
 using Nebula.Contracts.Registration;
 using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
-using Nebula.Contracts.Registration.Queries;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.Infrastructure.Querying;
@@ -23,20 +22,20 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         private ICommandDispatcher commandDispatcher;
         private IQueryHandlerFactory queryHandlerFactory;
         private IFormsAuthenticationService formsAuthenticationService;
-        private IGetAccountRolesQueryHandler getRolesForUserQuery;
+        private IQueryHandler<string, Role[]> getRolesForUserQuery;
         private LogOnModel logOnModel;
 
         protected override void AfterSetUp()
         {
             commandDispatcher = MockRepository.GenerateMock<ICommandDispatcher>();
             formsAuthenticationService = MockRepository.GenerateMock<IFormsAuthenticationService>();
-            getRolesForUserQuery = MockRepository.GenerateMock<IGetAccountRolesQueryHandler>();
+            getRolesForUserQuery = MockRepository.GenerateMock<IQueryHandler<string, Role[]>>();
             queryHandlerFactory = MockRepository.GenerateStub<IQueryHandlerFactory>();
-            queryHandlerFactory.Stub(f => f.CreateQuery<IGetAccountRolesQueryHandler>()).Return(getRolesForUserQuery);
+            queryHandlerFactory.Stub(f => f.CreateHandler<string, Role[]>()).Return(getRolesForUserQuery);
 
             controller = new AccountController(commandDispatcher, queryHandlerFactory, formsAuthenticationService);
             SetupControllerContext(controller);
-            logOnModel = new LogOnModel {UserName = "userX", Password = "secret", RememberMe = true};
+            logOnModel = new LogOnModel { UserName = "userX", Password = "secret", RememberMe = true };
             controller.Url = new UrlHelper(new RequestContext(HttpContext, RouteData));
             HttpRequest.Stub(r => r.Url).Return(new Uri("http://nebula.be/Account/LogOn"));
         }
@@ -50,7 +49,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
 
             Assert.IsFalse(controller.ModelState.IsValid);
             Assert.IsInstanceOf<ViewResult>(result);
-            Assert.AreSame(logOnModel, ((ViewResult) result).Model);
+            Assert.AreSame(logOnModel, ((ViewResult)result).Model);
         }
 
         [Test]
@@ -62,7 +61,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
 
             Assert.IsFalse(controller.ModelState.IsValid);
             Assert.IsInstanceOf<ViewResult>(result);
-            Assert.AreSame(logOnModel, ((ViewResult) result).Model);
+            Assert.AreSame(logOnModel, ((ViewResult)result).Model);
         }
 
         [Test]
@@ -82,7 +81,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         public void Should_fetch_all_roles_for_user_if_command_returns_true()
         {
             commandDispatcher.Stub(d => d.Dispatch<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
-            var roles = new[] {Role.Administrator};
+            var roles = new[] { Role.Administrator };
             getRolesForUserQuery.Expect(q => q.Execute(Arg<string>.Is.Anything)).Return(roles);
             formsAuthenticationService.Stub(s => s.SignIn(logOnModel.UserName, logOnModel.RememberMe, roles));
 
@@ -99,7 +98,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
             var result = controller.LogOn(logOnModel, "http://www.google.be");
 
             Assert.IsInstanceOf<RedirectToRouteResult>(result);
-            var redirectToRouteResult = (RedirectToRouteResult) result;
+            var redirectToRouteResult = (RedirectToRouteResult)result;
             Assert.AreEqual("Home", redirectToRouteResult.RouteValues["controller"]);
             Assert.AreEqual("Index", redirectToRouteResult.RouteValues["action"]);
         }
@@ -112,7 +111,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
             var result = controller.LogOn(logOnModel, "/foo/bar");
 
             Assert.IsInstanceOf<RedirectResult>(result);
-            Assert.AreEqual("/foo/bar", ((RedirectResult) result).Url);
+            Assert.AreEqual("/foo/bar", ((RedirectResult)result).Url);
         }
 
         [Test]
@@ -123,14 +122,14 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
             var result = controller.LogOn(logOnModel, "/");
 
             Assert.IsInstanceOf<ViewResult>(result);
-            Assert.AreSame(logOnModel, ((ViewResult) result).Model);
+            Assert.AreSame(logOnModel, ((ViewResult)result).Model);
         }
 
         [Test]
         public void Should_sign_in_user_as_expected_if_command_is_true_with_rememberme_false()
         {
             commandDispatcher.Stub(d => d.Dispatch<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
-            var roles = new[] {Role.Administrator};
+            var roles = new[] { Role.Administrator };
             getRolesForUserQuery.Stub(q => q.Execute(Arg<string>.Is.Anything)).Return(roles);
             formsAuthenticationService.Expect(s => s.SignIn(logOnModel.UserName, false, roles));
 
@@ -145,7 +144,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         public void Should_sign_in_user_as_expected_if_command_returns_true()
         {
             commandDispatcher.Stub(d => d.Dispatch<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
-            var roles = new[] {Role.Administrator};
+            var roles = new[] { Role.Administrator };
             getRolesForUserQuery.Stub(q => q.Execute(Arg<string>.Is.Anything)).Return(roles);
             formsAuthenticationService.Expect(s => s.SignIn(logOnModel.UserName, logOnModel.RememberMe, roles));
 

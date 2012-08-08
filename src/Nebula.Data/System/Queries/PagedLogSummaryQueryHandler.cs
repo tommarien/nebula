@@ -2,11 +2,12 @@
 using NHibernate.Transform;
 using Nebula.Contracts.System.Queries;
 using Nebula.Domain.System;
+using Nebula.Infrastructure.Querying;
 using Nebula.Infrastructure.Querying.QueryResults;
 
 namespace Nebula.Data.System.Queries
 {
-    public class PagedLogSummaryQueryHandler : IPagedLogSummaryQueryHandler
+    public class PagedLogSummaryQueryHandler : IQueryHandler<LogSummarySearch, PagedResult<LogSummary>>
     {
         private readonly ISession session;
 

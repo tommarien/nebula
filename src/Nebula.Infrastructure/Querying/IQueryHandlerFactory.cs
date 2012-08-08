@@ -2,7 +2,7 @@
 {
     public interface IQueryHandlerFactory
     {
-        TQuery CreateQuery<TQuery>() where TQuery : IQueryHandler;
+        IQueryHandler<TQuery, TResult> CreateHandler<TQuery, TResult>();
         void Release(IQueryHandler query);
     }
 }

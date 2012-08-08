@@ -4,7 +4,7 @@ using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.Infrastructure.Querying;
 
-namespace Nebula.Data.Commands.Registration
+namespace Nebula.Data.Registration.Commands
 {
     public class LogOnUserCommandHandler : ICommandHandler<LogOnUserCommand, OperationResult>
     {

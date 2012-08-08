@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
+using Nebula.Contracts.Registration;
 using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
-using Nebula.Contracts.Registration.Queries;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.Infrastructure.Querying;
@@ -40,7 +40,7 @@ namespace Nebula.MvcApplication.Controllers
                     if (result)
                     {
                         // Get roles of user
-                        var query = QueryHandlerFactory.CreateQuery<IGetAccountRolesQueryHandler>();
+                        var query = QueryHandlerFactory.CreateHandler<string, Role[]>();
                         var roles = query.Execute(model.UserName);
 
                         formsAuthenticationService.SignIn(model.UserName, model.RememberMe, roles);
