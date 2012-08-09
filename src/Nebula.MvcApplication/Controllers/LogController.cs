@@ -24,9 +24,9 @@ namespace Nebula.MvcApplication.Controllers
         [HttpGet]
         public JsonResult Data(DatatableModel model)
         {
-            var queryHandler = QueryHandlerFactory.CreateHandler<LogSummarySearch, PagedResult<LogSummary>>();
+            var queryHandler = QueryHandlerFactory.CreateHandler<PagedLogSummaryQuery, PagedResult<LogSummary>>();
 
-            var result = queryHandler.Execute(new LogSummarySearch {Skip = model.iDisplayStart, Take = model.iDisplayLength});
+            var result = queryHandler.Execute(new PagedLogSummaryQuery {Skip = model.iDisplayStart, Take = model.iDisplayLength});
 
             return Json(new
                 {

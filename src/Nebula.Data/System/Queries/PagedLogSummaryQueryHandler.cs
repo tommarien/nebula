@@ -7,7 +7,7 @@ using Nebula.Infrastructure.Querying.QueryResults;
 
 namespace Nebula.Data.System.Queries
 {
-    public class PagedLogSummaryQueryHandler : IQueryHandler<LogSummarySearch, PagedResult<LogSummary>>
+    public class PagedLogSummaryQueryHandler : IQueryHandler<PagedLogSummaryQuery, PagedResult<LogSummary>>
     {
         private readonly ISession session;
 
@@ -16,11 +16,11 @@ namespace Nebula.Data.System.Queries
             this.session = session;
         }
 
-        public PagedResult<LogSummary> Execute(LogSummarySearch search)
+        public PagedResult<LogSummary> Execute(PagedLogSummaryQuery query)
         {
             LogSummary summaryAlias = null;
 
-            var query = session.QueryOver<Log>()
+            var queryOver = session.QueryOver<Log>()
                 .SelectList(builder => builder
                                            .Select(e => e.Id).WithAlias(() => summaryAlias.Id)
                                            .Select(e => e.Date).WithAlias(() => summaryAlias.Date)
@@ -29,11 +29,11 @@ namespace Nebula.Data.System.Queries
                                            .Select(e => e.Message).WithAlias(() => summaryAlias.Message))
                 .TransformUsing(Transformers.AliasToBean<LogSummary>())
                 .OrderBy(e => e.Id).Desc
-                .Skip(search.Skip)
-                .Take(search.Take);
+                .Skip(query.Skip)
+                .Take(query.Take);
 
-            var count = query.ToRowCountQuery().FutureValue<int>();
-            var list = query.Future<LogSummary>();
+            var count = queryOver.ToRowCountQuery().FutureValue<int>();
+            var list = queryOver.Future<LogSummary>();
             return new PagedResult<LogSummary>(list, count.Value);
         }
     }

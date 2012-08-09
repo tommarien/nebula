@@ -14,9 +14,9 @@ namespace Nebula.Data.System.Queries
             this.session = session;
         }
 
-        public LogEntry Execute(int search)
+        public LogEntry Execute(int query)
         {
-            var log = session.Get<Log>(search);
+            var log = session.Get<Log>(query);
             return log == null
                        ? null
                        : new LogEntry

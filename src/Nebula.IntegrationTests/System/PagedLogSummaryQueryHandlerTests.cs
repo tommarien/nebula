@@ -63,7 +63,7 @@ namespace Nebula.IntegrationTests.System
         [Test]
         public void Should_return_the_expected_results()
         {
-            var search = new LogSummarySearch {Skip = 5, Take = 5};
+            var search = new PagedLogSummaryQuery {Skip = 5, Take = 5};
             var expectedResults = population.OrderByDescending(l => l.Id).Skip(5).Take(5).ToArray();
 
             var result = queryHandler.Execute(search);

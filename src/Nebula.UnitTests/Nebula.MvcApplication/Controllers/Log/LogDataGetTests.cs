@@ -16,15 +16,15 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Log
     {
         private IQueryHandlerFactory queryHandlerFactory;
         private LogController controller;
-        private IQueryHandler<LogSummarySearch, PagedResult<LogSummary>> queryHandler;
+        private IQueryHandler<PagedLogSummaryQuery, PagedResult<LogSummary>> queryHandler;
 
         protected override void AfterSetUp()
         {
             queryHandlerFactory = MockRepository.GenerateStub<IQueryHandlerFactory>();
-            queryHandler = MockRepository.GenerateStub<IQueryHandler<LogSummarySearch, PagedResult<LogSummary>>>();
+            queryHandler = MockRepository.GenerateStub<IQueryHandler<PagedLogSummaryQuery, PagedResult<LogSummary>>>();
             controller = new LogController(MockRepository.GenerateStrictMock<ICommandDispatcher>(), queryHandlerFactory);
 
-            queryHandlerFactory.Stub(f => f.CreateHandler<LogSummarySearch, PagedResult<LogSummary>>()).Return(queryHandler);
+            queryHandlerFactory.Stub(f => f.CreateHandler<PagedLogSummaryQuery, PagedResult<LogSummary>>()).Return(queryHandler);
 
             SetupControllerContext(controller);
         }
@@ -33,7 +33,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Log
         public void Should_behave_as_expected()
         {
             var queryResults = new LogSummary[] {};
-            queryHandler.Stub(qh => qh.Execute(Arg<LogSummarySearch>.Matches(ls => ls.Skip == 0 && ls.Take == 10))).Return(
+            queryHandler.Stub(qh => qh.Execute(Arg<PagedLogSummaryQuery>.Matches(ls => ls.Skip == 0 && ls.Take == 10))).Return(
                 new PagedResult<LogSummary>(queryResults, 10));
 
             var result = controller.Data(new DatatableModel {sEcho = "20", iDisplayStart = 0, iDisplayLength = 10});
