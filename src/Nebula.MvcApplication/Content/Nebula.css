@@ -72,6 +72,9 @@ table.dataTable th:active {
 	font-size: 14px;
 	background-color: white;
 }
+td.dataTables_empty {
+	text-align: center;
+}
 /* MiniLogon */
 form.minilogon
 {
