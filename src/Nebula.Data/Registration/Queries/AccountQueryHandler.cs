@@ -1,22 +1,23 @@
 ﻿using NHibernate;
+using Nebula.Contracts.Registration;
 using Nebula.Domain.Registration;
 using Nebula.Infrastructure.Querying;
 
 namespace Nebula.Data.Registration.Queries
 {
-    public class GetAccountQueryHandler : IQueryHandler<string, Account>
+    public class AccountQueryHandler : IQueryHandler<AccountQuery, Account>
     {
         private readonly ISession session;
 
-        public GetAccountQueryHandler(ISession session)
+        public AccountQueryHandler(ISession session)
         {
             this.session = session;
         }
 
-        public Account Execute(string search)
+        public Account Execute(AccountQuery query)
         {
             return session.QueryOver<Account>()
-                .Where(a => a.UserName == search)
+                .Where(a => a.UserName == query.UserName)
                 .Fetch(a => a.Roles).Eager
                 .SingleOrDefault();
         }

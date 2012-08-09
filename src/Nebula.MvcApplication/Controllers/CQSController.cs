@@ -29,5 +29,13 @@ namespace Nebula.MvcApplication.Controllers
         {
             return commandDispatcher.Dispatch<TCommand, TResult>(command);
         }
+
+        protected TResult Query<TQuery, TResult>(TQuery query)
+        {
+            var handler = queryHandlerFactory.CreateHandler<TQuery, TResult>();
+            var result = handler.Execute(query);
+            queryHandlerFactory.Release(handler);
+            return result;
+        }
     }
 }

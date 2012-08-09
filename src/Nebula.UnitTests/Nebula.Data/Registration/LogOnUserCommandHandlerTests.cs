@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Nebula.Contracts.Registration;
 using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Data.Registration.Commands;
@@ -17,33 +18,35 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [SetUp]
         public void Setup()
         {
-            query = MockRepository.GenerateMock<IQueryHandler<string, Account>>();
-            commandHandler = new LogOnUserCommandHandler(query);
+            queryHandler = MockRepository.GenerateMock<IQueryHandler<AccountQuery, Account>>();
+            commandHandler = new LogOnUserCommandHandler(queryHandler);
             command = new LogOnUserCommand
-                          {
-                              UserName = AccountBuilder.DefaultUserName,
-                              Password = AccountBuilder.DefaultPassword
-                          };
+                {
+                    UserName = AccountBuilder.DefaultUserName,
+                    Password = AccountBuilder.DefaultPassword
+                };
         }
 
         private LogOnUserCommandHandler commandHandler;
-        private IQueryHandler<string, Account> query;
+        private IQueryHandler<AccountQuery, Account> queryHandler;
         private LogOnUserCommand command;
 
         [Test]
         public void Should_invoke_the_query_as_expected()
         {
-            query.Expect(q => q.Execute(command.UserName)).Return(new AccountBuilder().Build());
+            queryHandler.Expect(h => h.Execute(Arg<AccountQuery>.Matches(q => q.UserName == command.UserName)))
+                .Return(new AccountBuilder().Build());
 
             commandHandler.Handle(command);
 
-            query.VerifyAllExpectations();
+            queryHandler.VerifyAllExpectations();
         }
 
         [Test]
         public void Should_return_false_if_the_password_does_not_match()
         {
-            query.Stub(q => q.Execute(command.UserName)).Return(new AccountBuilder().WithPassword("somethingelse").Build());
+            queryHandler.Stub(h => h.Execute(Arg<AccountQuery>.Matches(q => q.UserName == command.UserName)))
+                .Return(new AccountBuilder().WithPassword("somethingelse").Build());
 
             bool result = commandHandler.Handle(command);
 
@@ -53,7 +56,8 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [Test]
         public void Should_return_false_if_user_does_not_exist()
         {
-            query.Stub(q => q.Execute(command.UserName)).Return(null);
+            queryHandler.Stub(h => h.Execute(Arg<AccountQuery>.Matches(q => q.UserName == command.UserName)))
+                .Return(null);
 
             bool result = commandHandler.Handle(command);
 
@@ -63,7 +67,8 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [Test]
         public void Should_return_true_if_the_password_matches()
         {
-            query.Stub(q => q.Execute(command.UserName)).Return(new AccountBuilder().Build());
+            queryHandler.Stub(h => h.Execute(Arg<AccountQuery>.Matches(q => q.UserName == command.UserName)))
+                .Return(new AccountBuilder().Build());
 
             bool result = commandHandler.Handle(command);
 
@@ -77,11 +82,11 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
             var clock = MockRepository.GenerateStub<ISystemClock>();
             SystemContext.Clock = clock;
 
-            query.Stub(q => q.Execute(command.UserName)).Return(account);
+            queryHandler.Stub(h => h.Execute(Arg<AccountQuery>.Matches(q => q.UserName == command.UserName))).Return(account);
 
             var aDate = new DateTime(2012, 1, 1);
             clock.Stub(c => c.Now()).Return(aDate);
-            
+
             commandHandler.Handle(command);
 
             Assert.AreEqual(aDate, account.LastLogOnDate);
@@ -94,7 +99,8 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
                 .AsInactive()
                 .Build();
 
-            query.Stub(q => q.Execute(command.UserName)).Return(account);
+            queryHandler.Stub(h => h.Execute(Arg<AccountQuery>.Matches(q => q.UserName == command.UserName)))
+                .Return(account);
 
             Assert.Throws<InactiveAccountException>(() => commandHandler.Handle(command));
         }

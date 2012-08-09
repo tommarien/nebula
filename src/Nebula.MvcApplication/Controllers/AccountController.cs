@@ -34,18 +34,17 @@ namespace Nebula.MvcApplication.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var command = new LogOnUserCommand {UserName = model.UserName, Password = model.Password};
+                    var command = new LogOnUserCommand { UserName = model.UserName, Password = model.Password };
                     bool result = DispatchAndReturn<LogOnUserCommand, OperationResult>(command);
 
                     if (result)
                     {
                         // Get roles of user
-                        var query = QueryHandlerFactory.CreateHandler<string, Role[]>();
-                        var roles = query.Execute(model.UserName);
+                        var roles = Query<AccountQuery, Role[]>(new AccountQuery { UserName = model.UserName });
 
                         formsAuthenticationService.SignIn(model.UserName, model.RememberMe, roles);
 
-                        return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
+                        return Url.IsLocalUrl(returnUrl) ? (ActionResult)Redirect(returnUrl) : RedirectToAction("Index", "Home");
                     }
                 }
 

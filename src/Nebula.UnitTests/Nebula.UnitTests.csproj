@@ -62,7 +62,7 @@
     </Compile>
     <Compile Include="Accounts.cs" />
     <Compile Include="Nebula.Data\Registration\ChangePasswordCommandHandlerTests.cs" />
-    <Compile Include="Nebula.Data\Registration\GetAccountRolesQueryHandlerTests.cs" />
+    <Compile Include="Nebula.Data\Registration\AccountRolesQueryHandlerTests.cs" />
     <Compile Include="Nebula.Data\Registration\LogOnUserCommandHandlerTests.cs" />
     <Compile Include="Nebula.Domain\Registration\AccountTests.cs" />
     <Compile Include="Nebula.Domain\Registration\PasswordTests.cs" />

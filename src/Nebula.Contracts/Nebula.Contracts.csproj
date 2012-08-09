@@ -43,6 +43,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Registration\AccountQuery.cs" />
     <Compile Include="Registration\Commands\ChangePasswordCommand.cs" />
     <Compile Include="Registration\Exceptions\InactiveAccountException.cs" />
     <Compile Include="Registration\Commands\LogOnUserCommand.cs" />

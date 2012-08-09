@@ -22,16 +22,16 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         private ICommandDispatcher commandDispatcher;
         private IQueryHandlerFactory queryHandlerFactory;
         private IFormsAuthenticationService formsAuthenticationService;
-        private IQueryHandler<string, Role[]> getRolesForUserQuery;
+        private IQueryHandler<AccountQuery, Role[]> accountRolesQueryHandler;
         private LogOnModel logOnModel;
 
         protected override void AfterSetUp()
         {
             commandDispatcher = MockRepository.GenerateMock<ICommandDispatcher>();
             formsAuthenticationService = MockRepository.GenerateMock<IFormsAuthenticationService>();
-            getRolesForUserQuery = MockRepository.GenerateMock<IQueryHandler<string, Role[]>>();
+            accountRolesQueryHandler = MockRepository.GenerateMock<IQueryHandler<AccountQuery, Role[]>>();
             queryHandlerFactory = MockRepository.GenerateStub<IQueryHandlerFactory>();
-            queryHandlerFactory.Stub(f => f.CreateHandler<string, Role[]>()).Return(getRolesForUserQuery);
+            queryHandlerFactory.Stub(f => f.CreateHandler<AccountQuery, Role[]>()).Return(accountRolesQueryHandler);
 
             controller = new AccountController(commandDispatcher, queryHandlerFactory, formsAuthenticationService);
             SetupControllerContext(controller);
@@ -82,12 +82,13 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         {
             commandDispatcher.Stub(d => d.Dispatch<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
             var roles = new[] { Role.Administrator };
-            getRolesForUserQuery.Expect(q => q.Execute(Arg<string>.Is.Anything)).Return(roles);
+            accountRolesQueryHandler.Expect(q => q.Execute(Arg<AccountQuery>.Matches(h => h.UserName == logOnModel.UserName)))
+                .Return(roles);
             formsAuthenticationService.Stub(s => s.SignIn(logOnModel.UserName, logOnModel.RememberMe, roles));
 
             controller.LogOn(logOnModel, "/");
 
-            getRolesForUserQuery.VerifyAllExpectations();
+            accountRolesQueryHandler.VerifyAllExpectations();
         }
 
         [Test]
@@ -130,7 +131,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         {
             commandDispatcher.Stub(d => d.Dispatch<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
             var roles = new[] { Role.Administrator };
-            getRolesForUserQuery.Stub(q => q.Execute(Arg<string>.Is.Anything)).Return(roles);
+            accountRolesQueryHandler.Stub(q => q.Execute(Arg<AccountQuery>.Is.Anything)).Return(roles);
             formsAuthenticationService.Expect(s => s.SignIn(logOnModel.UserName, false, roles));
 
             logOnModel.RememberMe = false;
@@ -145,7 +146,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         {
             commandDispatcher.Stub(d => d.Dispatch<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
             var roles = new[] { Role.Administrator };
-            getRolesForUserQuery.Stub(q => q.Execute(Arg<string>.Is.Anything)).Return(roles);
+            accountRolesQueryHandler.Stub(q => q.Execute(Arg<AccountQuery>.Is.Anything)).Return(roles);
             formsAuthenticationService.Expect(s => s.SignIn(logOnModel.UserName, logOnModel.RememberMe, roles));
 
             controller.LogOn(logOnModel, "/");
