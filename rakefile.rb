@@ -15,10 +15,15 @@ Dir.glob("#{configatron.build.buildpath}/*.rb") do |rubyfile|
 	require rubyfile
 end
 
-#include all generated files in clean
+#include bin/obj folders into clean
+Dir.glob("**/{bin,obj}/**") do |folder|
+	CLEAN.include(folder)
+end
+
+#include all generated files in clobber
 Dir.glob("**/*.*.template") do |template|
 	template[".template"] = ""
-	CLEAN.include(template)
+	CLOBBER.include(template)
 end
 
 task :default => "env:setup"
