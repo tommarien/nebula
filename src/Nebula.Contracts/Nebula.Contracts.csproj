@@ -51,6 +51,7 @@
     <Compile Include="Registration\Role.cs" />
     <Compile Include="Registration\Exceptions\UnknownAccountException.cs" />
     <Compile Include="System\Commands\PurgeEventLogOlderThan1WeekCommand.cs" />
+    <Compile Include="System\Queries\LastRunMigrationQuery.cs" />
     <Compile Include="System\Queries\LogEntry.cs" />
     <Compile Include="System\Queries\LogSummary.cs" />
     <Compile Include="System\Queries\LogSummarySearch.cs" />

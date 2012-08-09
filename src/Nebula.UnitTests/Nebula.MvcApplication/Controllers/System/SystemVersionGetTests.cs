@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Nebula.Contracts.System.Queries;
 using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Controllers;
 using Nebula.MvcApplication.Models;
@@ -10,14 +11,14 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
     public class SystemVersionGetTests : HttpContextFixture
     {
         private SystemController controller;
-        private IQueryHandler<Query, long> query;
+        private IQueryHandler<LastRunMigrationQuery, long> query;
 
         protected override void AfterSetUp()
         {
             var queryFactory = MockRepository.GenerateStub<IQueryHandlerFactory>();
-            query = MockRepository.GenerateMock<IQueryHandler<Query, long>>();
+            query = MockRepository.GenerateMock<IQueryHandler<LastRunMigrationQuery, long>>();
 
-            queryFactory.Stub(f => f.CreateHandler<Query, long>()).Return(query);
+            queryFactory.Stub(f => f.CreateHandler<LastRunMigrationQuery, long>()).Return(query);
 
             controller = new SystemController(queryFactory);
             SetupControllerContext(controller);
@@ -28,7 +29,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.System
         {
             const long migration = 5;
             string version = GetType().Assembly.GetName().Version.ToString();
-            query.Expect(q => q.Execute(Arg<Query>.Is.Anything)).Return(migration);
+            query.Expect(q => q.Execute(Arg<LastRunMigrationQuery>.Is.Anything)).Return(migration);
 
             var result = controller.Version();
 
