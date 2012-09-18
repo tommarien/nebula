@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Nebula.Infrastructure
 {
+    [Serializable]
     public class InvalidStateException : BusinessException
     {
         public InvalidStateException()

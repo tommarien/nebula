@@ -1,7 +1,9 @@
-﻿using System.Security;
+﻿using System;
+using System.Security;
 
 namespace Nebula.Contracts.Registration.Exceptions
 {
+    [Serializable]
     public class UnknownAccountException : SecurityException
     {
         public UnknownAccountException()
