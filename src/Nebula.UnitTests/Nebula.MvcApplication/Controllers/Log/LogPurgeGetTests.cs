@@ -12,18 +12,18 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Log
     public class LogPurgeGetTests : HttpContextFixture
     {
         private LogController controller;
-        private ICommandDispatcher dispatcher;
+        private ICommandBus bus;
 
         protected override void AfterSetUp()
         {
-            dispatcher = MockRepository.GenerateStrictMock<ICommandDispatcher>();
-            controller = new LogController(dispatcher, MockRepository.GenerateStrictMock<IQueryHandlerFactory>());
+            bus = MockRepository.GenerateStrictMock<ICommandBus>();
+            controller = new LogController(bus, MockRepository.GenerateStrictMock<IQueryHandlerFactory>());
         }
 
         [Test]
         public void Should_behave_as_expected()
         {
-            dispatcher.Expect(d => d.Dispatch(Arg<PurgeEventLogOlderThan1WeekCommand>.Is.Anything));
+            bus.Expect(b => b.Send(Arg<PurgeEventLogOlderThan1WeekCommand>.Is.Anything));
 
             var result = controller.Purge();
 

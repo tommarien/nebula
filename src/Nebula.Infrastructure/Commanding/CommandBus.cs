@@ -1,15 +1,15 @@
 namespace Nebula.Infrastructure.Commanding
 {
-    public class CommandDispatcher : ICommandDispatcher
+    public class CommandBus : ICommandBus
     {
         private readonly ICommandHandlerFactory commandHandlerFactory;
 
-        public CommandDispatcher(ICommandHandlerFactory commandHandlerFactory)
+        public CommandBus(ICommandHandlerFactory commandHandlerFactory)
         {
             this.commandHandlerFactory = commandHandlerFactory;
         }
 
-        public virtual void Dispatch<TCommand>(TCommand command)
+        public virtual void Send<TCommand>(TCommand command)
             where TCommand : ICommand
         {
             ICommandHandler<TCommand> handler = commandHandlerFactory.CreateHandler<TCommand>();
@@ -24,7 +24,7 @@ namespace Nebula.Infrastructure.Commanding
             }
         }
 
-        public virtual TResult Dispatch<TCommand, TResult>(TCommand command)
+        public virtual TResult SendAndReply<TCommand, TResult>(TCommand command)
             where TCommand : ICommand
             where TResult : ICommandResult
         {

@@ -17,16 +17,16 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
     public class AccountChangePasswordPostTests : HttpContextFixture
     {
         private AccountController controller;
-        private ICommandDispatcher commandDispatcher;
+        private ICommandBus commandBus;
         private IFormsAuthenticationService formsAuthenticationService;
         private ChangePasswordModel model;
 
         protected override void AfterSetUp()
         {
-            commandDispatcher = MockRepository.GenerateMock<ICommandDispatcher>();
+            commandBus = MockRepository.GenerateMock<ICommandBus>();
             formsAuthenticationService = MockRepository.GenerateMock<IFormsAuthenticationService>();
 
-            controller = new AccountController(commandDispatcher, MockRepository.GenerateStrictMock<IQueryHandlerFactory>(), formsAuthenticationService);
+            controller = new AccountController(commandBus, MockRepository.GenerateStrictMock<IQueryHandlerFactory>(), formsAuthenticationService);
             SetupControllerContext(controller);
             model = new ChangePasswordModel {OldPassword = "oldsecret", NewPassword = "newsecret", ConfirmPassword = "newsecret"};
             HttpContext.Stub(c => c.User).Return(new GenericPrincipal(new GenericIdentity("userX"), new string[] {}));
@@ -35,7 +35,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         [Test]
         public void Should_add_an_error_and_return_view_anything_goes_wrong()
         {
-            commandDispatcher.Stub(d => d.Dispatch<ChangePasswordCommand, OperationResult>(Arg<ChangePasswordCommand>.Is.Anything))
+            commandBus.Stub(bus => bus.SendAndReply<ChangePasswordCommand, OperationResult>(Arg<ChangePasswordCommand>.Is.Anything))
                 .Throw(new Exception());
 
             var result = controller.ChangePassword(model);
@@ -48,7 +48,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         [Test]
         public void Should_add_an_error_and_return_view_if_the_command_returns_false()
         {
-            commandDispatcher.Stub(d => d.Dispatch<ChangePasswordCommand, OperationResult>(Arg<ChangePasswordCommand>.Is.Anything)).Return(false);
+            commandBus.Stub(bus => bus.SendAndReply<ChangePasswordCommand, OperationResult>(Arg<ChangePasswordCommand>.Is.Anything)).Return(false);
 
             var result = controller.ChangePassword(model);
 
@@ -58,23 +58,9 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         }
 
         [Test]
-        public void Should_dispatch_the_expected_command()
-        {
-            commandDispatcher.Expect(d => d.Dispatch<ChangePasswordCommand, OperationResult>(
-                Arg<ChangePasswordCommand>.Matches(c => c.UserName == "userX"
-                                                        && c.OldPassword == model.OldPassword
-                                                        && c.NewPassword == model.NewPassword)))
-                .Return(false);
-
-            controller.ChangePassword(model);
-
-            commandDispatcher.VerifyAllExpectations();
-        }
-
-        [Test]
         public void Should_return_ChangePasswordSuccess_if_succeeds()
         {
-            commandDispatcher.Stub(d => d.Dispatch<ChangePasswordCommand, OperationResult>(Arg<ChangePasswordCommand>.Is.Anything))
+            commandBus.Stub(d => d.SendAndReply<ChangePasswordCommand, OperationResult>(Arg<ChangePasswordCommand>.Is.Anything))
                 .Return(true);
 
             var result = controller.ChangePassword(model);
@@ -93,6 +79,20 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
 
             Assert.IsInstanceOf<ViewResult>(result);
             Assert.AreSame(model, ((ViewResult) result).Model);
+        }
+
+        [Test]
+        public void Should_send_the_expected_command()
+        {
+            commandBus.Expect(d => d.SendAndReply<ChangePasswordCommand, OperationResult>(
+                Arg<ChangePasswordCommand>.Matches(c => c.UserName == "userX"
+                                                        && c.OldPassword == model.OldPassword
+                                                        && c.NewPassword == model.NewPassword)))
+                .Return(false);
+
+            controller.ChangePassword(model);
+
+            commandBus.VerifyAllExpectations();
         }
     }
 }

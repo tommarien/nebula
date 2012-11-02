@@ -18,7 +18,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         {
             formsAuthenticationService = MockRepository.GenerateMock<IFormsAuthenticationService>();
 
-            controller = new AccountController(MockRepository.GenerateStrictMock<ICommandDispatcher>(),
+            controller = new AccountController(MockRepository.GenerateStrictMock<ICommandBus>(),
                                                MockRepository.GenerateStrictMock<IQueryHandlerFactory>(),
                                                formsAuthenticationService);
 

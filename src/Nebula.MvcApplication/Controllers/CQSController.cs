@@ -6,12 +6,12 @@ namespace Nebula.MvcApplication.Controllers
 {
     public abstract class CQSController : Controller
     {
-        private readonly ICommandDispatcher commandDispatcher;
+        private readonly ICommandBus commandBus;
         private readonly IQueryHandlerFactory queryHandlerFactory;
 
-        protected CQSController(ICommandDispatcher commandDispatcher, IQueryHandlerFactory queryHandlerFactory)
+        protected CQSController(ICommandBus commandBus, IQueryHandlerFactory queryHandlerFactory)
         {
-            this.commandDispatcher = commandDispatcher;
+            this.commandBus = commandBus;
             this.queryHandlerFactory = queryHandlerFactory;
         }
 
@@ -20,14 +20,14 @@ namespace Nebula.MvcApplication.Controllers
             get { return queryHandlerFactory; }
         }
 
-        protected void Dispatch<TCommand>(TCommand command) where TCommand : ICommand
+        protected void Send<TCommand>(TCommand command) where TCommand : ICommand
         {
-            commandDispatcher.Dispatch(command);
+            commandBus.Send(command);
         }
 
-        protected TResult DispatchAndReturn<TCommand, TResult>(TCommand command) where TCommand : ICommand where TResult : ICommandResult
+        protected TResult SendAndReply<TCommand, TResult>(TCommand command) where TCommand : ICommand where TResult : ICommandResult
         {
-            return commandDispatcher.Dispatch<TCommand, TResult>(command);
+            return commandBus.SendAndReply<TCommand, TResult>(command);
         }
 
         protected TResult Query<TQuery, TResult>(TQuery query)

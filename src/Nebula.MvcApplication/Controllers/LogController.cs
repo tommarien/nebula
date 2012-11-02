@@ -11,7 +11,7 @@ namespace Nebula.MvcApplication.Controllers
     [Authorize(Roles = "Administrator")]
     public class LogController : CQSController
     {
-        public LogController(ICommandDispatcher commandDispatcher, IQueryHandlerFactory queryHandlerFactory) : base(commandDispatcher, queryHandlerFactory)
+        public LogController(ICommandBus commandBus, IQueryHandlerFactory queryHandlerFactory) : base(commandBus, queryHandlerFactory)
         {
         }
 
@@ -51,7 +51,7 @@ namespace Nebula.MvcApplication.Controllers
         [HttpGet]
         public ActionResult Purge()
         {
-            Dispatch(new PurgeEventLogOlderThan1WeekCommand());
+            Send(new PurgeEventLogOlderThan1WeekCommand());
 
             return RedirectToAction("Index");
         }

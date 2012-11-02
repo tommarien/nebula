@@ -4,15 +4,14 @@
     {
     }
 
-    public interface ICommandHandler<in TCommand> : ICommandHandler
+    public interface ICommandHandler<TCommand> : IHandle<TCommand>, ICommandHandler
+        where TCommand : ICommand
     {
-        void Handle(TCommand command);
     }
 
-    public interface ICommandHandler<in TCommand, out TResult> : ICommandHandler
+    public interface ICommandHandler<TCommand, TResult> : IHandleAndReply<TCommand, TResult>, ICommandHandler
         where TCommand : ICommand
         where TResult : ICommandResult
     {
-        TResult Handle(TCommand command);
     }
 }

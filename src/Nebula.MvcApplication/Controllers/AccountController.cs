@@ -15,9 +15,9 @@ namespace Nebula.MvcApplication.Controllers
     {
         private readonly IFormsAuthenticationService formsAuthenticationService;
 
-        public AccountController(ICommandDispatcher commandDispatcher, IQueryHandlerFactory queryHandlerFactory,
+        public AccountController(ICommandBus commandBus, IQueryHandlerFactory queryHandlerFactory,
                                  IFormsAuthenticationService formsAuthenticationService)
-            : base(commandDispatcher, queryHandlerFactory)
+            : base(commandBus, queryHandlerFactory)
         {
             this.formsAuthenticationService = formsAuthenticationService;
         }
@@ -34,17 +34,17 @@ namespace Nebula.MvcApplication.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var command = new LogOnUserCommand { UserName = model.UserName, Password = model.Password };
-                    bool result = DispatchAndReturn<LogOnUserCommand, OperationResult>(command);
+                    var command = new LogOnUserCommand {UserName = model.UserName, Password = model.Password};
+                    bool result = SendAndReply<LogOnUserCommand, OperationResult>(command);
 
                     if (result)
                     {
                         // Get roles of user
-                        var roles = Query<AccountQuery, Role[]>(new AccountQuery { UserName = model.UserName });
+                        var roles = Query<AccountQuery, Role[]>(new AccountQuery {UserName = model.UserName});
 
                         formsAuthenticationService.SignIn(model.UserName, model.RememberMe, roles);
 
-                        return Url.IsLocalUrl(returnUrl) ? (ActionResult)Redirect(returnUrl) : RedirectToAction("Index", "Home");
+                        return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
                     }
                 }
 
@@ -129,7 +129,7 @@ namespace Nebula.MvcApplication.Controllers
                             NewPassword = model.NewPassword
                         };
 
-                    changePasswordSucceeded = DispatchAndReturn<ChangePasswordCommand, OperationResult>(command);
+                    changePasswordSucceeded = SendAndReply<ChangePasswordCommand, OperationResult>(command);
                 }
                 catch (Exception)
                 {

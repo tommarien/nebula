@@ -21,7 +21,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Log
 
             queryHandlerFactory.Stub(hf => hf.CreateHandler<int, LogEntry>()).Return(logEntryDetailsQueryHandler);
 
-            controller = new LogController(MockRepository.GenerateStrictMock<ICommandDispatcher>(), queryHandlerFactory);
+            controller = new LogController(MockRepository.GenerateStrictMock<ICommandBus>(), queryHandlerFactory);
             SetupControllerContext(controller);
         }
 

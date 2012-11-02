@@ -1,11 +1,11 @@
 ﻿namespace Nebula.Infrastructure.Commanding
 {
-    public interface ICommandDispatcher
+    public interface ICommandBus
     {
-        void Dispatch<TCommand>(TCommand command)
+        void Send<TCommand>(TCommand command)
             where TCommand : ICommand;
 
-        TResult Dispatch<TCommand, TResult>(TCommand command)
+        TResult SendAndReply<TCommand, TResult>(TCommand command)
             where TCommand : ICommand
             where TResult : ICommandResult;
     }

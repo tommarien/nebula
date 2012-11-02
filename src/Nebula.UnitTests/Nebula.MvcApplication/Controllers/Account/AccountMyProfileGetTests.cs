@@ -15,7 +15,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
 
         protected override void AfterSetUp()
         {
-            controller = new AccountController(MockRepository.GenerateStrictMock<ICommandDispatcher>(),
+            controller = new AccountController(MockRepository.GenerateStrictMock<ICommandBus>(),
                                                MockRepository.GenerateStrictMock<IQueryHandlerFactory>(),
                                                MockRepository.GenerateStrictMock<IFormsAuthenticationService>());
 
