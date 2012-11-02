@@ -4,10 +4,15 @@ namespace Nebula.MvcApplication.Helpers
 {
     public class SessionIdProvider
     {
+        private const string NotAvailable = "n/a";
+
         public override string ToString()
         {
-            var session = HttpContext.Current.Session;
-            return session == null ? "n/a" : session.SessionID;
+            var httpcontext = HttpContext.Current;
+            if (httpcontext == null) return NotAvailable;
+            
+            var session = httpcontext.Session;
+            return session == null ? NotAvailable : session.SessionID;
         }
     }
 }

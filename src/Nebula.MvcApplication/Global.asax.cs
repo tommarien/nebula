@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.SessionState;
 using Castle.Core.Logging;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
@@ -34,9 +35,6 @@ namespace Nebula.MvcApplication
         private static void SetupLog4Net()
         {
             Logger = WindsorContainer.Resolve<ILoggerFactory>().Create("Nebula.Application");
-
-            GlobalContext.Properties["sessionId"] = new SessionIdProvider();
-            GlobalContext.Properties["UserName"] = new UserNameProvider();
         }
 
         private static void RegisterRoutes(RouteCollection routes)
@@ -62,6 +60,15 @@ namespace Nebula.MvcApplication
                 .Install(FromAssembly.This());
 
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(WindsorContainer.Kernel));
+        }
+
+        protected void Application_PostAcquireRequestState(object sender, EventArgs e)
+        {
+            if (Context.Handler is IRequiresSessionState)
+            {
+                ThreadContext.Properties["sessionId"] = new SessionIdProvider().ToString();
+                ThreadContext.Properties["UserName"] = new UserNameProvider().ToString();
+            }
         }
 
         protected void Application_Error(object sender, EventArgs e)
