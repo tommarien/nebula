@@ -94,6 +94,7 @@
     <Compile Include="Helpers\SessionIdProvider.cs" />
     <Compile Include="Helpers\UserNameProvider.cs" />
     <Compile Include="HttpModules\AuthenticationModule.cs" />
+    <Compile Include="Interceptors\TracingControllerInterceptor.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\DataTableModels.cs" />
     <Compile Include="Models\SystemModels.cs" />
