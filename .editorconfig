@@ -9,3 +9,6 @@ end_of_line = CRLF
 [*.cs]
 indent_style = space
 indent_size = 4
+
+[*.js]
+indent_style = tab
