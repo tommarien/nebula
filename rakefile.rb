@@ -68,7 +68,7 @@ namespace :env do
 		init(args.env)
 		
 		Dir.glob("**/*.*.template") do |filename|
-			erb = ERB.new(File.read(filename))
+			erb = ERB.new(File.read(filename),0,'>')
 			filename[".template"] = ""
 			File.open(filename, 'w') { |f| f.write erb.result() }
 		end

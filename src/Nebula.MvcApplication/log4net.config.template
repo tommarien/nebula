@@ -80,20 +80,20 @@
 		<root>
 				<level value="WARN" />
 				<appender-ref ref="AdoNetAppender" />
-				<% if configatron.logging.file.enabled %>
+<% if configatron.logging.file.enabled %>
 				<appender-ref ref="FileAppender" />
-				<% end %>
+<% end %>
 		</root>
-		<% if configatron.logging.file.enabled %>
-		<% if configatron.logging.file.trace %>
+<% if configatron.logging.file.enabled %>
+<% if configatron.logging.file.trace %>
 		<logger name="Nebula">
 				<level value="INFO" />
 		</logger>
-		<% end %>
-		<% if configatron.logging.file.showsql %>
+<% end %>
+<% if configatron.logging.file.showsql %>
 		<logger name="NHibernate.SQL">
 				<level value ="DEBUG" />
 		</logger>
-		<% end %>
-		<% end %>
+<% end %>
+<% end %>
 </log4net>
