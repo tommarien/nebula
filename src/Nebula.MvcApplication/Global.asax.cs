@@ -76,13 +76,5 @@ namespace Nebula.MvcApplication
             var exception = Server.GetLastError().GetBaseException();
             Logger.Error(exception.Message, exception);
         }
-
-        protected void Session_Start()
-        {
-            // Kick of session state otherwise sometimes error with getting session id
-#pragma warning disable 168
-            var sessionId = Session.SessionID;
-#pragma warning restore 168
-        }
     }
 }
