@@ -3,7 +3,6 @@ using System.Web;
 using Castle.MicroKernel;
 using Castle.MicroKernel.Lifestyle;
 using Castle.Windsor;
-using Nebula.Infrastructure;
 using Nebula.MvcApplication.LifecycleEventHandlers;
 using Nebula.MvcApplication.LifecycleEvents;
 
