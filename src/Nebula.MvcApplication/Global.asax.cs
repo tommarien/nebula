@@ -16,10 +16,19 @@ namespace Nebula.MvcApplication
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : HttpApplication
+    public class MvcApplication : HttpApplication, IContainerAccessor
     {
         private static IWindsorContainer WindsorContainer;
         private static ILogger Logger;
+
+        #region IContainerAccessor Members
+
+        public IWindsorContainer Container
+        {
+            get { return WindsorContainer; }
+        }
+
+        #endregion
 
         protected void Application_Start()
         {
@@ -73,7 +82,7 @@ namespace Nebula.MvcApplication
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            var exception = Server.GetLastError().GetBaseException();
+            Exception exception = Server.GetLastError().GetBaseException();
             Logger.Error(exception.Message, exception);
         }
     }
