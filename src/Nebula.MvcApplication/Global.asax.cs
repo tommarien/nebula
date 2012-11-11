@@ -1,15 +1,10 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.SessionState;
-using Castle.Core.Logging;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Nebula.Bootstrapper;
-using Nebula.MvcApplication.Helpers;
 using Nebula.MvcApplication.Modules;
-using log4net;
 
 namespace Nebula.MvcApplication
 {
@@ -19,7 +14,6 @@ namespace Nebula.MvcApplication
     public class MvcApplication : HttpApplication, IContainerAccessor
     {
         private static IWindsorContainer WindsorContainer;
-        private static ILogger Logger;
 
         #region IContainerAccessor Members
 
@@ -37,13 +31,6 @@ namespace Nebula.MvcApplication
             RegisterRoutes(RouteTable.Routes);
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterWindsor();
-
-            SetupLog4Net();
-        }
-
-        private static void SetupLog4Net()
-        {
-            Logger = WindsorContainer.Resolve<ILoggerFactory>().Create("Nebula.Application");
         }
 
         private static void RegisterRoutes(RouteCollection routes)
@@ -69,21 +56,6 @@ namespace Nebula.MvcApplication
                 .Install(FromAssembly.This());
 
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(WindsorContainer.Kernel));
-        }
-
-        protected void Application_PostAcquireRequestState(object sender, EventArgs e)
-        {
-            if (Context.Handler is IRequiresSessionState)
-            {
-                ThreadContext.Properties["sessionId"] = new SessionIdProvider().ToString();
-                ThreadContext.Properties["UserName"] = new UserNameProvider().ToString();
-            }
-        }
-
-        protected void Application_Error(object sender, EventArgs e)
-        {
-            Exception exception = Server.GetLastError().GetBaseException();
-            Logger.Error(exception.Message, exception);
         }
     }
 }

@@ -4,6 +4,7 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Lifestyle;
 using Castle.Windsor;
 using Nebula.Infrastructure;
+using Nebula.MvcApplication.LifecycleEventHandlers;
 using Nebula.MvcApplication.LifecycleEvents;
 
 namespace Nebula.MvcApplication.HttpModules
@@ -56,11 +57,11 @@ namespace Nebula.MvcApplication.HttpModules
             return application == null ? null : new HttpContextWrapper(application.Context);
         }
 
-        private void Publish<T>(T @event)
+        private void Publish<T>(T @event) where T : IHttpApplicationLifecycleEvent
         {
             using (kernel.BeginScope())
             {
-                IHandle<T>[] handlers = kernel.ResolveAll<IHandle<T>>();
+                IHttpApplicationLifecycleEventHandler<T>[] handlers = kernel.ResolveAll<IHttpApplicationLifecycleEventHandler<T>>();
                 foreach (var handler in handlers) handler.Handle(@event);
             }
         }
