@@ -4,6 +4,7 @@ using Castle.DynamicProxy;
 using NHibernate;
 using NUnit.Framework;
 using Nebula.Bootstrapper.Interceptors;
+using Nebula.Infrastructure;
 using Rhino.Mocks;
 using ILoggerFactory = Castle.Core.Logging.ILoggerFactory;
 
@@ -135,7 +136,25 @@ namespace Nebula.UnitTests.Nebula.Bootstrapper.Interceptors
 
             session.Stub(s => s.BeginTransaction()).Return(transaction);
 
+            transaction.Expect(t => t.Rollback());
+
             Assert.Throws<Exception>(() => autoTransactionInterceptor.Intercept(invocation));
+            transaction.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void Intercept_Should_rollback_a_started_transaction_but_do_not_throw_when_an_abortTransactionException_is_thrown()
+        {
+            transaction.Stub(t => t.IsActive).Return(false);
+
+            invocation = MockRepository.GenerateStub<IInvocation>();
+            invocation.Stub(i => i.Proceed()).Throw(new AbortTransactionException());
+
+            session.Stub(s => s.BeginTransaction()).Return(transaction);
+
+            transaction.Expect(t => t.Rollback());
+
+            Assert.DoesNotThrow(() => autoTransactionInterceptor.Intercept(invocation));
             transaction.VerifyAllExpectations();
         }
     }

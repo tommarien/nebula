@@ -45,6 +45,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AbortTransactionException.cs" />
     <Compile Include="AnonymousTypeExtensions.cs" />
     <Compile Include="BusinessException.cs" />
     <Compile Include="Commanding\CommandBus.cs" />

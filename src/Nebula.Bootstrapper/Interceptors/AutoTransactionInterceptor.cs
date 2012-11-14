@@ -2,6 +2,7 @@
 using Castle.Core.Logging;
 using Castle.DynamicProxy;
 using NHibernate;
+using Nebula.Infrastructure;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
 using ILoggerFactory = Castle.Core.Logging.ILoggerFactory;
 
@@ -38,15 +39,15 @@ namespace Nebula.Bootstrapper.Interceptors
                     Logger.Info("COMMIT");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 if (transaction != null)
                 {
                     transaction.Rollback();
                     Logger.Info("ROLLBACK");
+                    if (!(e is AbortTransactionException)) throw;
                 }
-
-                throw;
+                else throw;
             }
         }
     }
