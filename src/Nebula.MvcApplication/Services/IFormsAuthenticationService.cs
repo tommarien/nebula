@@ -1,44 +1,18 @@
-﻿using System;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using Nebula.Contracts.Registration;
+﻿using System.Web.Security;
 
 namespace Nebula.MvcApplication.Services
 {
     public interface IFormsAuthenticationService
     {
-        void SignIn(string userName, bool createPersistentCookie, Role[] roles);
+        void SignIn(string userName, bool createPersistentCookie);
         void SignOut();
     }
 
     public class FormsAuthenticationService : IFormsAuthenticationService
     {
-        public void SignIn(string userName, bool createPersistentCookie, Role[] roles)
+        public void SignIn(string userName, bool createPersistentCookie)
         {
-            string formattedRoles = string.Empty;
-            if (roles.Any())
-            {
-                formattedRoles = String.Join("|", roles);
-            }
-
-            HttpContext context = HttpContext.Current;
-
-            var ticket = new FormsAuthenticationTicket(
-                version: 1,
-                name: userName,
-                issueDate: DateTime.UtcNow,
-                expiration: DateTime.UtcNow.Add(FormsAuthentication.Timeout),
-                isPersistent: createPersistentCookie,
-                userData: formattedRoles
-                );
-
-            string encryptedTicket = FormsAuthentication.Encrypt(ticket);
-            var formsCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-
-            if (createPersistentCookie) formsCookie.Expires = ticket.Expiration;
-
-            context.Response.Cookies.Add(formsCookie);
+            FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
         }
 
         public void SignOut()

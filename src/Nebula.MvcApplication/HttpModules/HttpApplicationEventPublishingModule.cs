@@ -21,12 +21,20 @@ namespace Nebula.MvcApplication.HttpModules
 
             context.Error += OnError;
             context.AuthenticateRequest += OnAuthenticateRequest;
+            context.PostAuthenticateRequest += OnPostAuthenticateRequest;
             context.PostAcquireRequestState += OnPostAcquireRequestState;
         }
 
         public void Dispose()
         {
             // NO OP
+        }
+
+        private void OnPostAuthenticateRequest(object sender, EventArgs e)
+        {
+            HttpContextBase context = ExtractContext(sender);
+            if (context == null) return;
+            Publish(new PostAuthenticateRequestEvent {HttpContext = context});
         }
 
         private void OnPostAcquireRequestState(object sender, EventArgs e)
@@ -60,7 +68,8 @@ namespace Nebula.MvcApplication.HttpModules
         {
             using (kernel.BeginScope())
             {
-                IHttpApplicationLifecycleEventHandler<T>[] handlers = kernel.ResolveAll<IHttpApplicationLifecycleEventHandler<T>>();
+                IHttpApplicationLifecycleEventHandler<T>[] handlers =
+                    kernel.ResolveAll<IHttpApplicationLifecycleEventHandler<T>>();
                 foreach (var handler in handlers) handler.Handle(@event);
             }
         }

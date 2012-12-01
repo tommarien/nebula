@@ -22,16 +22,13 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         private ICommandBus commandBus;
         private IQueryHandlerFactory queryHandlerFactory;
         private IFormsAuthenticationService formsAuthenticationService;
-        private IQueryHandler<AccountQuery, Role[]> accountRolesQueryHandler;
         private LogOnModel logOnModel;
 
         protected override void AfterSetUp()
         {
             commandBus = MockRepository.GenerateMock<ICommandBus>();
             formsAuthenticationService = MockRepository.GenerateMock<IFormsAuthenticationService>();
-            accountRolesQueryHandler = MockRepository.GenerateMock<IQueryHandler<AccountQuery, Role[]>>();
             queryHandlerFactory = MockRepository.GenerateStub<IQueryHandlerFactory>();
-            queryHandlerFactory.Stub(f => f.CreateHandler<AccountQuery, Role[]>()).Return(accountRolesQueryHandler);
 
             controller = new AccountController(commandBus, queryHandlerFactory, formsAuthenticationService);
             SetupControllerContext(controller);
@@ -78,20 +75,6 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         }
 
         [Test]
-        public void Should_fetch_all_roles_for_user_if_command_returns_true()
-        {
-            commandBus.Stub(bus => bus.SendAndReply<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
-            var roles = new[] {Role.Administrator};
-            accountRolesQueryHandler.Expect(q => q.Execute(Arg<AccountQuery>.Matches(h => h.UserName == logOnModel.UserName)))
-                .Return(roles);
-            formsAuthenticationService.Stub(s => s.SignIn(logOnModel.UserName, logOnModel.RememberMe, roles));
-
-            controller.LogOn(logOnModel, "/");
-
-            accountRolesQueryHandler.VerifyAllExpectations();
-        }
-
-        [Test]
         public void Should_redirect_to_home_if_it_isnt_local_url_and_command_returned_true()
         {
             commandBus.Stub(d => d.SendAndReply<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
@@ -130,9 +113,8 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         public void Should_sign_in_user_as_expected_if_command_is_true_with_rememberme_false()
         {
             commandBus.Stub(bus => bus.SendAndReply<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
-            var roles = new[] {Role.Administrator};
-            accountRolesQueryHandler.Stub(q => q.Execute(Arg<AccountQuery>.Is.Anything)).Return(roles);
-            formsAuthenticationService.Expect(s => s.SignIn(logOnModel.UserName, false, roles));
+            
+            formsAuthenticationService.Expect(s => s.SignIn(logOnModel.UserName, false));
 
             logOnModel.RememberMe = false;
 
@@ -145,9 +127,8 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         public void Should_sign_in_user_as_expected_if_command_returns_true()
         {
             commandBus.Stub(bus => bus.SendAndReply<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
-            var roles = new[] {Role.Administrator};
-            accountRolesQueryHandler.Stub(q => q.Execute(Arg<AccountQuery>.Is.Anything)).Return(roles);
-            formsAuthenticationService.Expect(s => s.SignIn(logOnModel.UserName, logOnModel.RememberMe, roles));
+           
+            formsAuthenticationService.Expect(s => s.SignIn(logOnModel.UserName, logOnModel.RememberMe));
 
             controller.LogOn(logOnModel, "/");
 

@@ -39,10 +39,7 @@ namespace Nebula.MvcApplication.Controllers
 
                     if (result)
                     {
-                        // Get roles of user
-                        var roles = Query<AccountQuery, Role[]>(new AccountQuery {UserName = model.UserName});
-
-                        formsAuthenticationService.SignIn(model.UserName, model.RememberMe, roles);
+                        formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
 
                         return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
                     }
