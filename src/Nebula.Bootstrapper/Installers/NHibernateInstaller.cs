@@ -4,6 +4,7 @@ using Castle.Windsor;
 using NHibernate;
 using Nebula.Bootstrapper.Interceptors;
 using Nebula.Data;
+using Nebula.Infrastructure.Transactions;
 
 namespace Nebula.Bootstrapper.Installers
 {
@@ -11,27 +12,34 @@ namespace Nebula.Bootstrapper.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var sessionfactory = NHibernateConfiguration.Build().BuildSessionFactory();
+            ISessionFactory sessionfactory = NHibernateConfiguration.Build().BuildSessionFactory();
 
             container.Register(Component.For<ISessionFactory>()
-                                   .Instance(sessionfactory));
+                                        .Instance(sessionfactory));
 
             container.Register(Component.For<ISession>()
-                                   .UsingFactoryMethod((kernel, context) =>
-                                                           {
-                                                               var sessionFactory = kernel.Resolve<ISessionFactory>();
-                                                               var session = sessionFactory.OpenSession();
-                                                               kernel.ReleaseComponent(sessionFactory);
+                                        .UsingFactoryMethod((kernel, context) =>
+                                            {
+                                                var sessionFactory = kernel.Resolve<ISessionFactory>();
+                                                ISession session = sessionFactory.OpenSession();
+                                                kernel.ReleaseComponent(sessionFactory);
 
-                                                               // Set session properties
-                                                               session.FlushMode = FlushMode.Commit;
+                                                // Set session properties
+                                                session.FlushMode = FlushMode.Commit;
 
-                                                               return session;
-                                                           })
-                                   .LifestylePerWebRequest());
+                                                return session;
+                                            })
+                                        .LifestylePerWebRequest());
+
+            container.Register(Component.For<ITransactionManager>()
+                                        .ImplementedBy<NHibernateTransactionManager>()
+                                        .LifestyleTransient());
 
             container.Register(Component.For<AutoTransactionInterceptor>()
-                                   .LifestyleTransient());
+                                        .LifestyleTransient());
+
+            container.Register(Component.For<AutomaticTransactionInterceptor>()
+                                        .LifestyleTransient());
         }
     }
 }
