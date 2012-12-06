@@ -9,7 +9,7 @@ namespace Nebula.Bootstrapper.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<TracingInterceptor>().LifestylePerWebRequest());
+            container.Register(Component.For<TracingInterceptor>().LifestyleTransient());
         }
     }
 }

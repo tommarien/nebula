@@ -12,7 +12,9 @@ namespace Nebula.MvcApplication.Modules
         {
             container.Register(Classes.FromThisAssembly()
                                    .BasedOn(typeof (IHttpApplicationLifecycleEventHandler<>))
-                                   .WithServiceFirstInterface().LifestyleScoped());
+                                   .WithServiceFirstInterface()
+                                   .Configure(r=>r.Interceptors<TracingInterceptor>())
+                                   .LifestyleScoped());
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Nebula.Bootstrapper.Installers
                                    .BasedOn<ICommandHandler>()
                                    .Configure(c =>
                                                   {
-                                                      c.Interceptors<AutoTransactionInterceptor>();
+                                                      c.Interceptors<AutomaticTransactionInterceptor>();
                                                       c.Interceptors<TracingInterceptor>();
                                                   })
                                    .WithServiceFirstInterface().LifestyleTransient());

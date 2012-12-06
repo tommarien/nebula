@@ -17,20 +17,22 @@ namespace Nebula.Bootstrapper.Interceptors
 
         public void Intercept(IInvocation invocation)
         {
+            string typeQualifiedMethodName = invocation.TypeQualifiedMethodName();
+
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            Logger.DebugFormat("{0} -- BEGIN", invocation.TypeQualifiedMethodName());
+            Logger.DebugFormat("{0} -- BEGIN", typeQualifiedMethodName);
             try
             {
                 invocation.Proceed();
                 stopWatch.Stop();
-                Logger.DebugFormat("{0} -- END ({1} ms)", invocation.TypeQualifiedMethodName(), stopWatch.ElapsedMilliseconds);
+                Logger.DebugFormat("{0} -- END ({1} ms)", typeQualifiedMethodName, stopWatch.ElapsedMilliseconds);
             }
             catch (Exception e)
             {
                 stopWatch.Stop();
-                Logger.ErrorFormat(e, "{0} -- END ({1} ms) -- Threw an exception", invocation.TypeQualifiedMethodName(), stopWatch.ElapsedMilliseconds);
+                Logger.ErrorFormat(e, "{0} -- END ({1} ms) -- Threw an exception", typeQualifiedMethodName, stopWatch.ElapsedMilliseconds);
                 throw;
             }
         }

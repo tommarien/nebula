@@ -33,9 +33,7 @@ namespace Nebula.Bootstrapper.Installers
 
             container.Register(Component.For<ITransactionManager>()
                                         .ImplementedBy<NHibernateTransactionManager>()
-                                        .LifestyleTransient());
-
-            container.Register(Component.For<AutoTransactionInterceptor>()
+                                        .Interceptors<TracingInterceptor>()
                                         .LifestyleTransient());
 
             container.Register(Component.For<AutomaticTransactionInterceptor>()

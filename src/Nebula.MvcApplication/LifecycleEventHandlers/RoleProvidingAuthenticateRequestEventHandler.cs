@@ -9,17 +9,17 @@ using Nebula.MvcApplication.LifecycleEvents;
 
 namespace Nebula.MvcApplication.LifecycleEventHandlers
 {
-    public class RoleProvidingPostAuthenticateRequestEventHandler :
-        IHttpApplicationLifecycleEventHandler<PostAuthenticateRequestEvent>
+    public class RoleProvidingAuthenticateRequestEventHandler :
+        IHttpApplicationLifecycleEventHandler<AuthenticateRequestEvent>
     {
         private readonly IQueryHandler<AccountQuery, Role[]> getRolesQuery;
 
-        public RoleProvidingPostAuthenticateRequestEventHandler(IQueryHandler<AccountQuery, Role[]> getRolesQuery)
+        public RoleProvidingAuthenticateRequestEventHandler(IQueryHandler<AccountQuery, Role[]> getRolesQuery)
         {
             this.getRolesQuery = getRolesQuery;
         }
 
-        public void Handle(PostAuthenticateRequestEvent instance)
+        public void Handle(AuthenticateRequestEvent instance)
         {
             HttpContextBase httpContext = instance.HttpContext;
 
