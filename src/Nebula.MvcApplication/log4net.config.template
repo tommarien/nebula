@@ -87,7 +87,7 @@
 <% if configatron.logging.file.enabled %>
 <% if configatron.logging.file.trace %>
 		<logger name="Nebula">
-				<level value="INFO" />
+				<level value="DEBUG" />
 		</logger>
 <% end %>
 <% if configatron.logging.file.showsql %>

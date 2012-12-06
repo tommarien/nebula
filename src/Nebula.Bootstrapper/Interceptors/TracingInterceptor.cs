@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Castle.Core.Logging;
 using Castle.DynamicProxy;
+using Nebula.Infrastructure;
 
 namespace Nebula.Bootstrapper.Interceptors
 {
@@ -18,22 +19,18 @@ namespace Nebula.Bootstrapper.Interceptors
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            var method = string.Format("{0}.{1}", invocation.TargetType == null ? "" : invocation.TargetType.Name,
-                                       invocation.Method.Name);
-            var startMessage = string.Format("{0} started...", method);
-            Logger.Info(startMessage);
+
+            Logger.DebugFormat("{0} -- BEGIN", invocation.TypeQualifiedMethodName());
             try
             {
                 invocation.Proceed();
                 stopWatch.Stop();
-                var message = string.Format("{0} done. Took {1} ms.", method, stopWatch.ElapsedMilliseconds);
-                Logger.Info(message);
+                Logger.DebugFormat("{0} -- END ({1} ms)", invocation.TypeQualifiedMethodName(), stopWatch.ElapsedMilliseconds);
             }
             catch (Exception e)
             {
                 stopWatch.Stop();
-                var message = string.Format("{0} threw an exception. Took {1} ms.", method, stopWatch.ElapsedMilliseconds);
-                Logger.Error(message, e);
+                Logger.ErrorFormat(e, "{0} -- END ({1} ms) -- Threw an exception", invocation.TypeQualifiedMethodName(), stopWatch.ElapsedMilliseconds);
                 throw;
             }
         }

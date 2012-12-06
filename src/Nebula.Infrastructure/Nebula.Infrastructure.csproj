@@ -60,6 +60,7 @@
     <Compile Include="Commanding\ICommand.cs" />
     <Compile Include="Commanding\ICommandHandler.cs" />
     <Compile Include="Commanding\ICommandHandlerFactory.cs" />
+    <Compile Include="IInvocation Extensions.cs" />
     <Compile Include="SystemContext.cs" />
     <Compile Include="IHandle.cs" />
     <Compile Include="InvalidStateException.cs" />

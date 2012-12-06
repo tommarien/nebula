@@ -32,14 +32,14 @@ namespace Nebula.MvcApplication.Interceptors
         {
             var context = invocation.Arguments[0] as ActionExecutingContext;
             if (context == null) return;
-            Logger.InfoFormat("{0}.{1} started ...", invocation.TargetType.Name, context.ActionDescriptor.ActionName);
+            Logger.DebugFormat("{0}.{1} -- BEGIN", invocation.TargetType.Name, context.ActionDescriptor.ActionName);
         }
 
         private void OnActionExecuted(IInvocation invocation)
         {
             var context = invocation.Arguments[0] as ActionExecutedContext;
             if (context == null) return;
-            Logger.InfoFormat("{0}.{1} done.", invocation.TargetType.Name, context.ActionDescriptor.ActionName);
+            Logger.DebugFormat("{0}.{1} -- END", invocation.TargetType.Name, context.ActionDescriptor.ActionName);
         }
     }
 }
