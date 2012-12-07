@@ -4,7 +4,9 @@ using System.Web.Routing;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Nebula.Bootstrapper;
+using Nebula.MvcApplication.Helpers;
 using Nebula.MvcApplication.Modules;
+using log4net;
 
 namespace Nebula.MvcApplication
 {
@@ -31,6 +33,9 @@ namespace Nebula.MvcApplication
             RegisterRoutes(RouteTable.Routes);
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterWindsor();
+
+            GlobalContext.Properties["sessionId"] = new SessionIdProvider();
+            GlobalContext.Properties["UserName"] = new UserNameProvider();
         }
 
         private static void RegisterRoutes(RouteCollection routes)

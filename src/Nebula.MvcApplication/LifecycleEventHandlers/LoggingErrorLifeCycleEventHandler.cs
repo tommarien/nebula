@@ -6,12 +6,11 @@ namespace Nebula.MvcApplication.LifecycleEventHandlers
 {
     public class LoggingErrorLifecycleEventHandler : IHttpApplicationLifecycleEventHandler<ErrorEvent>
     {
-        private ILogger logger;
+        private readonly ILogger logger;
 
-        public ILogger Logger
+        public LoggingErrorLifecycleEventHandler(ILoggerFactory loggerFactory)
         {
-            get { return logger = logger ?? NullLogger.Instance; }
-            set { logger = value; }
+            logger = loggerFactory.Create("Nebula.Application");
         }
 
         public void Handle(ErrorEvent instance)

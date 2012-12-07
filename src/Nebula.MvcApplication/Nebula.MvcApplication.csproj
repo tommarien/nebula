@@ -103,7 +103,6 @@
     <Compile Include="Helpers\HtmlHelperEx.cs" />
     <Compile Include="Helpers\SessionIdProvider.cs" />
     <Compile Include="Helpers\UserNameProvider.cs" />
-    <Compile Include="LifecycleEventHandlers\Log4NetThreadContextInitializingPostAcquireRequestStateEventHandler.cs" />
     <Compile Include="LifecycleEventHandlers\LoggingErrorLifeCycleEventHandler.cs" />
     <Compile Include="LifecycleEventHandlers\IHttpApplicationLifecycleEventHandler.cs" />
     <Compile Include="LifecycleEventHandlers\RoleProvidingAuthenticateRequestEventHandler.cs" />
@@ -112,7 +111,6 @@
     <Compile Include="HttpModules\HttpApplicationEventPublishingModule.cs" />
     <Compile Include="Interceptors\TracingControllerInterceptor.cs" />
     <Compile Include="LifecycleEvents\IHttpApplicationLifecycleEvent.cs" />
-    <Compile Include="LifecycleEvents\PostAcquireRequestStateEvent.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\DataTableModels.cs" />
     <Compile Include="Models\SystemModels.cs" />
