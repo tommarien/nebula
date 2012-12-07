@@ -26,9 +26,8 @@ namespace Nebula.Infrastructure.Transactions
             {
                 invocation.Proceed();
 
-                if (!HasStartedTransaction) return;
-
-                transactionManager.Commit();
+                if (HasStartedTransaction) 
+                    transactionManager.Commit();
             }
             catch (Exception e)
             {
