@@ -128,6 +128,16 @@ namespace :db do
 		migrator.verbose = true
 	end
 	
+	desc "rollbacks last migration"
+	fluentmigrator :undo, :connection do |migrator, args|
+		migrator.command = fluentmigrator_command
+		migrator.provider = fluentmigrator_provider
+		migrator.target = fluentmigrator_target
+		migrator.connection = args[:connection]
+		migrator.task = "rollback"
+		migrator.verbose = true
+	end
+
 	desc "rollbacks all migrations"
 	fluentmigrator :rollback, :connection do |migrator, args|
 		migrator.command = fluentmigrator_command
