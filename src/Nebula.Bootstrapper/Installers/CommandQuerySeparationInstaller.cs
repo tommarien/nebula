@@ -18,7 +18,7 @@ namespace Nebula.Bootstrapper.Installers
             container.Register(Component.For<ICommandHandlerFactory>().AsFactory().LifestylePerWebRequest());
             container.Register(Component.For<ICommandBus>().ImplementedBy<CommandBus>().LifestylePerWebRequest());
 
-            container.Register(Classes.FromAssemblyContaining(typeof (NHibernateConfiguration))
+            container.Register(Classes.FromAssemblyContaining(typeof (NHibernateConfigurationBuilder))
                                    .BasedOn<ICommandHandler>()
                                    .Configure(c =>
                                                   {
@@ -30,7 +30,7 @@ namespace Nebula.Bootstrapper.Installers
             //Querying
             container.Register(Component.For<IQueryHandlerFactory>().AsFactory().LifestylePerWebRequest());
 
-            container.Register(Classes.FromAssemblyContaining(typeof (NHibernateConfiguration))
+            container.Register(Classes.FromAssemblyContaining(typeof(NHibernateConfigurationBuilder))
                                    .BasedOn<IQueryHandler>()
                                    .WithServiceFirstInterface()
                                    .Configure(c =>

@@ -23,7 +23,10 @@ namespace Nebula.IntegrationTests
 
         private static void SetSessionFactory()
         {
-            Configuration = NHibernateConfiguration.Build();
+            Configuration = new NHibernateConfigurationBuilder()
+                .UsingNamedConnectionString("Nebula_Test")
+                .Build();
+
             SessionFactory = Configuration.BuildSessionFactory();
         }
 

@@ -64,11 +64,11 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="NHibernateConfigurationBuilder.cs" />
     <Compile Include="NHibernateTransactionManager.cs" />
     <Compile Include="Registration\Commands\ChangePasswordCommandHandler.cs" />
     <Compile Include="Registration\Commands\LogOnUserCommandHandler.cs" />
     <Compile Include="Registration\Mappings\AccountMapping.cs" />
-    <Compile Include="NHibernateConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration\Queries\AccountQueryHandler.cs" />
     <Compile Include="Registration\Queries\AccountRolesQueryHandler.cs" />
