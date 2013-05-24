@@ -19,26 +19,27 @@ namespace Nebula.Bootstrapper.Installers
             container.Register(Component.For<ICommandBus>().ImplementedBy<CommandBus>().LifestylePerWebRequest());
 
             container.Register(Classes.FromAssemblyContaining(typeof (NHibernateConfigurationBuilder))
-                                   .BasedOn<ICommandHandler>()
-                                   .Configure(c =>
-                                                  {
-                                                      c.Interceptors<AutomaticTransactionInterceptor>();
-                                                      c.Interceptors<TracingInterceptor>();
-                                                  })
-                                   .WithServiceFirstInterface().LifestyleTransient());
+                                      .BasedOn(typeof (ICommandHandler<>), typeof (ICommandHandler<,>))
+                                      .WithService.Base()
+                                      .Configure(c =>
+                                          {
+                                              c.Interceptors<AutomaticTransactionInterceptor>();
+                                              c.Interceptors<TracingInterceptor>();
+                                          })
+                                      .LifestyleTransient());
 
             //Querying
             container.Register(Component.For<IQueryHandlerFactory>().AsFactory().LifestylePerWebRequest());
 
-            container.Register(Classes.FromAssemblyContaining(typeof(NHibernateConfigurationBuilder))
-                                   .BasedOn<IQueryHandler>()
-                                   .WithServiceFirstInterface()
-                                   .Configure(c =>
-                                                  {
-                                                      c.Interceptors<AutomaticTransactionInterceptor>();
-                                                      c.Interceptors<TracingInterceptor>();
-                                                  })
-                                   .LifestyleTransient());
+            container.Register(Classes.FromAssemblyContaining(typeof (NHibernateConfigurationBuilder))
+                                      .BasedOn(typeof (IQueryHandler<,>))
+                                      .WithService.Base()
+                                      .Configure(c =>
+                                          {
+                                              c.Interceptors<AutomaticTransactionInterceptor>();
+                                              c.Interceptors<TracingInterceptor>();
+                                          })
+                                      .LifestyleTransient());
         }
     }
 }
