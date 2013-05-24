@@ -97,10 +97,10 @@ namespace :db do
 
 	# figure out the location of fluentmigrator console
 	def fluentmigrator_command
-			fluentdirectory = Dir.glob('packages/FluentMigrator.Tools.*/tools/AnyCPU/40')
+			fluentdirectory = Dir.glob('packages/FluentMigrator.*/tools')
 			
 			if fluentdirectory.empty? then
-				raise "FluentMigrator.Tools package is missing, build your solution first !"
+				raise "FluentMigrator package is missing, build your solution first !"
 			else 
 				"#{fluentdirectory.last}/Migrate.exe"
 			end
