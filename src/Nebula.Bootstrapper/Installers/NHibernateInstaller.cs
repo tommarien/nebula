@@ -23,14 +23,9 @@ namespace Nebula.Bootstrapper.Installers
                                         .UsingFactoryMethod((kernel, context) =>
                                             {
                                                 var sessionFactory = kernel.Resolve<ISessionFactory>();
-                                                ISession session = sessionFactory.OpenSession();
-                                                kernel.ReleaseComponent(sessionFactory);
-
-                                                // Set session properties
-                                                session.FlushMode = FlushMode.Commit;
-
-                                                return session;
+                                                return sessionFactory.OpenSession();
                                             })
+                                        .OnCreate(session => session.FlushMode = FlushMode.Commit)
                                         .LifestylePerWebRequest());
 
             container.Register(Component.For<ITransactionManager>()
