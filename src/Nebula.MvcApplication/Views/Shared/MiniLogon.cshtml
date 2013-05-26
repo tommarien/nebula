@@ -1,16 +1,21 @@
 ﻿@using Nebula.MvcApplication.Helpers
 @model Nebula.MvcApplication.Models.LogOnModel
-@using (Html.BeginForm("Logon", "Account", null, FormMethod.Post, new { @class = "minilogon" }))
-{
-	@Html.TextBoxFor(m => m.UserName, new { placeholder = "Username" })
-	@Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
-	<div class="form-inline">
-		<input type="submit" class="btn btn-primary" value="Sign in" />
-		@Html.BootstrapCheckboxFor(m => m.RememberMe, new { style = "margin-left:20px" })
-	</div>
+@using (Html.BeginForm("Logon", "Account", null, FormMethod.Post, new { @class = "minilogon form-horizontal" }))
+{   
+    <div class="control-group">
+        @Html.TextBoxFor(m => m.UserName, new { placeholder = "Username" })
+    </div>
+    <div class="control-group">
+        @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
+    </div>
+    
+    <div class="form-inline">
+        <input type="submit" class="btn btn-primary" value="Sign in" />
+        @Html.BootstrapCheckboxFor(m => m.RememberMe, new { style = "margin-left:20px" })
+    </div>
 }
 <script type="text/javascript">
-	$("form.minilogon input:text, input:password, :checkbox, label").click(function (e) {
-		e.stopPropagation();
-	});
+    $("form.minilogon input:text, input:password, :checkbox, label").click(function (e) {
+        e.stopPropagation();
+    });
 </script>
