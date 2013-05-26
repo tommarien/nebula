@@ -1,13 +1,13 @@
-﻿using NUnit.Framework;
+﻿using NSubstitute;
+using NUnit.Framework;
 using Nebula.Contracts.Registration;
 using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Data.Registration.Commands;
 using Nebula.Domain.Registration;
-using Nebula.Infrastructure.Commanding.CommandResults;
+using Nebula.Infrastructure;
 using Nebula.Infrastructure.Querying;
 using Nebula.UnitTests.Builders;
-using Rhino.Mocks;
 
 namespace Nebula.UnitTests.Nebula.Data.Registration
 {
@@ -17,7 +17,7 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [SetUp]
         public void Setup()
         {
-            queryHandler = MockRepository.GenerateMock<IQueryHandler<AccountQuery, Account>>();
+            queryHandler = Substitute.For<IQueryHandler<AccountQuery, Account>>();
             commandHandler = new ChangePasswordCommandHandler(queryHandler);
             command = new ChangePasswordCommand
                 {
@@ -34,45 +34,19 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
         [Test]
         public void Should_invoke_the_query_as_expected()
         {
-            queryHandler.Expect(h => h.Execute(Arg<AccountQuery>.Matches(q => q.UserName == command.UserName)))
-                .Return(new AccountBuilder().Build());
+            queryHandler.Execute(Arg.Any<AccountQuery>())
+                        .Returns(new AccountBuilder().WithPassword(command.OldPassword).Build());
 
             commandHandler.Handle(command);
 
-            queryHandler.VerifyAllExpectations();
-        }
-
-        [Test]
-        public void Should_return_false_if_the_password_does_not_match()
-        {
-            queryHandler.Stub(h => h.Execute(Arg<AccountQuery>.Matches(q => q.UserName == command.UserName)))
-                .Return(new AccountBuilder().Build());
-
-            OperationResult result = commandHandler.Handle(command);
-
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void Should_return_true_if_the_password_matches()
-        {
-            Account account = new AccountBuilder()
-                .WithPassword(command.OldPassword)
-                .Build();
-
-            queryHandler.Stub(h => h.Execute(Arg<AccountQuery>.Matches(q => q.UserName == command.UserName)))
-                .Return(account);
-
-            OperationResult result = commandHandler.Handle(command);
-
-            Assert.IsTrue(result);
+            queryHandler.Received().Execute(Arg.Is<AccountQuery>(query => query.UserName == command.UserName));
         }
 
         [Test]
         public void Should_throw_unknown_account_exception_if_user_does_not_exist()
         {
-            queryHandler.Stub(h => h.Execute(Arg<AccountQuery>.Matches(q => q.UserName == command.UserName)))
-                .Return(null);
+            queryHandler.Execute(Arg.Any<AccountQuery>())
+                        .Returns((Account) null);
 
             Assert.Throws<UnknownAccountException>(() => commandHandler.Handle(command));
         }
@@ -84,12 +58,21 @@ namespace Nebula.UnitTests.Nebula.Data.Registration
                 .WithPassword(command.OldPassword)
                 .Build();
 
-            queryHandler.Stub(h => h.Execute(Arg<AccountQuery>.Matches(q => q.UserName == command.UserName)))
-                .Return(account);
+            queryHandler.Execute(Arg.Any<AccountQuery>())
+                        .Returns(account);
 
             commandHandler.Handle(command);
 
             Assert.IsTrue(account.Password.Equals(command.NewPassword));
+        }
+
+        [Test]
+        public void Throws_business_exception_if_the_passwords_did_not_match()
+        {
+            queryHandler.Execute(Arg.Any<AccountQuery>())
+                        .Returns(new AccountBuilder().Build());
+
+            Assert.Throws<BusinessException>(() => commandHandler.Handle(command));
         }
     }
 }

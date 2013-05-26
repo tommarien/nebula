@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Infrastructure.Commanding;
-using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Models;
 using Nebula.MvcApplication.Services;
@@ -127,7 +126,9 @@ namespace Nebula.MvcApplication.Controllers
                             NewPassword = model.NewPassword
                         };
 
-                    changePasswordSucceeded = SendAndReply<ChangePasswordCommand, OperationResult>(command);
+                    Send(command);
+
+                    changePasswordSucceeded = true;
                 }
                 catch (Exception)
                 {

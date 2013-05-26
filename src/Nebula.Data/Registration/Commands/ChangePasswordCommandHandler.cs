@@ -1,15 +1,14 @@
 ﻿using Nebula.Contracts.Registration;
 using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
-using Nebula.Data.Registration.Queries;
 using Nebula.Domain.Registration;
+using Nebula.Infrastructure;
 using Nebula.Infrastructure.Commanding;
-using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.Infrastructure.Querying;
 
 namespace Nebula.Data.Registration.Commands
 {
-    public class ChangePasswordCommandHandler : ICommandHandler<ChangePasswordCommand, OperationResult>
+    public class ChangePasswordCommandHandler : ICommandHandler<ChangePasswordCommand>
     {
         private readonly IQueryHandler<AccountQuery, Account> accountQueryHandler;
 
@@ -18,16 +17,15 @@ namespace Nebula.Data.Registration.Commands
             this.accountQueryHandler = accountQueryHandler;
         }
 
-        public OperationResult Handle(ChangePasswordCommand command)
+        public void Handle(ChangePasswordCommand command)
         {
-            var account = accountQueryHandler.Execute(new AccountQuery { UserName = command.UserName });
+            Account account = accountQueryHandler.Execute(new AccountQuery {UserName = command.UserName});
             if (account == null) throw new UnknownAccountException(command.UserName);
 
-            if (!account.Password.Equals(command.OldPassword)) return false;
+            if (!account.Password.Equals(command.OldPassword))
+                throw new BusinessException("The password provided did not match our records.");
 
             account.ChangePassword(new Password(command.NewPassword));
-
-            return true;
         }
     }
 }
