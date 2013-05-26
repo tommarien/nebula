@@ -1,13 +1,13 @@
 ﻿using Nebula.Contracts.Registration;
 using Nebula.Contracts.Registration.Commands;
+using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Domain.Registration;
 using Nebula.Infrastructure.Commanding;
-using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.Infrastructure.Querying;
 
 namespace Nebula.Data.Registration.Commands
 {
-    public class LogOnUserCommandHandler : ICommandHandler<LogOnUserCommand, OperationResult>
+    public class LogOnUserCommandHandler : ICommandHandler<LogOnUserCommand>
     {
         private readonly IQueryHandler<AccountQuery, Account> accountQueryHandler;
 
@@ -16,10 +16,12 @@ namespace Nebula.Data.Registration.Commands
             this.accountQueryHandler = accountQueryHandler;
         }
 
-        public OperationResult Handle(LogOnUserCommand command)
+        public void Handle(LogOnUserCommand command)
         {
-            var account = accountQueryHandler.Execute(new AccountQuery { UserName = command.UserName });
-            return account != null && account.LogOn(command.Password);
+            Account account = accountQueryHandler.Execute(new AccountQuery {UserName = command.UserName});
+
+            if (account == null || !account.LogOn(command.Password))
+                throw new AuthenticationFailedException(command.UserName);
         }
     }
 }

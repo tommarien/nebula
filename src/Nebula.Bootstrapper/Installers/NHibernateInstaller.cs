@@ -12,12 +12,9 @@ namespace Nebula.Bootstrapper.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            ISessionFactory sessionfactory = new NHibernateConfigurationBuilder()
-                .Build()
-                .BuildSessionFactory();
-
             container.Register(Component.For<ISessionFactory>()
-                                        .Instance(sessionfactory));
+                                        .UsingFactoryMethod(
+                                            () => new NHibernateConfigurationBuilder().Build().BuildSessionFactory()));
 
             container.Register(Component.For<ISession>()
                                         .UsingFactory<ISessionFactory, ISession>(factory => factory.OpenSession())

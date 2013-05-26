@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using NUnit.Framework;
-using Nebula.Contracts.Registration;
 using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Infrastructure.Commanding;
@@ -38,11 +37,13 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         }
 
         [Test]
-        public void Should_add_an_error_and_return_view_if_command_returns_false()
+        public void Should_add_an_error_and_return_view_if_command_throws_authentication_failed_exception()
         {
-            commandBus.Stub(bus => bus.SendAndReply<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(false);
+            commandBus.Stub(
+                bus => bus.Send(Arg<LogOnUserCommand>.Is.Anything))
+                      .Throw(new AuthenticationFailedException());
 
-            var result = controller.LogOn(logOnModel, "/");
+            ActionResult result = controller.LogOn(logOnModel, "/");
 
             Assert.IsFalse(controller.ModelState.IsValid);
             Assert.IsInstanceOf<ViewResult>(result);
@@ -52,9 +53,11 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         [Test]
         public void Should_add_an_error_and_return_view_if_command_throws_inactiveAccountException()
         {
-            commandBus.Stub(bus => bus.SendAndReply<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Throw(new InactiveAccountException());
+            commandBus.Stub(
+                bus => bus.Send(Arg<LogOnUserCommand>.Is.Anything))
+                      .Throw(new InactiveAccountException());
 
-            var result = controller.LogOn(logOnModel, "/");
+            ActionResult result = controller.LogOn(logOnModel, "/");
 
             Assert.IsFalse(controller.ModelState.IsValid);
             Assert.IsInstanceOf<ViewResult>(result);
@@ -66,8 +69,9 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         {
             commandBus.Expect(
                 bus =>
-                bus.SendAndReply<LogOnUserCommand, OperationResult>(
-                    Arg<LogOnUserCommand>.Matches(c => c.UserName == logOnModel.UserName && c.Password == logOnModel.Password))).Return(true);
+                bus.Send(
+                    Arg<LogOnUserCommand>.Matches(
+                        c => c.UserName == logOnModel.UserName && c.Password == logOnModel.Password)));
 
             controller.LogOn(logOnModel, "/");
 
@@ -75,11 +79,9 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         }
 
         [Test]
-        public void Should_redirect_to_home_if_it_isnt_local_url_and_command_returned_true()
+        public void Should_redirect_to_home_if_it_isnt_local_url_and_command_is_handled()
         {
-            commandBus.Stub(d => d.SendAndReply<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
-
-            var result = controller.LogOn(logOnModel, "http://www.google.be");
+            ActionResult result = controller.LogOn(logOnModel, "http://www.google.be");
 
             Assert.IsInstanceOf<RedirectToRouteResult>(result);
             var redirectToRouteResult = (RedirectToRouteResult) result;
@@ -90,9 +92,10 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         [Test]
         public void Should_redirect_to_return_url_if_it_is_local_and_command_returned_true()
         {
-            commandBus.Stub(d => d.SendAndReply<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
+            commandBus.Stub(d => d.SendAndReply<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything))
+                      .Return(true);
 
-            var result = controller.LogOn(logOnModel, "/foo/bar");
+            ActionResult result = controller.LogOn(logOnModel, "/foo/bar");
 
             Assert.IsInstanceOf<RedirectResult>(result);
             Assert.AreEqual("/foo/bar", ((RedirectResult) result).Url);
@@ -103,20 +106,18 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         {
             controller.ModelState.AddModelError("", "Something is wrong");
 
-            var result = controller.LogOn(logOnModel, "/");
+            ActionResult result = controller.LogOn(logOnModel, "/");
 
             Assert.IsInstanceOf<ViewResult>(result);
             Assert.AreSame(logOnModel, ((ViewResult) result).Model);
         }
 
         [Test]
-        public void Should_sign_in_user_as_expected_if_command_is_true_with_rememberme_false()
+        public void Should_sign_in_user_as_expected_if_command_is_handled()
         {
-            commandBus.Stub(bus => bus.SendAndReply<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
-            
-            formsAuthenticationService.Expect(s => s.SignIn(logOnModel.UserName, false));
+            commandBus.Stub(bus => bus.Send(Arg<LogOnUserCommand>.Is.Anything));
 
-            logOnModel.RememberMe = false;
+            formsAuthenticationService.Expect(s => s.SignIn(logOnModel.UserName, logOnModel.RememberMe));
 
             controller.LogOn(logOnModel, "/");
 
@@ -124,11 +125,13 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         }
 
         [Test]
-        public void Should_sign_in_user_as_expected_if_command_returns_true()
+        public void Should_sign_in_user_as_expected_if_command_is_handled_with_rememberme_false()
         {
-            commandBus.Stub(bus => bus.SendAndReply<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything)).Return(true);
-           
-            formsAuthenticationService.Expect(s => s.SignIn(logOnModel.UserName, logOnModel.RememberMe));
+            commandBus.Stub(bus => bus.Send(Arg<LogOnUserCommand>.Is.Anything));
+
+            formsAuthenticationService.Expect(s => s.SignIn(logOnModel.UserName, false));
+
+            logOnModel.RememberMe = false;
 
             controller.LogOn(logOnModel, "/");
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using Nebula.Contracts.Registration;
 using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Infrastructure.Commanding;
@@ -35,16 +34,18 @@ namespace Nebula.MvcApplication.Controllers
                 if (ModelState.IsValid)
                 {
                     var command = new LogOnUserCommand {UserName = model.UserName, Password = model.Password};
-                    bool result = SendAndReply<LogOnUserCommand, OperationResult>(command);
+                    Send(command);
 
-                    if (result)
-                    {
-                        formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
 
-                        return Url.IsLocalUrl(returnUrl) ? (ActionResult) Redirect(returnUrl) : RedirectToAction("Index", "Home");
-                    }
+                    formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
+
+                    return Url.IsLocalUrl(returnUrl)
+                               ? (ActionResult) Redirect(returnUrl)
+                               : RedirectToAction("Index", "Home");
                 }
-
+            }
+            catch (AuthenticationFailedException)
+            {
                 ModelState.AddModelError(string.Empty, "The user name or password provided is incorrect.");
             }
             catch (InactiveAccountException)
