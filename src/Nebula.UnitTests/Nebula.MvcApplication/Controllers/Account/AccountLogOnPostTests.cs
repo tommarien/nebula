@@ -5,7 +5,6 @@ using NUnit.Framework;
 using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Infrastructure.Commanding;
-using Nebula.Infrastructure.Commanding.CommandResults;
 using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Controllers;
 using Nebula.MvcApplication.Models;
@@ -92,8 +91,7 @@ namespace Nebula.UnitTests.Nebula.MvcApplication.Controllers.Account
         [Test]
         public void Should_redirect_to_return_url_if_it_is_local_and_command_returned_true()
         {
-            commandBus.Stub(d => d.SendAndReply<LogOnUserCommand, OperationResult>(Arg<LogOnUserCommand>.Is.Anything))
-                      .Return(true);
+            commandBus.Stub(d => d.Send(Arg<LogOnUserCommand>.Is.Anything));
 
             ActionResult result = controller.LogOn(logOnModel, "/foo/bar");
 

@@ -8,10 +8,4 @@
         where TCommand : ICommand
     {
     }
-
-    public interface ICommandHandler<TCommand, TResult> : IHandleAndReply<TCommand, TResult>, ICommandHandler
-        where TCommand : ICommand
-        where TResult : ICommandResult
-    {
-    }
 }

@@ -1,5 +1,4 @@
 ﻿using Nebula.Infrastructure.Commanding;
-using Nebula.Infrastructure.Commanding.CommandResults;
 
 namespace Nebula.UnitTests.Nebula.Infrastructure.Commanding
 {
@@ -11,18 +10,6 @@ namespace Nebula.UnitTests.Nebula.Infrastructure.Commanding
     {
         public void Handle(TestCommand instance)
         {
-        }
-    }
-
-    public class TestCommandWithResult : ICommand
-    {
-    }
-
-    public class TestCommandWithResultHandler : ICommandHandler<TestCommandWithResult, OperationResult>
-    {
-        public OperationResult Handle(TestCommandWithResult command)
-        {
-            return false;
         }
     }
 }

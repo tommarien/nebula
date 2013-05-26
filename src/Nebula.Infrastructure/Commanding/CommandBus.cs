@@ -23,21 +23,5 @@ namespace Nebula.Infrastructure.Commanding
                 commandHandlerFactory.ReleaseHandler(handler);
             }
         }
-
-        public virtual TResult SendAndReply<TCommand, TResult>(TCommand command)
-            where TCommand : ICommand
-            where TResult : ICommandResult
-        {
-            ICommandHandler<TCommand, TResult> handler = commandHandlerFactory.CreateHandler<TCommand, TResult>();
-
-            try
-            {
-                return handler.Handle(command);
-            }
-            finally
-            {
-                commandHandlerFactory.ReleaseHandler(handler);
-            }
-        }
     }
 }

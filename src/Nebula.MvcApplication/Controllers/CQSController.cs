@@ -25,15 +25,10 @@ namespace Nebula.MvcApplication.Controllers
             commandBus.Send(command);
         }
 
-        protected TResult SendAndReply<TCommand, TResult>(TCommand command) where TCommand : ICommand where TResult : ICommandResult
-        {
-            return commandBus.SendAndReply<TCommand, TResult>(command);
-        }
-
         protected TResult Query<TQuery, TResult>(TQuery query)
         {
-            var handler = queryHandlerFactory.CreateHandler<TQuery, TResult>();
-            var result = handler.Execute(query);
+            IQueryHandler<TQuery, TResult> handler = queryHandlerFactory.CreateHandler<TQuery, TResult>();
+            TResult result = handler.Execute(query);
             queryHandlerFactory.Release(handler);
             return result;
         }
