@@ -1,5 +1,7 @@
 ﻿using Castle.Facilities.Logging;
 using Castle.Facilities.TypedFactory;
+using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers;
 using Castle.Windsor;
 using Nebula.Bootstrapper.Installers;
 
@@ -25,6 +27,9 @@ namespace Nebula.Bootstrapper
         {
             container.AddFacility<TypedFactoryFacility>();
             container.AddFacility<LoggingFacility>(f => f.UseLog4Net().WithConfig("log4net.config"));
+
+            container.Register(Component.For<ILazyComponentLoader>()
+                                        .ImplementedBy<LazyOfTComponentLoader>());
         }
     }
 }

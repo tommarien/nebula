@@ -53,7 +53,6 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AbortTransactionException.cs" />
     <Compile Include="AnonymousTypeExtensions.cs" />
     <Compile Include="BusinessException.cs" />
     <Compile Include="Commanding\CommandBus.cs" />
@@ -71,8 +70,6 @@
     <Compile Include="Querying\IQueryHandler.cs" />
     <Compile Include="Querying\IQueryHandlerFactory.cs" />
     <Compile Include="RealTimeSystemClock.cs" />
-    <Compile Include="Transactions\AutomaticTransactionInterceptor.cs" />
-    <Compile Include="Transactions\ITransactionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

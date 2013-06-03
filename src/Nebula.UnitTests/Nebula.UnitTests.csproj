@@ -69,13 +69,13 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Accounts.cs" />
+    <Compile Include="AutoTxInterceptorTests.cs" />
     <Compile Include="Nebula.Data\Registration\ChangePasswordCommandHandlerTests.cs" />
     <Compile Include="Nebula.Data\Registration\AccountRolesQueryHandlerTests.cs" />
     <Compile Include="Nebula.Data\Registration\LogOnUserCommandHandlerTests.cs" />
     <Compile Include="Nebula.Domain\Registration\AccountTests.cs" />
     <Compile Include="Nebula.Domain\Registration\PasswordTests.cs" />
     <Compile Include="Nebula.Infrastructure\AnonymousTypeExtensionsTests.cs" />
-    <Compile Include="Nebula.Infrastructure\AutomaticTransactionInterceptorTests.cs" />
     <Compile Include="Nebula.Infrastructure\Commanding\CommandBusTests.cs" />
     <Compile Include="Nebula.Infrastructure\Commanding\TestCommand.cs" />
     <Compile Include="Nebula.MvcApplication\Controllers\Account\AccountChangePasswordGetTests.cs" />

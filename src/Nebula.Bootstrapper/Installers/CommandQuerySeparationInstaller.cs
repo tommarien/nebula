@@ -6,7 +6,6 @@ using Nebula.Bootstrapper.Interceptors;
 using Nebula.Data;
 using Nebula.Infrastructure.Commanding;
 using Nebula.Infrastructure.Querying;
-using Nebula.Infrastructure.Transactions;
 
 namespace Nebula.Bootstrapper.Installers
 {
@@ -23,7 +22,7 @@ namespace Nebula.Bootstrapper.Installers
                                       .WithService.Base()
                                       .Configure(c =>
                                           {
-                                              c.Interceptors<AutomaticTransactionInterceptor>();
+                                              c.Interceptors<AutoTxInterceptor>();
                                               c.Interceptors<TracingInterceptor>();
                                           })
                                       .LifestyleTransient());
@@ -36,7 +35,7 @@ namespace Nebula.Bootstrapper.Installers
                                       .WithService.Base()
                                       .Configure(c =>
                                           {
-                                              c.Interceptors<AutomaticTransactionInterceptor>();
+                                              c.Interceptors<AutoTxInterceptor>();
                                               c.Interceptors<TracingInterceptor>();
                                           })
                                       .LifestyleTransient());

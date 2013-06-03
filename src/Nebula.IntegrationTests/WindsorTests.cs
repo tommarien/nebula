@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
+using Castle.MicroKernel;
+using Castle.MicroKernel.Handlers;
 using Castle.Windsor;
 using Castle.Windsor.Diagnostics;
 using Castle.Windsor.Installer;
@@ -30,19 +32,24 @@ namespace Nebula.IntegrationTests
         [Test]
         public void ShouldNotHaveAnyMisconfiguredComponents()
         {
-            var diagnostic = new PotentiallyMisconfiguredComponentsDiagnostic(container.Kernel);
-            var handlers = diagnostic.Inspect();
+            var diagnostic
+             = new PotentiallyMisconfiguredComponentsDiagnostic(container.Kernel);
+
+            IHandler[] handlers = diagnostic.Inspect();
             if (handlers != null && handlers.Any())
             {
                 var builder = new StringBuilder();
 
-                builder.AppendFormat("Misconfigured components ({0})\r\n", handlers.Count());
+                builder.AppendFormat("Potentially misconfigured components ({0})\r\n", handlers.Count());
 
-                handlers
-                    .ToList()
-                    .ForEach(h => builder.AppendFormat("=> {0} is {1}\r\n", h.ToString(), h.CurrentState));
+                foreach (IHandler handler in handlers)
+                {
+                    var info = (IExposeDependencyInfo)handler;
+                    var inspector = new DependencyInspector(builder);
+                    info.ObtainDependencyDetails(inspector);
+                }
 
-                Assert.Fail(builder.ToString());
+                Assert.Inconclusive(builder.ToString());
             }
         }
     }
