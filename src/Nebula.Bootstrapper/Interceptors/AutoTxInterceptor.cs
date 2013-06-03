@@ -14,41 +14,48 @@ namespace Nebula.Bootstrapper.Interceptors
             this.session = session;
         }
 
-        private bool OwnsTransaction { get; set; }
+        private IInvocation Owner { get; set; }
 
         public void Intercept(IInvocation invocation)
         {
-            BeginTransactionIfNeeded();
+            BeginTransactionIfNeeded(invocation);
 
             try
             {
                 invocation.Proceed();
-                CommitTransactionIfNeeded();
+                CommitTransactionIfNeeded(invocation);
             }
             catch (Exception)
             {
-                RollBackTransactionIfNeeded();
+                RollBackTransactionIfNeeded(invocation);
                 throw;
             }
         }
 
-        private void BeginTransactionIfNeeded()
+        private bool IsTransactionOwner(IInvocation invocation)
+        {
+            return (Owner == invocation);
+        }
+
+        private void BeginTransactionIfNeeded(IInvocation invocation)
         {
             if (session.Value.Transaction.IsActive) return;
             session.Value.BeginTransaction();
-            OwnsTransaction = true;
+            Owner = invocation;
         }
 
-        private void CommitTransactionIfNeeded()
+        private void CommitTransactionIfNeeded(IInvocation invocation)
         {
-            if (!OwnsTransaction) return;
+            if (!IsTransactionOwner(invocation)) return;
             session.Value.Transaction.Commit();
+            Owner = null;
         }
 
-        private void RollBackTransactionIfNeeded()
+        private void RollBackTransactionIfNeeded(IInvocation invocation)
         {
-            if (!OwnsTransaction) return;
+            if (!IsTransactionOwner(invocation)) return;
             session.Value.Transaction.Rollback();
+            Owner = null;
         }
     }
 }
