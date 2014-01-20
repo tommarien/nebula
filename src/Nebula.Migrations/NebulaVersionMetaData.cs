@@ -3,26 +3,16 @@
 namespace Nebula.Migrations
 {
     [VersionTableMetaData]
-    public class NebulaVersionMetaData : IVersionTableMetaData
+    public class NebulaVersionMetaData : DefaultVersionTableMetaData
     {
-        public string SchemaName
+        public override string SchemaName
         {
             get { return "System"; }
         }
 
-        public string TableName
+        public override string TableName
         {
             get { return "SchemaVersionInfo"; }
-        }
-
-        public string ColumnName
-        {
-            get { return "Version"; }
-        }
-
-        public string UniqueIndexName
-        {
-            get { return "UC_Version"; }
         }
     }
 }
