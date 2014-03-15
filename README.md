@@ -5,13 +5,10 @@ This project uses Ruby (with Rake) as a build engine.
 
 You can download ruby from here http://www.ruby-lang.org/en/
 
-After installation you have to install a couple of gems to get started, first open a command prompt and run
-gems.bat file to install all necessary gems or you could install them yourself by running following commands.
+After installation you have to install bundler so it can install all required gems.
 
-- gem install rake
-- gem install albacore
-- gem install version_bumper
-- gem install configatron
+- gem install bundler
+- bundle installs
 
 Under the config directory add development.rb with at least this content
 

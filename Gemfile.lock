@@ -1,0 +1,20 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    albacore (0.3.6)
+      rubyzip (< 1.0.0)
+    configatron (2.13.0)
+      yamler (>= 0.1.0)
+    rake (10.1.1)
+    rubyzip (0.9.9)
+    version_bumper (0.3.0)
+    yamler (0.1.0)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  albacore
+  configatron (>= 2.13.0, < 3.0)
+  rake
+  version_bumper

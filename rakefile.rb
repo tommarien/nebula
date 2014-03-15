@@ -1,3 +1,7 @@
+require 'rubygems'
+require 'bundler/setup'
+
+#require necessary gems
 require 'rake/clean'
 require 'albacore'
 require 'version_bumper'
