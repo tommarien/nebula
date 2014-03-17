@@ -3,21 +3,20 @@ using System.Web.Mvc;
 using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Infrastructure.Commanding;
-using Nebula.Infrastructure.Querying;
 using Nebula.MvcApplication.Models;
 using Nebula.MvcApplication.Services;
 
 namespace Nebula.MvcApplication.Controllers
 {
-    public class AccountController : CQSController
+    public class AccountController : Controller
     {
         private readonly IFormsAuthenticationService formsAuthenticationService;
+        private readonly IMediator mediator;
 
-        public AccountController(ICommandBus commandBus, IQueryHandlerFactory queryHandlerFactory,
-                                 IFormsAuthenticationService formsAuthenticationService)
-            : base(commandBus, queryHandlerFactory)
+        public AccountController(IMediator mediator, IFormsAuthenticationService formsAuthenticationService)
         {
             this.formsAuthenticationService = formsAuthenticationService;
+            this.mediator = mediator;
         }
 
         public ActionResult LogOn()
@@ -32,15 +31,19 @@ namespace Nebula.MvcApplication.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var command = new LogOnUserCommand {UserName = model.UserName, Password = model.Password};
-                    Send(command);
+                    var command = new LogOnUserCommand
+                        {
+                            UserName = model.UserName, 
+                            Password = model.Password
+                        };
 
+                    mediator.Execute(command);
 
                     formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
 
-                    return Url.IsLocalUrl(returnUrl)
-                               ? (ActionResult) Redirect(returnUrl)
-                               : RedirectToAction("Index", "Home");
+                    if (Url.IsLocalUrl(returnUrl)) return Redirect(returnUrl);
+
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch (AuthenticationFailedException)
@@ -52,7 +55,6 @@ namespace Nebula.MvcApplication.Controllers
                 ModelState.AddModelError(string.Empty, "The account has been deactivated, contact the administrator.");
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -75,41 +77,6 @@ namespace Nebula.MvcApplication.Controllers
             return View();
         }
 
-        ////
-        //// GET: /Account/Register
-
-        //public ActionResult Register()
-        //{
-        //    return View();
-        //}
-
-        ////
-        //// POST: /Account/Register
-
-        //[HttpPost]
-        //public ActionResult Register(RegisterModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        // Attempt to register the user
-        //        MembershipCreateStatus createStatus;
-        //        Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
-
-        //        if (createStatus == MembershipCreateStatus.Success)
-        //        {
-        //            FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-        //            return RedirectToAction("Index", "Home");
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", ErrorCodeToString(createStatus));
-        //        }
-        //    }
-
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
-
         [Authorize]
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordModel model)
@@ -126,7 +93,7 @@ namespace Nebula.MvcApplication.Controllers
                             NewPassword = model.NewPassword
                         };
 
-                    Send(command);
+                    mediator.Execute(command);
 
                     changePasswordSucceeded = true;
                 }

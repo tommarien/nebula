@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Nebula.Infrastructure
 {
     [Serializable]
-    public class BusinessException : ApplicationException
+    public class BusinessException : Exception
     {
         public BusinessException()
         {

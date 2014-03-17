@@ -11,7 +11,7 @@ namespace Nebula.UnitTests.Builders
 
         private string userName = DefaultUserName;
         private string password = DefaultPassword;
-        private List<Role> roles = new List<Role>();
+        private readonly List<Role> roles = new List<Role>();
         private bool active = true;
 
         public AccountBuilder Named(string name)

@@ -52,8 +52,7 @@ namespace Nebula.MvcApplication.HttpModules
         {
             using (kernel.BeginScope())
             {
-                IHttpApplicationLifecycleEventHandler<T>[] handlers =
-                    kernel.ResolveAll<IHttpApplicationLifecycleEventHandler<T>>();
+                IHttpApplicationLifecycleEventHandler<T>[] handlers = kernel.ResolveAll<IHttpApplicationLifecycleEventHandler<T>>();
                 foreach (var handler in handlers) handler.Handle(@event);
             }
         }

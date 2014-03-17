@@ -2,12 +2,12 @@
 {
     public static class SystemContext
     {
-        private static volatile ISystemClock currentClock;
+        private static volatile ISystemClock _currentClock;
 
         public static ISystemClock Clock
         {
-            get { return currentClock ?? (currentClock = new RealTimeSystemClock()); }
-            set { currentClock = value; }
+            get { return _currentClock ?? (_currentClock = new RealTimeSystemClock()); }
+            set { _currentClock = value; }
         }
     }
 }

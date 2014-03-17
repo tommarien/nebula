@@ -13,12 +13,12 @@ namespace Nebula.Bootstrapper.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            // Commanding
             container.Register(Component.For<ICommandHandlerFactory>().AsFactory().LifestylePerWebRequest());
+            container.Register(Component.For<IMediator>().ImplementedBy<CommandMediator>().LifestylePerWebRequest());
             container.Register(Component.For<ICommandBus>().ImplementedBy<CommandBus>().LifestylePerWebRequest());
 
             container.Register(Classes.FromAssemblyContaining(typeof (NHibernateConfigurationBuilder))
-                                      .BasedOn(typeof (ICommandHandler<>))
+                                      .BasedOn(typeof (ICommandHandler<>), typeof (ICommandHandler<,>))
                                       .WithService.Base()
                                       .Configure(c =>
                                           {

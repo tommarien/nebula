@@ -4,7 +4,12 @@
     {
     }
 
-    public interface ICommandHandler<TCommand> : IHandle<TCommand>, ICommandHandler
+    public interface ICommandHandler<in TCommand> : IHandle<TCommand>, ICommandHandler
+        where TCommand : ICommand
+    {
+    }
+
+    public interface ICommandHandler<in TCommand, out TResult> : IHandleAndReply<TCommand, TResult>, ICommandHandler
         where TCommand : ICommand
     {
     }

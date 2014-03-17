@@ -62,8 +62,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Windsor.3.2.1\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Iesi.Collections.3.3.2.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -105,7 +113,7 @@
     <Compile Include="Helpers\UserNameProvider.cs" />
     <Compile Include="LifecycleEventHandlers\LoggingErrorLifeCycleEventHandler.cs" />
     <Compile Include="LifecycleEventHandlers\IHttpApplicationLifecycleEventHandler.cs" />
-    <Compile Include="LifecycleEventHandlers\RoleProvidingAuthenticateRequestEventHandler.cs" />
+    <Compile Include="LifecycleEventHandlers\PrincipalProvidingAuthenticateRequestEventHandler.cs" />
     <Compile Include="LifecycleEvents\AuthenticateRequestEvent.cs" />
     <Compile Include="LifecycleEvents\ErrorEvent.cs" />
     <Compile Include="HttpModules\HttpApplicationEventPublishingModule.cs" />
@@ -191,6 +199,14 @@
     <ProjectReference Include="..\Nebula.Contracts\Nebula.Contracts.csproj">
       <Project>{4342773A-3732-48A8-BFA2-90870F400B6A}</Project>
       <Name>Nebula.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nebula.Data\Nebula.Data.csproj">
+      <Project>{84c37b7d-a7e7-4f2d-87a7-fe14cd4ec428}</Project>
+      <Name>Nebula.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nebula.Domain\Nebula.Domain.csproj">
+      <Project>{B232A1D8-E2A7-41BE-9B64-15841F4B7BB5}</Project>
+      <Name>Nebula.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nebula.Infrastructure\Nebula.Infrastructure.csproj">
       <Project>{4F9AD276-F9A5-4DD7-A970-5BB86149609F}</Project>

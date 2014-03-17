@@ -1,24 +1,27 @@
-﻿using Nebula.Contracts.Registration;
+﻿using System.Linq;
+using NHibernate;
+using NHibernate.Linq;
 using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Domain.Registration;
 using Nebula.Infrastructure.Commanding;
-using Nebula.Infrastructure.Querying;
 
 namespace Nebula.Data.Registration.Commands
 {
     public class LogOnUserCommandHandler : ICommandHandler<LogOnUserCommand>
     {
-        private readonly IQueryHandler<AccountQuery, Account> accountQueryHandler;
+        private readonly ISession session;
 
-        public LogOnUserCommandHandler(IQueryHandler<AccountQuery, Account> accountQueryHandler)
+        public LogOnUserCommandHandler(ISession session)
         {
-            this.accountQueryHandler = accountQueryHandler;
+            this.session = session;
         }
 
         public void Handle(LogOnUserCommand command)
         {
-            Account account = accountQueryHandler.Execute(new AccountQuery {UserName = command.UserName});
+            Account account = session.Query<Account>()
+                                     .WithUserName(command.UserName)
+                                     .SingleOrDefault();
 
             if (account == null || !account.LogOn(command.Password))
                 throw new AuthenticationFailedException(command.UserName);

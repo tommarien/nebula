@@ -1,11 +1,11 @@
 ﻿namespace Nebula.Infrastructure
 {
-    public interface IHandle<T>
+    public interface IHandle<in T>
     {
         void Handle(T instance);
     }
 
-    public interface IHandleAndReply<TInput, TOutput>
+    public interface IHandleAndReply<in TInput, out TOutput>
     {
         TOutput Handle(TInput instance);
     }
