@@ -12,7 +12,7 @@ namespace Nebula.MvcApplication.Services
 
         FormsAuthenticationTicket Decrypt(string encryptedTicket);
 
-        void SignIn(AuthenticationResult result, bool createPersistentCookie);
+        void SignIn(AuthenticationResult result, bool rememberMe);
         void SignOut();
     }
 
@@ -28,7 +28,7 @@ namespace Nebula.MvcApplication.Services
             return FormsAuthentication.Decrypt(encryptedTicket);
         }
 
-        public void SignIn(AuthenticationResult result, bool createPersistentCookie)
+        public void SignIn(AuthenticationResult result, bool rememberMe)
         {
             string userData = JsonConvert.SerializeObject(result);
 
@@ -36,13 +36,15 @@ namespace Nebula.MvcApplication.Services
                 1,
                 result.UserId.ToString(),
                 DateTime.Now,
-                DateTime.Now.AddMinutes(30), // expiry
-                createPersistentCookie, //do not remember
+                DateTime.Now.Add(FormsAuthentication.Timeout),
+                rememberMe,
                 userData,
-                "/");
+                FormsAuthentication.FormsCookiePath);
 
             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName,
                                         FormsAuthentication.Encrypt(authTicket));
+
+            cookie.Expires = rememberMe ? DateTime.Now.AddYears(1) : authTicket.Expiration;
 
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
