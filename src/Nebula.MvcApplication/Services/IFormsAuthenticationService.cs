@@ -1,4 +1,8 @@
-﻿using System.Web.Security;
+﻿using System;
+using System.Web;
+using System.Web.Security;
+using Nebula.Contracts.Registration.Commands;
+using Newtonsoft.Json;
 
 namespace Nebula.MvcApplication.Services
 {
@@ -8,7 +12,7 @@ namespace Nebula.MvcApplication.Services
 
         FormsAuthenticationTicket Decrypt(string encryptedTicket);
 
-        void SignIn(string userName, bool createPersistentCookie);
+        void SignIn(AuthenticationResult result, bool createPersistentCookie);
         void SignOut();
     }
 
@@ -24,9 +28,23 @@ namespace Nebula.MvcApplication.Services
             return FormsAuthentication.Decrypt(encryptedTicket);
         }
 
-        public void SignIn(string userName, bool createPersistentCookie)
+        public void SignIn(AuthenticationResult result, bool createPersistentCookie)
         {
-            FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
+            string userData = JsonConvert.SerializeObject(result);
+
+            var authTicket = new FormsAuthenticationTicket(
+                1,
+                result.UserId.ToString(),
+                DateTime.Now,
+                DateTime.Now.AddMinutes(30), // expiry
+                createPersistentCookie, //do not remember
+                userData,
+                "/");
+
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName,
+                                        FormsAuthentication.Encrypt(authTicket));
+
+            HttpContext.Current.Response.Cookies.Add(cookie);
         }
 
         public void SignOut()

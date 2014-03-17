@@ -2,13 +2,12 @@
 using NHibernate;
 using NHibernate.Linq;
 using Nebula.Contracts.Registration.Commands;
-using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Domain.Registration;
 using Nebula.Infrastructure.Commanding;
 
 namespace Nebula.Data.Registration.Commands
 {
-    public class LogOnUserCommandHandler : ICommandHandler<LogOnUserCommand>
+    public class LogOnUserCommandHandler : ICommandHandler<LogOnUserCommand, AuthenticationResult>
     {
         private readonly ISession session;
 
@@ -17,14 +16,24 @@ namespace Nebula.Data.Registration.Commands
             this.session = session;
         }
 
-        public void Handle(LogOnUserCommand command)
+        public AuthenticationResult Handle(LogOnUserCommand command)
         {
+            var result = new AuthenticationResult();
+
             Account account = session.Query<Account>()
                                      .WithUserName(command.UserName)
                                      .SingleOrDefault();
 
-            if (account == null || !account.LogOn(command.Password))
-                throw new AuthenticationFailedException(command.UserName);
+            if (account != null)
+            {
+                result.UserId = account.Id;
+                result.UserName = account.UserName;
+                result.Roles = account.Roles.Select(x => x.ToString()).ToArray();
+
+                result.Success = account.IsActive && account.LogOn(command.Password);
+            }
+
+            return result;
         }
     }
 }

@@ -44,6 +44,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Registration\AccountQuery.cs" />
+    <Compile Include="Registration\Commands\AuthenticationResult.cs" />
     <Compile Include="Registration\Commands\ChangePasswordCommand.cs" />
     <Compile Include="Registration\Exceptions\AuthenticationFailedException.cs" />
     <Compile Include="Registration\Exceptions\InactiveAccountException.cs" />

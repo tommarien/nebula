@@ -1,6 +1,7 @@
 ﻿using System;
 using NSubstitute;
 using NUnit.Framework;
+using Nebula.Contracts.Registration.Commands;
 using Nebula.Domain.Registration;
 using Nebula.Infrastructure;
 using Shouldly;
@@ -23,6 +24,14 @@ namespace Nebula.IntegrationTests.Registration.LogOn
         }
 
         [Test]
+        public void it_indicates_the_authentication_succeeded()
+        {
+            AuthenticationResult result = Act();
+
+            result.Success.ShouldBe(true);
+        }
+
+        [Test]
         public void it_records_the_last_logon_date()
         {
             Act();
@@ -30,6 +39,31 @@ namespace Nebula.IntegrationTests.Registration.LogOn
             var verify = Session.Get<Account>(Scenario.JohnDoe.Id);
 
             verify.LastLogOnDate.ShouldBe(ExpectedLogOnDate);
+        }
+
+        [Test]
+        public void it_returns_the_roles()
+        {
+            AuthenticationResult result = Act();
+
+            result.Roles.ShouldBe(new[] {"Administrator"});
+        }
+
+        [Test]
+        public void it_returns_the_user_id()
+        {
+            AuthenticationResult result = Act();
+
+            result.UserId.ShouldBe(Scenario.JohnDoe.Id);
+        }
+
+
+        [Test]
+        public void it_returns_the_user_name()
+        {
+            AuthenticationResult result = Act();
+
+            result.UserName.ShouldBe(Scenario.JohnDoe.UserName);
         }
     }
 }

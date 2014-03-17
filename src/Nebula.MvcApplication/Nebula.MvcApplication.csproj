@@ -69,6 +69,9 @@
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
@@ -113,12 +116,12 @@
     <Compile Include="Helpers\UserNameProvider.cs" />
     <Compile Include="LifecycleEventHandlers\LoggingErrorLifeCycleEventHandler.cs" />
     <Compile Include="LifecycleEventHandlers\IHttpApplicationLifecycleEventHandler.cs" />
-    <Compile Include="LifecycleEventHandlers\PrincipalProvidingAuthenticateRequestEventHandler.cs" />
-    <Compile Include="LifecycleEvents\AuthenticateRequestEvent.cs" />
+    <Compile Include="LifecycleEventHandlers\PrincipalProvidingPostAuthenticateRequestEventHandler.cs" />
     <Compile Include="LifecycleEvents\ErrorEvent.cs" />
     <Compile Include="HttpModules\HttpApplicationEventPublishingModule.cs" />
     <Compile Include="Interceptors\TracingControllerInterceptor.cs" />
     <Compile Include="LifecycleEvents\IHttpApplicationLifecycleEvent.cs" />
+    <Compile Include="LifecycleEvents\PostAuthenticateRequestEvent.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\DataTableModels.cs" />
     <Compile Include="Models\SystemModels.cs" />

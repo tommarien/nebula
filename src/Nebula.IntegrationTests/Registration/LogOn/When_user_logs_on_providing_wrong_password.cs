@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Nebula.Contracts.Registration.Exceptions;
+using Nebula.Contracts.Registration.Commands;
 using Shouldly;
 
 namespace Nebula.IntegrationTests.Registration.LogOn
@@ -16,9 +16,11 @@ namespace Nebula.IntegrationTests.Registration.LogOn
         }
 
         [Test]
-        public void it_throws_authentication_failed_exception()
+        public void it_indicates_authentication_failed()
         {
-            Should.Throw<AuthenticationFailedException>(() => Act());
+            AuthenticationResult result = Act();
+
+            result.Success.ShouldBe(false);
         }
     }
 }

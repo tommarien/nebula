@@ -25,9 +25,9 @@ namespace Nebula.IntegrationTests.Registration.LogOn
             Handler = new LogOnUserCommandHandler(Session);
         }
 
-        protected void Act()
+        protected AuthenticationResult Act()
         {
-            Handler.Handle(Command);
+            return Handler.Handle(Command);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Nebula.MvcApplication.LifecycleEvents
 {
-    public class AuthenticateRequestEvent : IHttpApplicationLifecycleEvent
+    public class PostAuthenticateRequestEvent : IHttpApplicationLifecycleEvent
     {
         public HttpContextBase HttpContext { get; set; }
     }

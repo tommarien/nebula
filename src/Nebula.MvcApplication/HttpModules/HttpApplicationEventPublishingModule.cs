@@ -20,7 +20,7 @@ namespace Nebula.MvcApplication.HttpModules
             kernel = containerAccessor.Container.Kernel;
 
             context.Error += OnError;
-            context.AuthenticateRequest += OnAuthenticateRequest;
+            context.PostAuthenticateRequest += OnPostAuthenticateRequest;
         }
 
         public void Dispose()
@@ -28,11 +28,11 @@ namespace Nebula.MvcApplication.HttpModules
             // NO OP
         }
 
-        private void OnAuthenticateRequest(object sender, EventArgs e)
+        private void OnPostAuthenticateRequest(object sender, EventArgs e)
         {
             HttpContextBase context = ExtractContext(sender);
             if (context == null) return;
-            Publish(new AuthenticateRequestEvent {HttpContext = context});
+            Publish(new PostAuthenticateRequestEvent {HttpContext = context});
         }
 
         private void OnError(object sender, EventArgs e)

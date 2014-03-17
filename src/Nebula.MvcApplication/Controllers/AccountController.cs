@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using Nebula.Contracts.Registration.Commands;
-using Nebula.Contracts.Registration.Exceptions;
 using Nebula.Infrastructure.Commanding;
 using Nebula.MvcApplication.Models;
 using Nebula.MvcApplication.Services;
@@ -27,33 +26,28 @@ namespace Nebula.MvcApplication.Controllers
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var command = new LogOnUserCommand
+                    {
+                        UserName = model.UserName,
+                        Password = model.Password
+                    };
+
+                AuthenticationResult result = mediator.Execute<LogOnUserCommand, AuthenticationResult>(command);
+
+                if (result.Success)
                 {
-                    var command = new LogOnUserCommand
-                        {
-                            UserName = model.UserName, 
-                            Password = model.Password
-                        };
-
-                    mediator.Execute(command);
-
-                    formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
+                    formsAuthenticationService.SignIn(result, model.RememberMe);
 
                     if (Url.IsLocalUrl(returnUrl)) return Redirect(returnUrl);
 
                     return RedirectToAction("Index", "Home");
                 }
-            }
-            catch (AuthenticationFailedException)
-            {
+
                 ModelState.AddModelError(string.Empty, "The user name or password provided is incorrect.");
             }
-            catch (InactiveAccountException)
-            {
-                ModelState.AddModelError(string.Empty, "The account has been deactivated, contact the administrator.");
-            }
+
 
             return View(model);
         }

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Nebula.Contracts.Registration.Commands;
 using Nebula.Contracts.Registration.Exceptions;
 using Shouldly;
 
@@ -17,9 +18,11 @@ namespace Nebula.IntegrationTests.Registration.LogOn
         }
 
         [Test]
-        public void it_throws_inactive_account_exception()
+        public void it_indicates_authentication_failed()
         {
-            Should.Throw<InactiveAccountException>(() => Act());
+            AuthenticationResult result = Act();
+
+            result.Success.ShouldBe(false);
         }
     }
 }
