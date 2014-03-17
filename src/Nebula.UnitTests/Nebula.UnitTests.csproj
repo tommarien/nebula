@@ -71,8 +71,6 @@
     </Compile>
     <Compile Include="Accounts.cs" />
     <Compile Include="AutoTxInterceptorTests.cs" />
-    <Compile Include="Nebula.Data\Registration\ChangePasswordCommandHandlerTests.cs" />
-    <Compile Include="Nebula.Data\Registration\AccountRolesQueryHandlerTests.cs" />
     <Compile Include="Nebula.Domain\Registration\AccountTests.cs" />
     <Compile Include="Nebula.Domain\Registration\PasswordTests.cs" />
     <Compile Include="Nebula.Infrastructure\AnonymousTypeExtensionsTests.cs" />
@@ -111,7 +109,9 @@
       <Name>Nebula.MvcApplication</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Nebula.Data\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

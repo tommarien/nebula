@@ -87,9 +87,7 @@ namespace Nebula.MvcApplication.Controllers
                             NewPassword = model.NewPassword
                         };
 
-                    mediator.Execute(command);
-
-                    changePasswordSucceeded = true;
+                    changePasswordSucceeded = mediator.Execute<ChangePasswordCommand, bool>(command);
                 }
                 catch (Exception)
                 {
@@ -99,7 +97,7 @@ namespace Nebula.MvcApplication.Controllers
                 if (changePasswordSucceeded)
                     return RedirectToAction("ChangePasswordSuccess");
 
-                ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                ModelState.AddModelError("", "Either the current password or the new password is invalid.");
             }
 
             // If we got this far, something failed, redisplay form
