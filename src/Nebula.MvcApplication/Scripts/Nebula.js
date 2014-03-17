@@ -44,7 +44,12 @@
 		$('form .input-validation-error').closest(".control-group").addClass("error");
 
 		//always select first form element
-		$(':input, select, textarea').first().focus();
+		$(':input, select, textarea').first().select();
+
+        //datepicker conventions
+		$(':text[data-role="datepicker"]').datepicker({
+	        dateFormat: 'dd-mm-yy'
+	    });
 	});
 
 })(jQuery);
